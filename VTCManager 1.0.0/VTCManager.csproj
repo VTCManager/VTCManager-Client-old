@@ -105,6 +105,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ressources\AutopilotEnd_fx.wav" />
+    <Content Include="Ressources\AutopilotStart_fx.wav" />
+    <Content Include="Ressources\insight.wav" />
+    <Content Include="Ressources\time-is-now.wav" />
+    <Content Include="Ressources\vtcmanager-icon.png" />
     <Content Include="vtcmanager-icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
