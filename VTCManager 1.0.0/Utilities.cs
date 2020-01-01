@@ -45,7 +45,7 @@ namespace VTCManager_1._0._0
         {
             get
             {
-                if ((DateTime.Now - new DateTime(Interlocked.Read(ref _lastCheckTime))) > TimeSpan.FromSeconds(5.0))
+                if ((DateTime.Now - new DateTime(Interlocked.Read(ref _lastCheckTime))) > TimeSpan.FromSeconds(3.0))
                 {
                     Interlocked.Exchange(ref _lastCheckTime, DateTime.Now.Ticks);
                     Process[] processes = Process.GetProcesses();
@@ -57,10 +57,13 @@ namespace VTCManager_1._0._0
                             Process process = processes[index];
                             try
                             {
-                                if ((!process.MainWindowTitle.StartsWith("Euro Truck Simulator 2") || (process.ProcessName != "eurotrucks2")) ? (process.MainWindowTitle.StartsWith("American Truck Simulator") && (process.ProcessName == "amtrucks")) : true)
+                                if ((process.MainWindowTitle.StartsWith("Euro Truck Simulator 2") || (process.ProcessName == "eurotrucks2")))
                                 {
                                     _cachedRunningFlag = true;
-                                    LastRunningGameName = (process.ProcessName == "eurotrucks2") ? "ETS2" : "ATS";
+                                    if (process.ProcessName == "eurotrucks2")
+                                    {
+                                        LastRunningGameName = "ETS2";
+                                    }
                                     return _cachedRunningFlag;
                                 }
                             }
@@ -91,10 +94,6 @@ namespace VTCManager_1._0._0
                         if (process.MainWindowTitle.StartsWith("Euro Truck Simulator 2") && (process.ProcessName == "eurotrucks2"))
                         {
                             _chachedGame = "ets2";
-                        }
-                        else if (process.MainWindowTitle.StartsWith("American Truck Simulator") && (process.ProcessName == "amtrucks"))
-                        {
-                            _chachedGame = "ats";
                         }
                     }
                     catch

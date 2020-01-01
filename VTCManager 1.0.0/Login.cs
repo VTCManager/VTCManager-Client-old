@@ -51,6 +51,7 @@ namespace VTCManager_1._0._0
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            System.Windows.Forms.Application.Exit();
         }
         private void InitializeComponent()
         {
@@ -207,6 +208,10 @@ namespace VTCManager_1._0._0
                     this.login_panel.Visible = true;
                     MessageBox.Show(translation.login_failed);
                 }
+                if (string.IsNullOrEmpty(this.authCode))
+                {
+                    Application.Exit();
+                }
                 this.userID = strArray[0];
                 this.userCompany = strArray[1];
                 this.username = strArray[2];
@@ -238,15 +243,19 @@ namespace VTCManager_1._0._0
 
         private void Main_Load(object sender, EventArgs e)
         {
-            this.version_text.Text = "Version: 1.0.9";
-            version_int = 109;
+            this.version_text.Text = "Version: 1.1.0";
+            version_int = 110;
             string fileName = this.api.HTTPSRequestPost("https://vtc.northwestvideo.de/api/app/download.php", new Dictionary<string, string>()
       {
         {
           "version",
-          "1.0.9"
+          "1.1.0"
         }
       }, true);
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Application.Exit();
+            }
             conv_fileName = fileName.Replace(".", string.Empty);
             fileName_int = System.Convert.ToInt32(conv_fileName);
             if (fileName_int != version_int)

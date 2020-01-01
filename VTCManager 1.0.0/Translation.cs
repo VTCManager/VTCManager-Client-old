@@ -45,10 +45,12 @@ namespace VTCManager_1._0._0
         public string discord_rpc_tra_p1;
         public string discord_rpc_tra_p2;
         public string progress;
+        public string speed_setup_box;
+        public string settings_window;
 
         public Translation(String language)
         {
-            version = "Version: 1.1.0 Beta";
+            version = "Version: 1.1.0";
             if (language == "Deutsch (Deutschland)") {
                 waiting_for_ets = "Warte auf ETS2...";
                 logout = "Abmelden";
@@ -72,10 +74,13 @@ namespace VTCManager_1._0._0
                 topmenuaccount_lb = "Account";
                 not_avail = "Demnächst verfügbar";
                 error_window = "Fehler";
-                update_message = "Änderungen in Version 1.1.0 Beta:\n" +
-                    "- Telemetrie-System überarbeitet\n" +
-                    "- mehr Frachtdaten werden versendet\n";
-                update_caption = "Änderungen in Version 1.1.0 Beta\n";
+                update_message = "Änderungen in Version 1.1.0:\n" +
+                    "- Credits hinzugefügt\n" +
+                    "- Geschwindigkeit zwischen km/h und mph wählbar\n" +
+                    "- Wir haben aufgeräumt! VTCManager verbraucht jetzt\n" +
+                    "  noch weniger Ressourcen! Yeah!\n" +
+                    "- Discord RPC-Unterstützung";
+                update_caption = "Änderungen in Version 1.1.0\n";
                 traffic_main_lb = "Verkehr (powered by Trucky)";
                 statistic_panel_topic = "'s  Statistiken";
                 driven_tours_lb = "gefahrene Touren: ";
@@ -87,6 +92,8 @@ namespace VTCManager_1._0._0
                 discord_rpc_tra_p1 = "Aktuelle Tour von ";
                 discord_rpc_tra_p2 = " nach ";
                 progress = "Fortschritt: ";
+                speed_setup_box = "Geschwindigkeit in mph?";
+                settings_window = "Einstellungen";
             } else
             {
                 waiting_for_ets = "Waiting for ETS2...";
@@ -111,10 +118,13 @@ namespace VTCManager_1._0._0
                 topmenuaccount_lb = "Account";
                 not_avail = "Available soon";
                 error_window = "Error";
-                update_message = "Changes in version 1.1.0 Beta:\n" +
-"- Telemetry-System improved\n" +
-                    "- more freight data will be sent\n";
-                update_caption = "Changes in version 1.1. Beta\n";
+                update_message = "Changes in version 1.1.0:\n" +
+"- Credits available\n" +
+                    "- Speed is now selectable between km / h and mph\n" +
+                    "- We cleaned up! VTCManager now uses even\n" +
+                    "  fewer resources! Yeah!\n" +
+                    "- using Discord RPC";
+                update_caption = "Changes in version 1.1.0\n";
                 traffic_main_lb = "Traffic (powered by Trucky)";
                 statistic_panel_topic = "'s  statistics";
                 driven_tours_lb = "driven tours: ";
@@ -126,6 +136,8 @@ namespace VTCManager_1._0._0
                 discord_rpc_tra_p1 = "Current tour from ";
                 discord_rpc_tra_p2 = " to ";
                 progress = "Progress: ";
+                speed_setup_box = "Speed in mph?";
+                settings_window = "Settings";
             }
             
         }

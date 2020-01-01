@@ -12,6 +12,7 @@ namespace VTCManager_1._0._0
         private string m_oSaveJobID;
         private string m_ofirst_start;
         private string m_otruckersmp_server;
+        private string m_ospeed_mode;
 
         public string SaveJobID
         {
@@ -33,6 +34,13 @@ namespace VTCManager_1._0._0
                 this.m_otruckersmp_server;
             set =>
                 this.m_otruckersmp_server = value;
+        }
+        public string speed_mode
+        {
+            get =>
+                this.m_ospeed_mode;
+            set =>
+                this.m_ospeed_mode = value;
         }
     }
 }

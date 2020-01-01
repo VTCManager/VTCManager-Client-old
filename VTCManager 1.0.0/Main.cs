@@ -92,6 +92,8 @@ namespace VTCManager_1._0._0
         public DiscordRpcClient client;
         private ToolStripMenuItem creditsToolStripMenuItem;
         public bool discordRPCalreadrunning;
+        public string CityDestination;
+        public string CitySource;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -119,10 +121,14 @@ namespace VTCManager_1._0._0
             this.settings = new SettingsManager();
             this.settings.CreateCache();
             this.settings.LoadJobID();
+            if (string.IsNullOrEmpty(this.settings.Cache.speed_mode) == true)
+            {
+                this.settings.Cache.speed_mode = "kmh";
+                this.settings.SaveJobID();;
+            }
             this.authCode = newauthcode;
             this.InitializeComponent();
             this.InitializeTranslation();
-            this.InitializeDiscord();
             try
             {
                 this.load_traffic();
@@ -140,7 +146,7 @@ namespace VTCManager_1._0._0
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
         }
 
-        private void InitializeDiscord()
+        private void InitializeDiscord(int mode)
         {
             this.client = new DiscordRpcClient("659036297561767948");
             this.client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
@@ -153,11 +159,7 @@ namespace VTCManager_1._0._0
                 Console.WriteLine("Received Update! {0}", e.Presence);
             };
             this.client.Initialize();
-            this.client.SetPresence(new RichPresence()
-            {
-                Details = "VTCManager",
-                State = translation.no_cargo_lb,
-            });
+            client.Invoke();
         }
 
         private void InitializeTranslation()
@@ -248,14 +250,8 @@ namespace VTCManager_1._0._0
                 tableLayoutPanel1.Controls.Add(new Label() { Text = traffic }, 1, tableLayoutPanel1.RowCount - 1);
         }
 
-        private static void OnProcessExit(object sender, EventArgs e)
-        {
-            
-        }
-
         public bool CancelTour()
         {
-            Console.WriteLine("Bendet");
             notification_sound_fail.Play();
             this.settings.Cache.SaveJobID = "0";
             this.settings.SaveJobID();
@@ -277,11 +273,7 @@ namespace VTCManager_1._0._0
             this.lastNotZeroDistance = 0;
             this.lastCargoDamage = 0.0f;
             this.jobID = "0";
-            this.client.SetPresence(new RichPresence()
-            {
-                Details = "VTCManager",
-                State = translation.no_cargo_lb,
-            });
+            this.InitializeDiscord(0);
             return true;
         }
 
@@ -311,12 +303,12 @@ namespace VTCManager_1._0._0
                     float num1;
                     if (Utilities.IsGameRunning)
                     {
-                        this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+                        this.progressBar1.Style = ProgressBarStyle.Continuous;
                         if ((double)data.Job.NavigationDistanceLeft != 0.0)
                             this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                         if (data.Truck != "")
                         {
-                            if (data.Truck == "Extra_D") {
+                            if (data.Truck == "Extra_D" || data.Truck == "Superb") {
                                 this.truck_lb.Text = translation.car_lb + "Škoda" + " Superb";
                             }
                             else
@@ -327,7 +319,14 @@ namespace VTCManager_1._0._0
                             this.destination_lb.Visible = true;
                             this.depature_lb.Visible = true;
                             this.cargo_lb.Visible = true;
-                            this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
+                            if (this.settings.Cache.speed_mode == "mph")
+                            {
+                                this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedMph).ToString().Replace("-", "") + " mph";
+                            }
+                            else
+                            {
+                                this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
+                            }
                             this.CoordinateX = (double)data.Physics.CoordinateX;
                             this.CoordinateZ = (double)data.Physics.CoordinateZ;
                             this.rotation = (double)data.Physics.RotationX * Math.PI * 2.0;
@@ -339,15 +338,14 @@ namespace VTCManager_1._0._0
                             }
                             if (this.discordRPCalreadrunning == false)
                             {
-                                this.InitializeDiscord();
+                                this.InitializeDiscord(0); //ot working uff cant update RPC
                                 this.discordRPCalreadrunning = true;
                             }
-                            //if (data.Job.Cargo != "" && this.currentPercentage >)
                             
                         }
                         else
                         {
-                            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+                            this.progressBar1.Style = ProgressBarStyle.Marquee;
                             this.truck_lb.Visible = false;
                             this.destination_lb.Visible = false;
                             this.depature_lb.Visible = false;
@@ -424,11 +422,9 @@ namespace VTCManager_1._0._0
                                     num1 = data.Job.Mass;
                                     string str2 = num1.ToString();
                                     lastJobDictionary.Add("weight", str2);
-                                this.client.SetPresence(new RichPresence()
-                                {
-                                    Details = translation.discord_rpc_tra_p1 + data.Job.CitySource + translation.discord_rpc_tra_p2 + data.Job.CityDestination,
-                                    State = "",
-                                });
+                                this.CitySource = data.Job.CitySource;
+                                this.CityDestination = data.Job.CityDestination;
+                                this.InitializeDiscord(1);
                                 this.send_tour_status.Enabled = true;
                                 this.send_tour_status.Start();
                                     this.jobStarted = false;
@@ -448,11 +444,7 @@ namespace VTCManager_1._0._0
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
                                         this.totalDistance = (int)data.Job.NavigationDistanceLeft;
                                     this.progressBar1.Value = this.currentPercentage;
-                                    this.client.SetPresence(new RichPresence()
-                                    {
-                                        Details = translation.discord_rpc_tra_p1 + data.Job.CitySource + translation.discord_rpc_tra_p2 + data.Job.CityDestination,
-                                        State = translation.progress + this.currentPercentage + "%",
-                                    });
+                                    this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
                   {
                     {
@@ -505,11 +497,7 @@ namespace VTCManager_1._0._0
                                     }
                                     postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString();
-                                    this.client.SetPresence(new RichPresence()
-                                    {
-                                        Details = "VTCManager",
-                                        State = translation.no_cargo_lb,
-                                    });
+                                    this.InitializeDiscord(0);
                                     this.totalDistance = 0;
                                     this.invertedDistance = 0;
                                     this.currentPercentage = 0;

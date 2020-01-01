@@ -93,11 +93,11 @@ namespace VTCManager_1._0._0
                 {
                     try
                     {
-                        MessageBox.Show("Es ist ein Fehler aufgetreten: \r\n" + ((HttpWebResponse)exception.Response).StatusCode);
+                        MessageBox.Show("An error has occurred: \r\n" + ((HttpWebResponse)exception.Response).StatusCode);
                     }
                     catch
                     {
-                        MessageBox.Show("Bei der Verbindung zum Server ist ein Fehler aufgetreten!");
+                        MessageBox.Show("An error occurred while connecting to the server");
                     }
                 }
                 return null;
