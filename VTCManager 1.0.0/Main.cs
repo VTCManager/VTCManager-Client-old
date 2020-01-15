@@ -9,6 +9,7 @@ using System.Media;
 using Timer = System.Windows.Forms.Timer;
 using DiscordRPC;
 using DiscordRPC.Logging;
+using RJCP.IO.Ports;
 
 namespace VTCManager_1._0._0
 {
@@ -43,6 +44,7 @@ namespace VTCManager_1._0._0
         private System.Timers.Timer send_tour_status;
         private Panel panel2;
         private Timer send_location;
+        private Timer send_speedo;
 
         //new GUI
         private MenuStrip menuStrip1;
@@ -80,6 +82,8 @@ namespace VTCManager_1._0._0
         public SoundPlayer notification_sound_fail;
         private Label status_jb_canc_lb;
         public SoundPlayer notification_sound_tour_end;
+        private float speed;
+        private int rpm;
         private double CoordinateX;
         private double CoordinateZ;
         private double rotation;
@@ -94,6 +98,10 @@ namespace VTCManager_1._0._0
         public bool discordRPCalreadrunning;
         public string CityDestination;
         public string CitySource;
+        private SerialPortStream s;
+        private bool serial_start = false;
+        private bool first_run_speedo;
+        private int blinker_int;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -327,6 +335,59 @@ namespace VTCManager_1._0._0
                             {
                                 this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
                             }
+                            if(this.serial_start == false)
+                            {
+                           
+                                this.serial_start = true;
+                            }
+                            this.speed = data.Drivetrain.SpeedKmh;
+                            this.rpm = (int)data.Drivetrain.EngineRpm;
+                            if (data.Lights.BlinkerLeftActive == true && data.Lights.BlinkerRightActive == true)
+                            {
+                                this.blinker_int = 3;
+                            }
+                            else
+                            {
+                                if (data.Lights.BlinkerLeftActive)
+                                {
+                                    this.blinker_int = 1;
+                                }
+                                else if (data.Lights.BlinkerRightActive)
+                                {
+                                    this.blinker_int = 2;
+                                }
+                                else
+                                {
+                                    this.blinker_int = 0;
+                                }
+                            }
+                            /*this.s.Write("0"); //ABS
+                            this.s.Write("0"); //Handbrake
+                            if (data.Axilliary.AirPressureEmergency == true)
+                            {
+                                this.s.Write("1");
+                            }
+                            else
+                            {
+                                this.s.Write("0");
+                            }
+                            if (data.Axilliary.BatteryVoltageWarning == true)
+                            {
+                                this.s.Write("1");
+                            }
+                            else
+                            {
+                                this.s.Write("0");
+                            }
+                            this.s.Write("1"); //fog_light
+                            if (data.Lights.HighBeams == true)
+                            {
+                                this.s.Write("1");
+                            }
+                            else
+                            {
+                                this.s.Write("0");
+                            }*/
                             this.CoordinateX = (double)data.Physics.CoordinateX;
                             this.CoordinateZ = (double)data.Physics.CoordinateZ;
                             this.rotation = (double)data.Physics.RotationX * Math.PI * 2.0;
@@ -578,10 +639,12 @@ namespace VTCManager_1._0._0
         }
         private void InitializeComponent()
         {
+            
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.send_tour_status = new System.Timers.Timer();
             this.send_location = new System.Windows.Forms.Timer(this.components);
+            this.send_speedo = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -632,6 +695,12 @@ namespace VTCManager_1._0._0
             this.send_location.Enabled = true;
             this.send_location.Interval = 15000;
             this.send_location.Tick += new System.EventHandler(this.send_location_Tick);
+            // 
+            // send_speedo
+            // 
+            this.send_speedo.Enabled = true;
+            this.send_speedo.Interval = 30;
+            this.send_speedo.Tick += new System.EventHandler(this.send_speedo_Tick);
             // 
             // menuStrip1
             // 
@@ -966,6 +1035,22 @@ namespace VTCManager_1._0._0
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void send_speedo_Tick(object sender, EventArgs e)
+        {
+            
+            /*if (first_run_speedo == false)
+            {
+                this.s = new SerialPortStream("COM3", 9600, 8, Parity.None, StopBits.One);
+                this.s.Open();
+                Console.WriteLine("Verbindung");
+                System.Threading.Thread.Sleep(10000);
+                first_run_speedo = true;
+            }
+            //this.s.WriteLine(((int)this.speed).ToString());
+            //this.s.WriteLine(this.blinker_int.ToString());
+            this.s.WriteLine(this.rpm.ToString());*/
         }
 
         private void topMenuWebsiteClick(object sender, EventArgs e)

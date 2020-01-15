@@ -57,6 +57,8 @@ namespace VTCManager_1._0._0
                 str2 = new StreamReader(stream).ReadToEnd();
             }
             response.Close();
+            Console.WriteLine(str2);
+            Console.WriteLine(str);
             return str2;
 
         }
@@ -85,6 +87,8 @@ namespace VTCManager_1._0._0
                 reader1.Close();
                 response.GetResponseStream().Close();
                 response.Close();
+                Console.WriteLine(str3);
+                Console.WriteLine(s);
                 return str3;
             }
             catch (WebException exception)
