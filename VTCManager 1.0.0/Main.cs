@@ -140,7 +140,7 @@ namespace VTCManager_1._0._0
                 this.load_traffic();
             } catch (Exception e)
             {
-
+                MessageBox.Show("Exception: Getting traffic data from TruckyAPI");
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
             this.Telemetry = new Ets2SdkTelemetry();
