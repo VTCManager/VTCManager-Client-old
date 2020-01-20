@@ -68,8 +68,8 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DiscordRPC, Version=1.0.121.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DiscordRichPresence.1.0.121\lib\net35\DiscordRPC.dll</HintPath>
+    <Reference Include="DiscordRPC, Version=1.0.147.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiscordRichPresence.1.0.147\lib\net35\DiscordRPC.dll</HintPath>
     </Reference>
     <Reference Include="Ets2SdkClient">
       <HintPath>..\..\..\..\Downloads\release_v1_4_0\C# Demo\Ets2SdkClient.dll</HintPath>

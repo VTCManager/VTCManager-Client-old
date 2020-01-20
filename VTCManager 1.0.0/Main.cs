@@ -16,8 +16,6 @@ namespace VTCManager_1._0._0
     public class Main : Form
     {
         private API api = new API();
-        private SettingsManager preferences = new SettingsManager();
-        private Dictionary<string, string> settingsDictionary = new Dictionary<string, string>();
         public string userID = "0";
         public string userCompanyID = "0";
         public string jobID = "0";
