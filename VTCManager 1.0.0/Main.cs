@@ -182,7 +182,7 @@ namespace VTCManager_1._0._0
             this.MenuAbmeldenButton.Text = translation.logout;
             if (this.settings.Cache.truckersmp_server == "sim1") {
                 this.label2.Text = "Server: Simulation 1";
-            } else if (this.settings.Cache.truckersmp_server == "sim1")
+            } else if (this.settings.Cache.truckersmp_server == "sim2")
             {
                 this.label2.Text = "Server: Simulation 2";
             }
