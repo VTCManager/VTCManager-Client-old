@@ -81,8 +81,8 @@ namespace VTCManager_1._0._0
                     "  noch weniger Ressourcen! Yeah!\n" +
                     "- Discord RPC-Unterstützung";
                 update_caption = "Änderungen in Version 1.1.0\n";
-                traffic_main_lb = "Verkehr (powered by Trucky)";
-                statistic_panel_topic = "'s  Statistiken";
+                traffic_main_lb = "Verkehr";
+                statistic_panel_topic = "Statistik ";
                 driven_tours_lb = "gefahrene Touren: ";
                 act_bank_balance = "aktueller Kontostand: ";
                 user_company_lb = "angestellt bei: ";
@@ -125,8 +125,8 @@ namespace VTCManager_1._0._0
                     "  fewer resources! Yeah!\n" +
                     "- using Discord RPC";
                 update_caption = "Changes in version 1.1.0\n";
-                traffic_main_lb = "Traffic (powered by Trucky)";
-                statistic_panel_topic = "'s  statistics";
+                traffic_main_lb = "Traffic";
+                statistic_panel_topic = "Statistics ";
                 driven_tours_lb = "driven tours: ";
                 act_bank_balance = "bank balance: ";
                 user_company_lb = "employed by: ";

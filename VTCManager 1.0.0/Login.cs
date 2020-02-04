@@ -197,7 +197,7 @@ namespace VTCManager_1._0._0
                 this.preferences.SaveConfig();
                 this.login_panel.Visible = false;
                 string[] strArray = this.api.HTTPSRequestPost(this.api.api_server + this.api.load_data_path, new Dictionary<string, string>()
-        {
+            {
           {
             "authcode",
             this.authCode
@@ -212,6 +212,7 @@ namespace VTCManager_1._0._0
                 {
                     Application.Exit();
                 }
+
                 this.userID = strArray[0];
                 this.userCompany = strArray[1];
                 this.username = strArray[2];

@@ -16,6 +16,10 @@ namespace VTCManager_1._0._0
         private Translation translation;
         private CheckBox speed_setup_box;
         private Button save_button;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private Label label2;
+        private CheckBox checkBox1;
         private string selected_server_tm;
 
         public SettingsWindow() {
@@ -39,11 +43,17 @@ namespace VTCManager_1._0._0
         }
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.speed_setup_box = new System.Windows.Forms.CheckBox();
             this.save_button = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -55,7 +65,7 @@ namespace VTCManager_1._0._0
             "Arcade",
             "EU Promods 1",
             "EU Promods 2"});
-            this.comboBox1.Location = new System.Drawing.Point(12, 25);
+            this.comboBox1.Location = new System.Drawing.Point(26, 42);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 0;
@@ -64,7 +74,7 @@ namespace VTCManager_1._0._0
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Location = new System.Drawing.Point(23, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 1;
@@ -73,7 +83,7 @@ namespace VTCManager_1._0._0
             // speed_setup_box
             // 
             this.speed_setup_box.AutoSize = true;
-            this.speed_setup_box.Location = new System.Drawing.Point(12, 52);
+            this.speed_setup_box.Location = new System.Drawing.Point(26, 69);
             this.speed_setup_box.Name = "speed_setup_box";
             this.speed_setup_box.Size = new System.Drawing.Size(144, 17);
             this.speed_setup_box.TabIndex = 2;
@@ -82,26 +92,71 @@ namespace VTCManager_1._0._0
             // 
             // save_button
             // 
-            this.save_button.Location = new System.Drawing.Point(363, 555);
+            this.save_button.Location = new System.Drawing.Point(289, 537);
             this.save_button.Name = "save_button";
-            this.save_button.Size = new System.Drawing.Size(75, 23);
+            this.save_button.Size = new System.Drawing.Size(149, 41);
             this.save_button.TabIndex = 3;
-            this.save_button.Text = "Speichern...";
+            this.save_button.Text = "Einstellungen Speichern...";
             this.save_button.UseVisualStyleBackColor = true;
             this.save_button.Click += new System.EventHandler(this.save_button_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.speed_setup_box);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(222, 111);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Server Einstellungen";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 139);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(222, 100);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Design Einstellungen";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(26, 28);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(79, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Dark-Mode";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(40, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "(In Vorbereitung)";
             // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(744, 599);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save_button);
-            this.Controls.Add(this.speed_setup_box);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Einstellungen";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -111,11 +166,14 @@ namespace VTCManager_1._0._0
             {
                 this.selected_server_tm = "sim1";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
+                this.label2.Text = "Simulation 1";
             }
             else if (this.comboBox1.Text == "Simulation 2")
             {
                 this.selected_server_tm = "sim2";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
+                
+
             }
             else if (this.comboBox1.Text == "Arcade")
             {
@@ -141,8 +199,10 @@ namespace VTCManager_1._0._0
                 this.data.Cache.speed_mode = "kmh";
             }
             this.data.SaveJobID();
-            MessageBox.Show(translation.save_info);
-            this.Dispose();
+            //MessageBox.Show(translation.save_info);
+            this.Close();
         }
+
+
     }
 }

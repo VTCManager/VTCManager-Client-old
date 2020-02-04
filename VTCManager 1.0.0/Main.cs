@@ -64,7 +64,7 @@ namespace VTCManager_1._0._0
         private System.Windows.Forms.Label notavaiblepanel3;
         private System.Windows.Forms.Label notavaiblepanel4;
         private Label label1;
-        private Label label2;
+        public Label label2;
         private Translation translation;
         private TableLayoutPanel tableLayoutPanel1;
         private string traffic_response;
@@ -99,6 +99,14 @@ namespace VTCManager_1._0._0
         private SerialPortStream s;
         private bool serial_start = false;
         private bool first_run_speedo;
+        private NotifyIcon TaskBar_Icon;
+        private ContextMenuStrip contextTaskbar;
+        private ToolStripMenuItem öffnenToolStripMenuItem;
+        private ToolStripMenuItem einstellungenToolStripMenuItem1;
+        private ToolStripMenuItem webseiteToolStripMenuItem;
+        private ToolStripMenuItem überToolStripMenuItem;
+        private ToolStripMenuItem beendenToolStripMenuItem1;
+        private LinkLabel linkLabel1;
         private int blinker_int;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
@@ -174,7 +182,7 @@ namespace VTCManager_1._0._0
             this.einstellungenToolStripMenuItem.Text = translation.settings_lb;
             this.beendenToolStripMenuItem.Text = translation.exit_lb;
             this.topMenuAccount.Text = translation.topmenuaccount_lb;
-            this.statistic_panel_topic.Text = this.username + translation.statistic_panel_topic;
+            this.statistic_panel_topic.Text = translation.statistic_panel_topic + this.username.ToUpper();
             this.driven_tours_lb.Text = translation.driven_tours_lb + this.driven_tours;
             this.act_bank_balance_lb.Text = translation.act_bank_balance + this.act_bank_balance + "€";
             this.user_company_lb.Text = translation.user_company_lb + this.userCompany;
@@ -637,7 +645,6 @@ namespace VTCManager_1._0._0
         }
         private void InitializeComponent()
         {
-            
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.send_tour_status = new System.Timers.Timer();
@@ -646,6 +653,7 @@ namespace VTCManager_1._0._0
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topMenuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuAbmeldenButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -665,6 +673,7 @@ namespace VTCManager_1._0._0
             this.cargo_lb = new System.Windows.Forms.Label();
             this.speed_lb = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -672,13 +681,20 @@ namespace VTCManager_1._0._0
             this.panel4 = new System.Windows.Forms.Panel();
             this.notavaiblepanel4 = new System.Windows.Forms.Label();
             this.version_lb = new System.Windows.Forms.Label();
-            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TaskBar_Icon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextTaskbar = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.öffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.einstellungenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.webseiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beendenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.contextTaskbar.SuspendLayout();
             this.SuspendLayout();
             // 
             // send_tour_status
@@ -702,13 +718,15 @@ namespace VTCManager_1._0._0
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
             this.topMenuAccount,
             this.topmenuwebsite});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1458, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1458, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -718,22 +736,30 @@ namespace VTCManager_1._0._0
             this.einstellungenToolStripMenuItem,
             this.creditsToolStripMenuItem,
             this.beendenToolStripMenuItem});
+            this.dateiToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateiToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("dateiToolStripMenuItem.Image")));
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.dateiToolStripMenuItem.Text = "VTCManager";
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(36, 28);
             // 
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.einstellungenToolStripMenuItem.Text = "Settings";
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItemClick);
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.creditsToolStripMenuItem.Text = "Über...";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.CreditsToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.beendenToolStripMenuItem.Text = "Exit";
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItemClick);
             // 
             // topMenuAccount
@@ -741,20 +767,20 @@ namespace VTCManager_1._0._0
             this.topMenuAccount.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuAbmeldenButton});
             this.topMenuAccount.Name = "topMenuAccount";
-            this.topMenuAccount.Size = new System.Drawing.Size(64, 20);
+            this.topMenuAccount.Size = new System.Drawing.Size(78, 28);
             this.topMenuAccount.Text = "Account";
             // 
             // MenuAbmeldenButton
             // 
             this.MenuAbmeldenButton.Name = "MenuAbmeldenButton";
-            this.MenuAbmeldenButton.Size = new System.Drawing.Size(129, 22);
+            this.MenuAbmeldenButton.Size = new System.Drawing.Size(151, 26);
             this.MenuAbmeldenButton.Text = "Abmelden";
             this.MenuAbmeldenButton.Click += new System.EventHandler(this.MenuAbmeldenButton_Click);
             // 
             // topmenuwebsite
             // 
             this.topmenuwebsite.Name = "topmenuwebsite";
-            this.topmenuwebsite.Size = new System.Drawing.Size(61, 20);
+            this.topmenuwebsite.Size = new System.Drawing.Size(77, 28);
             this.topmenuwebsite.Text = "Website";
             this.topmenuwebsite.Click += new System.EventHandler(this.topMenuWebsiteClick);
             // 
@@ -804,10 +830,10 @@ namespace VTCManager_1._0._0
             // 
             this.statistic_panel_topic.AutoSize = true;
             this.statistic_panel_topic.BackColor = System.Drawing.Color.Transparent;
-            this.statistic_panel_topic.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.statistic_panel_topic.Location = new System.Drawing.Point(139, 1);
+            this.statistic_panel_topic.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statistic_panel_topic.Location = new System.Drawing.Point(8, 9);
             this.statistic_panel_topic.Name = "statistic_panel_topic";
-            this.statistic_panel_topic.Size = new System.Drawing.Size(222, 37);
+            this.statistic_panel_topic.Size = new System.Drawing.Size(174, 30);
             this.statistic_panel_topic.TabIndex = 2;
             this.statistic_panel_topic.Text = "User\'s  Statistiken";
             this.statistic_panel_topic.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -817,7 +843,9 @@ namespace VTCManager_1._0._0
             this.notavaiblepanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.notavaiblepanel1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.notavaiblepanel1.Location = new System.Drawing.Point(0, 0);
+            this.notavaiblepanel1.Margin = new System.Windows.Forms.Padding(4, 0, 3, 0);
             this.notavaiblepanel1.Name = "notavaiblepanel1";
+            this.notavaiblepanel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.notavaiblepanel1.Size = new System.Drawing.Size(533, 294);
             this.notavaiblepanel1.TabIndex = 0;
             this.notavaiblepanel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -910,6 +938,7 @@ namespace VTCManager_1._0._0
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.linkLabel1);
             this.panel3.Controls.Add(this.tableLayoutPanel1);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.label1);
@@ -918,6 +947,18 @@ namespace VTCManager_1._0._0
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(534, 283);
             this.panel3.TabIndex = 3;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(13, 257);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(140, 13);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "(powered by Truckapp.com)";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // tableLayoutPanel1
             // 
@@ -954,12 +995,12 @@ namespace VTCManager_1._0._0
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.label1.Location = new System.Drawing.Point(79, 0);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(8, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(351, 37);
+            this.label1.Size = new System.Drawing.Size(83, 30);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Verkehr (powered by Trucky)";
+            this.label1.Text = "Verkehr";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // notavaiblepanel3
@@ -999,12 +1040,56 @@ namespace VTCManager_1._0._0
             this.version_lb.TabIndex = 5;
             this.version_lb.Text = "Version: 1.0.0 Beta";
             // 
-            // creditsToolStripMenuItem
+            // TaskBar_Icon
             // 
-            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.creditsToolStripMenuItem.Text = "Credits";
-            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.CreditsToolStripMenuItem_Click);
+            this.TaskBar_Icon.BalloonTipText = "VTC-Manager läuft im Hintergrund";
+            this.TaskBar_Icon.BalloonTipTitle = "VTC-Manager";
+            this.TaskBar_Icon.ContextMenuStrip = this.contextTaskbar;
+            this.TaskBar_Icon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskBar_Icon.Icon")));
+            this.TaskBar_Icon.Text = "VTC-Manager";
+            this.TaskBar_Icon.Visible = true;
+            // 
+            // contextTaskbar
+            // 
+            this.contextTaskbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.öffnenToolStripMenuItem,
+            this.einstellungenToolStripMenuItem1,
+            this.webseiteToolStripMenuItem,
+            this.überToolStripMenuItem,
+            this.beendenToolStripMenuItem1});
+            this.contextTaskbar.Name = "contextTaskbar";
+            this.contextTaskbar.Size = new System.Drawing.Size(146, 114);
+            // 
+            // öffnenToolStripMenuItem
+            // 
+            this.öffnenToolStripMenuItem.Name = "öffnenToolStripMenuItem";
+            this.öffnenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.öffnenToolStripMenuItem.Text = "Öffnen";
+            // 
+            // einstellungenToolStripMenuItem1
+            // 
+            this.einstellungenToolStripMenuItem1.Name = "einstellungenToolStripMenuItem1";
+            this.einstellungenToolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
+            this.einstellungenToolStripMenuItem1.Text = "Einstellungen";
+            this.einstellungenToolStripMenuItem1.Click += new System.EventHandler(this.einstellungenToolStripMenuItem1_Click);
+            // 
+            // webseiteToolStripMenuItem
+            // 
+            this.webseiteToolStripMenuItem.Name = "webseiteToolStripMenuItem";
+            this.webseiteToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.webseiteToolStripMenuItem.Text = "Webseite";
+            // 
+            // überToolStripMenuItem
+            // 
+            this.überToolStripMenuItem.Name = "überToolStripMenuItem";
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.überToolStripMenuItem.Text = "Über...";
+            // 
+            // beendenToolStripMenuItem1
+            // 
+            this.beendenToolStripMenuItem1.Name = "beendenToolStripMenuItem1";
+            this.beendenToolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
+            this.beendenToolStripMenuItem1.Text = "Beenden";
             // 
             // Main
             // 
@@ -1019,7 +1104,10 @@ namespace VTCManager_1._0._0
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
-            this.Text = "VTCManager";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "VTC-Manager";
+            this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1030,6 +1118,7 @@ namespace VTCManager_1._0._0
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
+            this.contextTaskbar.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1079,6 +1168,23 @@ namespace VTCManager_1._0._0
             System.Windows.Forms.MessageBox.Show("Credits: \n" +
                 "developed by Joschua Haß @NorthWestMedia \n" +
                 "telemetry sytem based on nlhans");
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://truckyapp.com/");
+        }
+
+        private void einstellungenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Form sw = new SettingsWindow();
+            sw.ShowDialog();
+
         }
     }
 }
