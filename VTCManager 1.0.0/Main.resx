@@ -124,15 +124,6 @@
     <value>409, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="dateiToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABGdBTUEAALGPC/xhBQAAALFJREFUeF7t
-        20ERgEAAA7FzjjSkgYEagE1m9lMPPQAAAAAAAAAAAPzJpXTnUbo5qtMc1WmO6jRHdZqjOs1RneaoTnNU
-        p3MrHQAAAAAAAAAAAAAAAAAAX7Iuw+o0R3WaozrNUZ3mqE5zVKc5qtMc1WmO6jRHdQIAAAAAAAAAAAAA
-        AAAA4EtupZuXYXWaozrNUZ3mqE5zVKc5qtMc1WmO6jRHdTqX0gEAAAAAAAAAAPAH57xe2DDiL4HUxQAA
-        AABJRU5ErkJggg==
-</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABBDQAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAAAFv
@@ -200,6 +191,25 @@
   <metadata name="send_speedo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="dateiToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABGdBTUEAALGPC/xhBQAAALFJREFUeF7t
+        20ERgEAAA7FzjjSkgYEagE1m9lMPPQAAAAAAAAAAAPzJpXTnUbo5qtMc1WmO6jRHdZqjOs1RneaoTnNU
+        p3MrHQAAAAAAAAAAAAAAAAAAX7Iuw+o0R3WaozrNUZ3mqE5zVKc5qtMc1WmO6jRHdQIAAAAAAAAAAAAA
+        AAAA4EtupZuXYXWaozrNUZ3mqE5zVKc5qtMc1WmO6jRHdTqX0gEAAAAAAAAAAPAH57xe2DDiL4HUxQAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="GUI_SIZE_BUTTON.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAPZJREFUSEvV
+        lTsKwkAURbMFCz+167DRpVgIfjZjoS5GUNeggrbaxi34ORczMIRJwHmTwgOHRIt39eW9SfaPdHD6vU2P
+        ip/wjTN9EUu/uPr4xXXV52gO6LehjUdU8Qv20ESOL1RI8uJdVDH5xFtxf0ZTWxxDdAHOOyYpLhZYDlC7
+        TFPjs8ZyQNIQTVAo4IF7DI3wT1xRIRuc4wij+t/CAU5wiVvUApnQ39uh5jzUBv1yM2PUfIcCVpiEqhD1
+        PAl6aG5DfbVkZlTcnYraUM23CzBva+jgcu3SgzdRdyoqRNMVjd+WqpeFaUN1htQVT4JeHo0Vb4gs+wBT
+        AmIzKfrujwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="TaskBar_Icon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>524, 17</value>
   </metadata>

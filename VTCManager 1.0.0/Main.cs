@@ -10,6 +10,10 @@ using Timer = System.Windows.Forms.Timer;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using RJCP.IO.Ports;
+using System.Drawing;
+using VTCManager_1._0._0.Properties;
+using System.Net;
+using System.IO;
 
 namespace VTCManager_1._0._0
 {
@@ -50,8 +54,6 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem beendenToolStripMenuItem;
         private ToolStripMenuItem topMenuAccount;
         private ToolStripMenuItem topmenuwebsite;
-        private Panel panel1;
-        private Panel panel3;
         private Panel panel4;
         private System.Windows.Forms.Label speed_lb;
         private System.Windows.Forms.Label cargo_lb;
@@ -60,18 +62,12 @@ namespace VTCManager_1._0._0
         public System.Windows.Forms.ProgressBar progressBar1;
         private ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.Label truck_lb;
-        private System.Windows.Forms.Label notavaiblepanel1;
-        private System.Windows.Forms.Label notavaiblepanel3;
         private System.Windows.Forms.Label notavaiblepanel4;
         private Label label1;
         public Label label2;
         private Translation translation;
         private TableLayoutPanel tableLayoutPanel1;
         private string traffic_response;
-        private Label statistic_panel_topic;
-        private Label act_bank_balance_lb;
-        private Label driven_tours_lb;
-        private Label user_company_lb;
         public string username;
         public int driven_tours;
         public int act_bank_balance;
@@ -107,7 +103,18 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem überToolStripMenuItem;
         private ToolStripMenuItem beendenToolStripMenuItem1;
         private LinkLabel linkLabel1;
+        private ToolStripMenuItem GUI_SIZE_BUTTON;
         private int blinker_int;
+        private GroupBox groupStatistiken;
+        private Label user_company_lb;
+        private Label statistic_panel_topic;
+        private Label act_bank_balance_lb;
+        private Label driven_tours_lb;
+        private GroupBox groupVerkehr;
+
+        // GUI by Thommy
+        public int GUI_SIZE = 1;
+        
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -658,12 +665,10 @@ namespace VTCManager_1._0._0
             this.topMenuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuAbmeldenButton = new System.Windows.Forms.ToolStripMenuItem();
             this.topmenuwebsite = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.user_company_lb = new System.Windows.Forms.Label();
-            this.act_bank_balance_lb = new System.Windows.Forms.Label();
-            this.driven_tours_lb = new System.Windows.Forms.Label();
-            this.statistic_panel_topic = new System.Windows.Forms.Label();
-            this.notavaiblepanel1 = new System.Windows.Forms.Label();
+            this.GUI_SIZE_BUTTON = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
@@ -672,12 +677,7 @@ namespace VTCManager_1._0._0
             this.depature_lb = new System.Windows.Forms.Label();
             this.cargo_lb = new System.Windows.Forms.Label();
             this.speed_lb = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.notavaiblepanel3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.notavaiblepanel4 = new System.Windows.Forms.Label();
             this.version_lb = new System.Windows.Forms.Label();
@@ -688,13 +688,19 @@ namespace VTCManager_1._0._0
             this.webseiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupStatistiken = new System.Windows.Forms.GroupBox();
+            this.driven_tours_lb = new System.Windows.Forms.Label();
+            this.act_bank_balance_lb = new System.Windows.Forms.Label();
+            this.statistic_panel_topic = new System.Windows.Forms.Label();
+            this.user_company_lb = new System.Windows.Forms.Label();
+            this.groupVerkehr = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.contextTaskbar.SuspendLayout();
+            this.groupStatistiken.SuspendLayout();
+            this.groupVerkehr.SuspendLayout();
             this.SuspendLayout();
             // 
             // send_tour_status
@@ -723,7 +729,8 @@ namespace VTCManager_1._0._0
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
             this.topMenuAccount,
-            this.topmenuwebsite});
+            this.topmenuwebsite,
+            this.GUI_SIZE_BUTTON});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1458, 32);
@@ -784,71 +791,48 @@ namespace VTCManager_1._0._0
             this.topmenuwebsite.Text = "Website";
             this.topmenuwebsite.Click += new System.EventHandler(this.topMenuWebsiteClick);
             // 
-            // panel1
+            // GUI_SIZE_BUTTON
             // 
-            this.panel1.Controls.Add(this.user_company_lb);
-            this.panel1.Controls.Add(this.act_bank_balance_lb);
-            this.panel1.Controls.Add(this.driven_tours_lb);
-            this.panel1.Controls.Add(this.statistic_panel_topic);
-            this.panel1.Controls.Add(this.notavaiblepanel1);
-            this.panel1.Location = new System.Drawing.Point(0, 27);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(533, 294);
-            this.panel1.TabIndex = 1;
+            this.GUI_SIZE_BUTTON.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GUI_SIZE_BUTTON.Image = ((System.Drawing.Image)(resources.GetObject("GUI_SIZE_BUTTON.Image")));
+            this.GUI_SIZE_BUTTON.Name = "GUI_SIZE_BUTTON";
+            this.GUI_SIZE_BUTTON.Size = new System.Drawing.Size(36, 28);
+            this.GUI_SIZE_BUTTON.Text = "Button_Groesse";
+            this.GUI_SIZE_BUTTON.Click += new System.EventHandler(this.buttonGroesseToolStripMenuItem_Click);
             // 
-            // user_company_lb
+            // linkLabel1
             // 
-            this.user_company_lb.AutoSize = true;
-            this.user_company_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.user_company_lb.Location = new System.Drawing.Point(12, 77);
-            this.user_company_lb.Name = "user_company_lb";
-            this.user_company_lb.Size = new System.Drawing.Size(178, 19);
-            this.user_company_lb.TabIndex = 5;
-            this.user_company_lb.Text = "angestellt bei: Selbstständig";
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(342, 342);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(140, 13);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "(powered by Truckapp.com)";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // act_bank_balance_lb
+            // label1
             // 
-            this.act_bank_balance_lb.AutoSize = true;
-            this.act_bank_balance_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.act_bank_balance_lb.Location = new System.Drawing.Point(12, 58);
-            this.act_bank_balance_lb.Name = "act_bank_balance_lb";
-            this.act_bank_balance_lb.Size = new System.Drawing.Size(139, 19);
-            this.act_bank_balance_lb.TabIndex = 4;
-            this.act_bank_balance_lb.Text = "aktueller Kontostand:";
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 30);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Verkehr";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // driven_tours_lb
+            // label2
             // 
-            this.driven_tours_lb.AutoSize = true;
-            this.driven_tours_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.driven_tours_lb.Location = new System.Drawing.Point(12, 39);
-            this.driven_tours_lb.Name = "driven_tours_lb";
-            this.driven_tours_lb.Size = new System.Drawing.Size(119, 19);
-            this.driven_tours_lb.TabIndex = 3;
-            this.driven_tours_lb.Text = "gefahrene Touren:";
-            // 
-            // statistic_panel_topic
-            // 
-            this.statistic_panel_topic.AutoSize = true;
-            this.statistic_panel_topic.BackColor = System.Drawing.Color.Transparent;
-            this.statistic_panel_topic.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statistic_panel_topic.Location = new System.Drawing.Point(8, 9);
-            this.statistic_panel_topic.Name = "statistic_panel_topic";
-            this.statistic_panel_topic.Size = new System.Drawing.Size(174, 30);
-            this.statistic_panel_topic.TabIndex = 2;
-            this.statistic_panel_topic.Text = "User\'s  Statistiken";
-            this.statistic_panel_topic.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // notavaiblepanel1
-            // 
-            this.notavaiblepanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.notavaiblepanel1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.notavaiblepanel1.Location = new System.Drawing.Point(0, 0);
-            this.notavaiblepanel1.Margin = new System.Windows.Forms.Padding(4, 0, 3, 0);
-            this.notavaiblepanel1.Name = "notavaiblepanel1";
-            this.notavaiblepanel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.notavaiblepanel1.Size = new System.Drawing.Size(533, 294);
-            this.notavaiblepanel1.TabIndex = 0;
-            this.notavaiblepanel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label2.Location = new System.Drawing.Point(13, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 19);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Server: Simulation 1";
             // 
             // panel2
             // 
@@ -936,36 +920,14 @@ namespace VTCManager_1._0._0
             this.speed_lb.Text = "Speed";
             this.speed_lb.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.linkLabel1);
-            this.panel3.Controls.Add(this.tableLayoutPanel1);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.notavaiblepanel3);
-            this.panel3.Location = new System.Drawing.Point(0, 327);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(534, 283);
-            this.panel3.TabIndex = 3;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(13, 257);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(140, 13);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "(powered by Truckapp.com)";
-            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.18533F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.81467F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 78);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 63);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 9;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -978,40 +940,8 @@ namespace VTCManager_1._0._0
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(518, 179);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 179);
             this.tableLayoutPanel1.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(12, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 19);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Server: Simulation 1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 30);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Verkehr";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // notavaiblepanel3
-            // 
-            this.notavaiblepanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.notavaiblepanel3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.notavaiblepanel3.Location = new System.Drawing.Point(0, 0);
-            this.notavaiblepanel3.Name = "notavaiblepanel3";
-            this.notavaiblepanel3.Size = new System.Drawing.Size(534, 283);
-            this.notavaiblepanel3.TabIndex = 0;
-            this.notavaiblepanel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel4
             // 
@@ -1091,14 +1021,80 @@ namespace VTCManager_1._0._0
             this.beendenToolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.beendenToolStripMenuItem1.Text = "Beenden";
             // 
+            // groupStatistiken
+            // 
+            this.groupStatistiken.Controls.Add(this.user_company_lb);
+            this.groupStatistiken.Controls.Add(this.statistic_panel_topic);
+            this.groupStatistiken.Controls.Add(this.act_bank_balance_lb);
+            this.groupStatistiken.Controls.Add(this.driven_tours_lb);
+            this.groupStatistiken.Location = new System.Drawing.Point(0, 35);
+            this.groupStatistiken.Name = "groupStatistiken";
+            this.groupStatistiken.Size = new System.Drawing.Size(499, 178);
+            this.groupStatistiken.TabIndex = 6;
+            this.groupStatistiken.TabStop = false;
+            // 
+            // driven_tours_lb
+            // 
+            this.driven_tours_lb.AutoSize = true;
+            this.driven_tours_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.driven_tours_lb.Location = new System.Drawing.Point(16, 48);
+            this.driven_tours_lb.Name = "driven_tours_lb";
+            this.driven_tours_lb.Size = new System.Drawing.Size(119, 19);
+            this.driven_tours_lb.TabIndex = 3;
+            this.driven_tours_lb.Text = "gefahrene Touren:";
+            // 
+            // act_bank_balance_lb
+            // 
+            this.act_bank_balance_lb.AutoSize = true;
+            this.act_bank_balance_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.act_bank_balance_lb.Location = new System.Drawing.Point(16, 67);
+            this.act_bank_balance_lb.Name = "act_bank_balance_lb";
+            this.act_bank_balance_lb.Size = new System.Drawing.Size(139, 19);
+            this.act_bank_balance_lb.TabIndex = 4;
+            this.act_bank_balance_lb.Text = "aktueller Kontostand:";
+            // 
+            // statistic_panel_topic
+            // 
+            this.statistic_panel_topic.AutoSize = true;
+            this.statistic_panel_topic.BackColor = System.Drawing.Color.Transparent;
+            this.statistic_panel_topic.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statistic_panel_topic.Location = new System.Drawing.Point(12, 22);
+            this.statistic_panel_topic.Name = "statistic_panel_topic";
+            this.statistic_panel_topic.Size = new System.Drawing.Size(174, 30);
+            this.statistic_panel_topic.TabIndex = 2;
+            this.statistic_panel_topic.Text = "User\'s  Statistiken";
+            this.statistic_panel_topic.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // user_company_lb
+            // 
+            this.user_company_lb.AutoSize = true;
+            this.user_company_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.user_company_lb.Location = new System.Drawing.Point(16, 86);
+            this.user_company_lb.Name = "user_company_lb";
+            this.user_company_lb.Size = new System.Drawing.Size(178, 19);
+            this.user_company_lb.TabIndex = 5;
+            this.user_company_lb.Text = "angestellt bei: Selbstständig";
+            // 
+            // groupVerkehr
+            // 
+            this.groupVerkehr.Controls.Add(this.tableLayoutPanel1);
+            this.groupVerkehr.Controls.Add(this.label1);
+            this.groupVerkehr.Controls.Add(this.linkLabel1);
+            this.groupVerkehr.Controls.Add(this.label2);
+            this.groupVerkehr.Location = new System.Drawing.Point(0, 223);
+            this.groupVerkehr.Name = "groupVerkehr";
+            this.groupVerkehr.Size = new System.Drawing.Size(498, 367);
+            this.groupVerkehr.TabIndex = 7;
+            this.groupVerkehr.TabStop = false;
+            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1458, 622);
+            this.Controls.Add(this.groupVerkehr);
+            this.Controls.Add(this.groupStatistiken);
             this.Controls.Add(this.version_lb);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1111,14 +1107,14 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.contextTaskbar.ResumeLayout(false);
+            this.groupStatistiken.ResumeLayout(false);
+            this.groupStatistiken.PerformLayout();
+            this.groupVerkehr.ResumeLayout(false);
+            this.groupVerkehr.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1172,7 +1168,7 @@ namespace VTCManager_1._0._0
 
         private void Main_Load(object sender, EventArgs e)
         {
-            
+          
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1184,6 +1180,39 @@ namespace VTCManager_1._0._0
         {
             Form sw = new SettingsWindow();
             sw.ShowDialog();
+
+        }
+
+        private static Image GetImageFromURL(string url)
+        {
+            HttpWebRequest httpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            HttpWebResponse httpWebReponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Stream stream = httpWebReponse.GetResponseStream();
+            return Image.FromStream(stream);
+        }
+
+        private void buttonGroesseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GUI_SIZE == 1)
+            {
+                GUI_SIZE = 0;
+                this.groupStatistiken.Visible = false;
+                this.groupVerkehr.Visible = false;
+                this.Size = new Size(581, 661);
+                this.panel2.Location = new Point(5, 28);
+                GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/expand.png");
+                // COMMIT - eventuell die beiden Bilder über Ressourcen laden
+            } else 
+            {
+                GUI_SIZE = 1;
+                this.groupStatistiken.Visible = true;
+                this.groupVerkehr.Visible = true;
+                this.Size = new Size(1474, 661);
+                this.panel2.Location = new Point(540, 28);
+                GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/komprimieren.png");
+                // COMMIT - eventuell die beiden Bilder über Ressourcen laden
+            }
+
 
         }
     }
