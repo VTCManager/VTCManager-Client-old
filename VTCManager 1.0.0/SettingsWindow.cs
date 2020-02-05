@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -20,6 +21,13 @@ namespace VTCManager_1._0._0
         private GroupBox groupBox2;
         private Label label2;
         private CheckBox checkBox1;
+        private GroupBox groupBox3;
+        private TextBox truckersMP_Pfad_TextBox;
+        private Label label3;
+        private FolderBrowserDialog trucker_MP_Browser_Dialog;
+        private CheckBox truckers_autorun;
+        private CheckBox truckersMP_Button_anzeigen;
+        private Label label4;
         private string selected_server_tm;
 
         public SettingsWindow() {
@@ -50,10 +58,18 @@ namespace VTCManager_1._0._0
             this.save_button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.truckers_autorun = new System.Windows.Forms.CheckBox();
+            this.truckersMP_Button_anzeigen = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.truckersMP_Pfad_TextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.trucker_MP_Browser_Dialog = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -123,6 +139,15 @@ namespace VTCManager_1._0._0
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Design Einstellungen";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(40, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "(In Vorbereitung)";
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -133,18 +158,75 @@ namespace VTCManager_1._0._0
             this.checkBox1.Text = "Dark-Mode";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // groupBox3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "(In Vorbereitung)";
+            this.groupBox3.Controls.Add(this.truckers_autorun);
+            this.groupBox3.Controls.Add(this.truckersMP_Button_anzeigen);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.truckersMP_Pfad_TextBox);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Location = new System.Drawing.Point(13, 246);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(370, 156);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "TruckersMP Einstellungen";
+            // 
+            // truckers_autorun
+            // 
+            this.truckers_autorun.AutoSize = true;
+            this.truckers_autorun.Location = new System.Drawing.Point(13, 118);
+            this.truckers_autorun.Name = "truckers_autorun";
+            this.truckers_autorun.Size = new System.Drawing.Size(230, 17);
+            this.truckers_autorun.TabIndex = 4;
+            this.truckers_autorun.Text = "Truckers MP beim Start automatisch öffnen";
+            this.truckers_autorun.UseVisualStyleBackColor = true;
+            this.truckers_autorun.CheckedChanged += new System.EventHandler(this.truckers_autorun_CheckedChanged);
+            // 
+            // truckersMP_Button_anzeigen
+            // 
+            this.truckersMP_Button_anzeigen.AutoSize = true;
+            this.truckersMP_Button_anzeigen.Location = new System.Drawing.Point(13, 94);
+            this.truckersMP_Button_anzeigen.Name = "truckersMP_Button_anzeigen";
+            this.truckersMP_Button_anzeigen.Size = new System.Drawing.Size(167, 17);
+            this.truckersMP_Button_anzeigen.TabIndex = 3;
+            this.truckersMP_Button_anzeigen.Text = "Truckers MP Button anzeigen";
+            this.truckersMP_Button_anzeigen.UseVisualStyleBackColor = true;
+            this.truckersMP_Button_anzeigen.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 63);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(151, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "(Wird automatisch eingefügt !) ";
+            // 
+            // truckersMP_Pfad_TextBox
+            // 
+            this.truckersMP_Pfad_TextBox.Location = new System.Drawing.Point(10, 36);
+            this.truckersMP_Pfad_TextBox.Name = "truckersMP_Pfad_TextBox";
+            this.truckersMP_Pfad_TextBox.Size = new System.Drawing.Size(354, 20);
+            this.truckersMP_Pfad_TextBox.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Pfad zu TruckersMP:";
+            // 
+            // trucker_MP_Browser_Dialog
+            // 
+            this.trucker_MP_Browser_Dialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(744, 599);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save_button);
@@ -152,10 +234,13 @@ namespace VTCManager_1._0._0
             this.Name = "SettingsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Einstellungen";
+            this.Load += new System.EventHandler(this.SettingsWindow_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -199,10 +284,78 @@ namespace VTCManager_1._0._0
                 this.data.Cache.speed_mode = "kmh";
             }
             this.data.SaveJobID();
-            //MessageBox.Show(translation.save_info);
+            MessageBox.Show(translation.save_info);
+
+            // Edit by Thommy
+
+
+
             this.Close();
         }
 
+        private void SettingsWindow_Load(object sender, EventArgs e)
+        {
+            Utilities util2 = new Utilities();
+            string wert99 = util2.Reg_Lesen("TruckersMP_Autorun", "autorun");
+            string wert98 = util2.Reg_Lesen("TruckersMP_Autorun", "button_show");
+            if(wert99 == "1")
+            {
+                truckers_autorun.CheckState = CheckState.Checked;
+            } else
+            {
+                truckers_autorun.CheckState = CheckState.Unchecked;
+                
+            }
 
+
+            // Button anzeigen vorauswahl
+            if (wert98 == "1")
+            {
+                truckersMP_Button_anzeigen.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                truckersMP_Button_anzeigen.CheckState = CheckState.Unchecked;
+            }
+
+
+            // Variablen abrufen von Main
+            var link = Main.truckersMP_Link;
+
+            // Ausgabe in Settings
+            truckersMP_Pfad_TextBox.Text = link;
+
+
+            // Checkbox autorun laden
+
+
+        }
+
+        private void truckers_autorun_CheckedChanged(object sender, EventArgs e)
+        {
+            if(truckers_autorun.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("button_show", "1");
+            } else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("button_show", "0");
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (truckersMP_Button_anzeigen.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("autorun", "1");
+            }
+            else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("autorun", "0");
+            }
+        }
     }
 }

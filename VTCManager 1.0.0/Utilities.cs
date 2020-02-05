@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Windows;
 
 namespace VTCManager_1._0._0
 {
@@ -105,7 +107,23 @@ namespace VTCManager_1._0._0
             }
         }
 
+        // Edit by Thommy
+        public void Reg_Schreiben(string name, string wert)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
+            key.CreateSubKey("VCTManager");
+            key = key.OpenSubKey("VCTManager", true);
+            key.CreateSubKey("TruckersMP_Autorun");
+            key = key.OpenSubKey("TruckersMP_Autorun", true);
+            key.SetValue(name, wert);
 
+        }
+        public string Reg_Lesen(string ordner, string value)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VCTManager\" + ordner);
+            return key.GetValue(value).ToString();
+
+        }
 
 
 

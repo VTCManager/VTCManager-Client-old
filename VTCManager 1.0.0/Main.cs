@@ -14,6 +14,8 @@ using System.Drawing;
 using VTCManager_1._0._0.Properties;
 using System.Net;
 using System.IO;
+using System.Linq;
+
 
 namespace VTCManager_1._0._0
 {
@@ -111,10 +113,14 @@ namespace VTCManager_1._0._0
         private Label act_bank_balance_lb;
         private Label driven_tours_lb;
         private GroupBox groupVerkehr;
+        private Button truckersMP_Button;
+        private ToolStripMenuItem eventsToolStripMenuItem;
 
         // GUI by Thommy
         public int GUI_SIZE = 1;
-        
+        public static string truckersMP_Link;
+        public static int truckersMP_autorun;
+
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -665,6 +671,7 @@ namespace VTCManager_1._0._0
             this.topMenuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuAbmeldenButton = new System.Windows.Forms.ToolStripMenuItem();
             this.topmenuwebsite = new System.Windows.Forms.ToolStripMenuItem();
+            this.eventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GUI_SIZE_BUTTON = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
@@ -689,10 +696,11 @@ namespace VTCManager_1._0._0
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupStatistiken = new System.Windows.Forms.GroupBox();
-            this.driven_tours_lb = new System.Windows.Forms.Label();
-            this.act_bank_balance_lb = new System.Windows.Forms.Label();
-            this.statistic_panel_topic = new System.Windows.Forms.Label();
+            this.truckersMP_Button = new System.Windows.Forms.Button();
             this.user_company_lb = new System.Windows.Forms.Label();
+            this.statistic_panel_topic = new System.Windows.Forms.Label();
+            this.act_bank_balance_lb = new System.Windows.Forms.Label();
+            this.driven_tours_lb = new System.Windows.Forms.Label();
             this.groupVerkehr = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -730,6 +738,7 @@ namespace VTCManager_1._0._0
             this.dateiToolStripMenuItem,
             this.topMenuAccount,
             this.topmenuwebsite,
+            this.eventsToolStripMenuItem,
             this.GUI_SIZE_BUTTON});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -747,25 +756,26 @@ namespace VTCManager_1._0._0
             this.dateiToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("dateiToolStripMenuItem.Image")));
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(36, 28);
+            this.dateiToolStripMenuItem.ToolTipText = "Hauptmenü";
             // 
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItemClick);
             // 
             // creditsToolStripMenuItem
             // 
             this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.creditsToolStripMenuItem.Text = "Über...";
             this.creditsToolStripMenuItem.Click += new System.EventHandler(this.CreditsToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItemClick);
             // 
@@ -773,23 +783,35 @@ namespace VTCManager_1._0._0
             // 
             this.topMenuAccount.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuAbmeldenButton});
+            this.topMenuAccount.Image = ((System.Drawing.Image)(resources.GetObject("topMenuAccount.Image")));
             this.topMenuAccount.Name = "topMenuAccount";
-            this.topMenuAccount.Size = new System.Drawing.Size(78, 28);
+            this.topMenuAccount.Size = new System.Drawing.Size(102, 28);
             this.topMenuAccount.Text = "Account";
+            this.topMenuAccount.ToolTipText = "Client an/abmelden";
             // 
             // MenuAbmeldenButton
             // 
             this.MenuAbmeldenButton.Name = "MenuAbmeldenButton";
-            this.MenuAbmeldenButton.Size = new System.Drawing.Size(151, 26);
+            this.MenuAbmeldenButton.Size = new System.Drawing.Size(180, 26);
             this.MenuAbmeldenButton.Text = "Abmelden";
             this.MenuAbmeldenButton.Click += new System.EventHandler(this.MenuAbmeldenButton_Click);
             // 
             // topmenuwebsite
             // 
+            this.topmenuwebsite.Image = ((System.Drawing.Image)(resources.GetObject("topmenuwebsite.Image")));
             this.topmenuwebsite.Name = "topmenuwebsite";
-            this.topmenuwebsite.Size = new System.Drawing.Size(77, 28);
+            this.topmenuwebsite.Size = new System.Drawing.Size(101, 28);
             this.topmenuwebsite.Text = "Website";
+            this.topmenuwebsite.ToolTipText = "Gehe zu unserer Homepage";
             this.topmenuwebsite.Click += new System.EventHandler(this.topMenuWebsiteClick);
+            // 
+            // eventsToolStripMenuItem
+            // 
+            this.eventsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eventsToolStripMenuItem.Image")));
+            this.eventsToolStripMenuItem.Name = "eventsToolStripMenuItem";
+            this.eventsToolStripMenuItem.Size = new System.Drawing.Size(91, 28);
+            this.eventsToolStripMenuItem.Text = "Events";
+            this.eventsToolStripMenuItem.ToolTipText = "Zeige aktuelle Events (in Bearbeitung)";
             // 
             // GUI_SIZE_BUTTON
             // 
@@ -798,6 +820,7 @@ namespace VTCManager_1._0._0
             this.GUI_SIZE_BUTTON.Name = "GUI_SIZE_BUTTON";
             this.GUI_SIZE_BUTTON.Size = new System.Drawing.Size(36, 28);
             this.GUI_SIZE_BUTTON.Text = "Button_Groesse";
+            this.GUI_SIZE_BUTTON.ToolTipText = "Ansicht verkleinern / vergrößern";
             this.GUI_SIZE_BUTTON.Click += new System.EventHandler(this.buttonGroesseToolStripMenuItem_Click);
             // 
             // linkLabel1
@@ -1023,6 +1046,7 @@ namespace VTCManager_1._0._0
             // 
             // groupStatistiken
             // 
+            this.groupStatistiken.Controls.Add(this.truckersMP_Button);
             this.groupStatistiken.Controls.Add(this.user_company_lb);
             this.groupStatistiken.Controls.Add(this.statistic_panel_topic);
             this.groupStatistiken.Controls.Add(this.act_bank_balance_lb);
@@ -1033,25 +1057,29 @@ namespace VTCManager_1._0._0
             this.groupStatistiken.TabIndex = 6;
             this.groupStatistiken.TabStop = false;
             // 
-            // driven_tours_lb
+            // truckersMP_Button
             // 
-            this.driven_tours_lb.AutoSize = true;
-            this.driven_tours_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.driven_tours_lb.Location = new System.Drawing.Point(16, 48);
-            this.driven_tours_lb.Name = "driven_tours_lb";
-            this.driven_tours_lb.Size = new System.Drawing.Size(119, 19);
-            this.driven_tours_lb.TabIndex = 3;
-            this.driven_tours_lb.Text = "gefahrene Touren:";
+            this.truckersMP_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.truckersMP_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("truckersMP_Button.BackgroundImage")));
+            this.truckersMP_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.truckersMP_Button.Location = new System.Drawing.Point(412, 121);
+            this.truckersMP_Button.Margin = new System.Windows.Forms.Padding(0);
+            this.truckersMP_Button.Name = "truckersMP_Button";
+            this.truckersMP_Button.Size = new System.Drawing.Size(84, 54);
+            this.truckersMP_Button.TabIndex = 6;
+            this.truckersMP_Button.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.truckersMP_Button.UseVisualStyleBackColor = true;
+            this.truckersMP_Button.Click += new System.EventHandler(this.truckersMP_Button_Click);
             // 
-            // act_bank_balance_lb
+            // user_company_lb
             // 
-            this.act_bank_balance_lb.AutoSize = true;
-            this.act_bank_balance_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.act_bank_balance_lb.Location = new System.Drawing.Point(16, 67);
-            this.act_bank_balance_lb.Name = "act_bank_balance_lb";
-            this.act_bank_balance_lb.Size = new System.Drawing.Size(139, 19);
-            this.act_bank_balance_lb.TabIndex = 4;
-            this.act_bank_balance_lb.Text = "aktueller Kontostand:";
+            this.user_company_lb.AutoSize = true;
+            this.user_company_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.user_company_lb.Location = new System.Drawing.Point(16, 86);
+            this.user_company_lb.Name = "user_company_lb";
+            this.user_company_lb.Size = new System.Drawing.Size(178, 19);
+            this.user_company_lb.TabIndex = 5;
+            this.user_company_lb.Text = "angestellt bei: Selbstständig";
             // 
             // statistic_panel_topic
             // 
@@ -1065,15 +1093,25 @@ namespace VTCManager_1._0._0
             this.statistic_panel_topic.Text = "User\'s  Statistiken";
             this.statistic_panel_topic.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // user_company_lb
+            // act_bank_balance_lb
             // 
-            this.user_company_lb.AutoSize = true;
-            this.user_company_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.user_company_lb.Location = new System.Drawing.Point(16, 86);
-            this.user_company_lb.Name = "user_company_lb";
-            this.user_company_lb.Size = new System.Drawing.Size(178, 19);
-            this.user_company_lb.TabIndex = 5;
-            this.user_company_lb.Text = "angestellt bei: Selbstständig";
+            this.act_bank_balance_lb.AutoSize = true;
+            this.act_bank_balance_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.act_bank_balance_lb.Location = new System.Drawing.Point(16, 67);
+            this.act_bank_balance_lb.Name = "act_bank_balance_lb";
+            this.act_bank_balance_lb.Size = new System.Drawing.Size(139, 19);
+            this.act_bank_balance_lb.TabIndex = 4;
+            this.act_bank_balance_lb.Text = "aktueller Kontostand:";
+            // 
+            // driven_tours_lb
+            // 
+            this.driven_tours_lb.AutoSize = true;
+            this.driven_tours_lb.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.driven_tours_lb.Location = new System.Drawing.Point(16, 48);
+            this.driven_tours_lb.Name = "driven_tours_lb";
+            this.driven_tours_lb.Size = new System.Drawing.Size(119, 19);
+            this.driven_tours_lb.TabIndex = 3;
+            this.driven_tours_lb.Text = "gefahrene Touren:";
             // 
             // groupVerkehr
             // 
@@ -1163,12 +1201,53 @@ namespace VTCManager_1._0._0
         {
             System.Windows.Forms.MessageBox.Show("Credits: \n" +
                 "developed by Joschua Haß @NorthWestMedia \n" +
+                "All Icoons by Icons8 \n" +
                 "telemetry sytem based on nlhans");
         }
 
+        // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
+            if (Directory.Exists(@"C:\Program Files\TruckersMP Launcher")) {
+                truckersMP_Link = @"C:\Program Files\TruckersMP Launcher\Launcher.exe";
+                truckersMP_Button.Visible = true;
+            } 
+            else  if (Directory.Exists(@"D:\Program Files\TruckersMP Launcher")) {
+                truckersMP_Link = @"D:\Program Files\TruckersMP Launcher\Launcher.exe";
+                truckersMP_Button.Visible = true;
+            }
+            else  if (Directory.Exists(@"E:\Program Files\TruckersMP Launcher")){
+                truckersMP_Link = @"E:\Program Files\TruckersMP Launcher\Launcher.exe";
+                truckersMP_Button.Visible = true;
+            }
+            else if (Directory.Exists(@"F:\Program Files\TruckersMP Launcher")){
+                truckersMP_Link = @"F:\Program Files\TruckersMP Launcher\Launcher.exe";
+                truckersMP_Button.Visible = true;
+            } else
+            {
+                truckersMP_Button.Visible = false;
+            }
+            Utilities util = new Utilities();
+            if(util.Reg_Lesen("TruckersMP_Autorun", "button_show") == "1")
+            {
+                truckersMP_Button.Visible = true;
+            } else
+            {
+                truckersMP_Button.Visible = false;
+            }
+            // Autostart von TruckersMP 
+            if (util.Reg_Lesen("TruckersMP_Autorun", "autorun") == "1")
+            {
+                Process.Start(truckersMP_Link);
+            }
           
+
+        }
+
+
+        private void truckersMP_Button_Click(object sender, EventArgs e)
+        {
+            Process.Start(truckersMP_Link);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1182,6 +1261,7 @@ namespace VTCManager_1._0._0
             sw.ShowDialog();
 
         }
+
 
         private static Image GetImageFromURL(string url)
         {
@@ -1215,5 +1295,7 @@ namespace VTCManager_1._0._0
 
 
         }
+
+
     }
 }
