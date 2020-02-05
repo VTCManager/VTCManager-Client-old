@@ -97,6 +97,11 @@ namespace VTCManager_1._0._0
                         {
                             _chachedGame = "ets2";
                         }
+                        if (process.MainWindowTitle.StartsWith("American Truck Simulator") && (process.ProcessName == "amtrucks"))
+                        {
+                            _chachedGame = "ats";
+                        }
+
                     }
                     catch
                     {
@@ -111,8 +116,8 @@ namespace VTCManager_1._0._0
         public void Reg_Schreiben(string name, string wert)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
-            key.CreateSubKey("VCTManager");
-            key = key.OpenSubKey("VCTManager", true);
+            key.CreateSubKey("VTCManager");
+            key = key.OpenSubKey("VTCManager", true);
             key.CreateSubKey("TruckersMP_Autorun");
             key = key.OpenSubKey("TruckersMP_Autorun", true);
             key.SetValue(name, wert);
@@ -120,8 +125,14 @@ namespace VTCManager_1._0._0
         }
         public string Reg_Lesen(string ordner, string value)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VCTManager\" + ordner);
-            return key.GetValue(value).ToString();
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VTCManager\" + ordner);
+                return key.GetValue(value).ToString();
+            } catch {
+                return null;
+            }
+
 
         }
 
