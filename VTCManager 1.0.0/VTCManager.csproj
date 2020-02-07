@@ -103,6 +103,12 @@
     <Compile Include="Starter.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="Trucky_Traffic_Converter.cs" />
+    <Compile Include="Ueber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ueber.Designer.cs">
+      <DependentUpon>Ueber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +135,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
       <Private>True</Private>
@@ -204,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsWindow.resx">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ueber.resx">
+      <DependentUpon>Ueber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

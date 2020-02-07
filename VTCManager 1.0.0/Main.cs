@@ -119,6 +119,7 @@ namespace VTCManager_1._0._0
         // GUI by Thommy
         public int GUI_SIZE = 1;
         public static string truckersMP_Link;
+        private Label thommy_Test;
         public static int truckersMP_autorun;
 
 
@@ -335,6 +336,8 @@ namespace VTCManager_1._0._0
                             this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                         if (data.Truck != "")
                         {
+
+
                             if (data.Truck == "Extra_D" || data.Truck == "Superb") {
                                 this.truck_lb.Text = translation.car_lb + "Škoda" + " Superb";
                             }
@@ -352,6 +355,15 @@ namespace VTCManager_1._0._0
                             }
                             else
                             {
+                                if (this.jobRunning == true || this.stillTheSameJob == true)
+                                {
+                                    thommy_Test.Text = "Angehangen!";
+                                }
+                                else
+                                {
+                                    thommy_Test.Text = "Kein Hänger!";
+                                }
+
                                 this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
                             }
                             if(this.serial_start == false)
@@ -380,6 +392,9 @@ namespace VTCManager_1._0._0
                                     this.blinker_int = 0;
                                 }
                             }
+
+                     
+                           
                             /*this.s.Write("0"); //ABS
                             this.s.Write("0"); //Handbrake
                             if (data.Axilliary.AirPressureEmergency == true)
@@ -510,14 +525,18 @@ namespace VTCManager_1._0._0
                                     this.jobStarted = false;
                             }
                             }
+                        
                     }
                     if (this.jobRunning)
                     {
-
+               
                         if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
                         {
                             if (Utilities.IsGameRunning)
                             {
+                            
+
+
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
                                 {
@@ -604,6 +623,8 @@ namespace VTCManager_1._0._0
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                     this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
                     this.progressBar1.Value = this.currentPercentage;
+
+                
                 }
             }
             catch
@@ -616,6 +637,8 @@ namespace VTCManager_1._0._0
             this.jobRunning = true;
             try
             {
+
+
                 this.load_traffic();
             }
             catch (Exception)
@@ -677,6 +700,7 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.thommy_Test = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -792,7 +816,7 @@ namespace VTCManager_1._0._0
             // MenuAbmeldenButton
             // 
             this.MenuAbmeldenButton.Name = "MenuAbmeldenButton";
-            this.MenuAbmeldenButton.Size = new System.Drawing.Size(180, 26);
+            this.MenuAbmeldenButton.Size = new System.Drawing.Size(151, 26);
             this.MenuAbmeldenButton.Text = "Abmelden";
             this.MenuAbmeldenButton.Click += new System.EventHandler(this.MenuAbmeldenButton_Click);
             // 
@@ -859,6 +883,7 @@ namespace VTCManager_1._0._0
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.thommy_Test);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
             this.panel2.Controls.Add(this.progressBar1);
@@ -871,6 +896,14 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
+            // 
+            // thommy_Test
+            // 
+            this.thommy_Test.AutoSize = true;
+            this.thommy_Test.Location = new System.Drawing.Point(52, 235);
+            this.thommy_Test.Name = "thommy_Test";
+            this.thommy_Test.Size = new System.Drawing.Size(0, 13);
+            this.thommy_Test.TabIndex = 7;
             // 
             // status_jb_canc_lb
             // 
@@ -989,9 +1022,9 @@ namespace VTCManager_1._0._0
             this.version_lb.AutoSize = true;
             this.version_lb.Location = new System.Drawing.Point(1349, 9);
             this.version_lb.Name = "version_lb";
-            this.version_lb.Size = new System.Drawing.Size(97, 13);
+            this.version_lb.Size = new System.Drawing.Size(102, 13);
             this.version_lb.TabIndex = 5;
-            this.version_lb.Text = "Version: 1.0.0 Beta";
+            this.version_lb.Text = "Version: 1.1.1 Alpha";
             // 
             // TaskBar_Icon
             // 
@@ -1199,10 +1232,8 @@ namespace VTCManager_1._0._0
 
         private void CreditsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("Credits: \n" +
-                "developed by Joschua Haß @NorthWestMedia \n" +
-                "All Icoons by Icons8 \n" +
-                "telemetry sytem based on nlhans");
+            Ueber ueber = new Ueber();
+            ueber.ShowDialog();
         }
 
         // Edit by Thommy
