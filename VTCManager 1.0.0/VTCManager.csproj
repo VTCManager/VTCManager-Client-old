@@ -75,6 +75,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
@@ -89,6 +92,12 @@
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Overlay_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Overlay_1.Designer.cs">
+      <DependentUpon>Overlay_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -204,6 +213,9 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Overlay_1.resx">
+      <DependentUpon>Overlay_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

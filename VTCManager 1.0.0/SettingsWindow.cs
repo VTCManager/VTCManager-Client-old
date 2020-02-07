@@ -28,6 +28,11 @@ namespace VTCManager_1._0._0
         private CheckBox truckers_autorun;
         private CheckBox truckersMP_Button_anzeigen;
         private Label label4;
+        private GroupBox group_Overlay;
+        private ComboBox combo_Bildschirme;
+        private Label label6;
+        private NumericUpDown num_Overlay_Transparenz;
+        private Label label5;
         private string selected_server_tm;
 
         public SettingsWindow() {
@@ -67,9 +72,16 @@ namespace VTCManager_1._0._0
             this.truckersMP_Pfad_TextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.trucker_MP_Browser_Dialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.group_Overlay = new System.Windows.Forms.GroupBox();
+            this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.num_Overlay_Transparenz = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.group_Overlay.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -223,9 +235,62 @@ namespace VTCManager_1._0._0
             // 
             this.trucker_MP_Browser_Dialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
+            // group_Overlay
+            // 
+            this.group_Overlay.Controls.Add(this.label6);
+            this.group_Overlay.Controls.Add(this.num_Overlay_Transparenz);
+            this.group_Overlay.Controls.Add(this.label5);
+            this.group_Overlay.Controls.Add(this.combo_Bildschirme);
+            this.group_Overlay.Location = new System.Drawing.Point(263, 12);
+            this.group_Overlay.Name = "group_Overlay";
+            this.group_Overlay.Size = new System.Drawing.Size(326, 100);
+            this.group_Overlay.TabIndex = 7;
+            this.group_Overlay.TabStop = false;
+            this.group_Overlay.Text = "Overlay Einstellungen";
+            // 
+            // combo_Bildschirme
+            // 
+            this.combo_Bildschirme.FormattingEnabled = true;
+            this.combo_Bildschirme.Location = new System.Drawing.Point(116, 28);
+            this.combo_Bildschirme.Name = "combo_Bildschirme";
+            this.combo_Bildschirme.Size = new System.Drawing.Size(195, 21);
+            this.combo_Bildschirme.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(26, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Gaming-Monitor:";
+            // 
+            // num_Overlay_Transparenz
+            // 
+            this.num_Overlay_Transparenz.Location = new System.Drawing.Point(116, 56);
+            this.num_Overlay_Transparenz.Name = "num_Overlay_Transparenz";
+            this.num_Overlay_Transparenz.Size = new System.Drawing.Size(59, 20);
+            this.num_Overlay_Transparenz.TabIndex = 2;
+            this.num_Overlay_Transparenz.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.num_Overlay_Transparenz.ValueChanged += new System.EventHandler(this.num_Overlay_Transparenz_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(41, 58);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Transparenz:";
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(744, 599);
+            this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -241,6 +306,9 @@ namespace VTCManager_1._0._0
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.group_Overlay.ResumeLayout(false);
+            this.group_Overlay.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -295,6 +363,8 @@ namespace VTCManager_1._0._0
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
+            
+
             Utilities util2 = new Utilities();
             string wert99 = util2.Reg_Lesen("TruckersMP_Autorun", "autorun");
             string wert98 = util2.Reg_Lesen("TruckersMP_Autorun", "button_show");
@@ -307,6 +377,25 @@ namespace VTCManager_1._0._0
                 
             }
 
+            // Listbox mit Bildschirmen füllen
+
+
+
+            combo_Bildschirme.Items.Clear();
+            combo_Bildschirme.Items.Add(Screen.AllScreens.GetUpperBound(0));
+            combo_Bildschirme.Items.Add(Screen.AllScreens[0].DeviceName);
+            if (Screen.AllScreens.GetUpperBound(0) == 1)
+            {
+                combo_Bildschirme.Items.Add(Screen.AllScreens[1].DeviceName);
+            }
+            if (Screen.AllScreens.GetUpperBound(0) == 2)
+            {
+                combo_Bildschirme.Items.Add(Screen.AllScreens[2].DeviceName);
+            }
+            if (Screen.AllScreens.GetUpperBound(0) == 3)
+            {
+                combo_Bildschirme.Items.Add(Screen.AllScreens[3].DeviceName);
+            }
 
             // Button anzeigen vorauswahl
             if (wert98 == "1")
@@ -356,6 +445,15 @@ namespace VTCManager_1._0._0
                 Utilities util = new Utilities();
                 util.Reg_Schreiben("autorun", "0");
             }
+        }
+
+        private void num_Overlay_Transparenz_ValueChanged(object sender, EventArgs e)
+        {
+            double anz = (double)num_Overlay_Transparenz.Value;
+            Main.over.Opacity = anz/100;
+            Main.overlay_ist_offen = 1;
+            Main.over.Update();
+            Console.WriteLine(anz/100);
         }
     }
 }

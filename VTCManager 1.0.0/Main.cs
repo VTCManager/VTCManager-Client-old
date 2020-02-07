@@ -120,11 +120,20 @@ namespace VTCManager_1._0._0
         public int GUI_SIZE = 1;
         public static string truckersMP_Link;
         private Label thommy_Test;
+        private ToolStripMenuItem lbl_Overlay;
         public static int truckersMP_autorun;
+        public static int overlay_ist_offen = 0;
+        public static Form over = new Overlay_1();
+        public static int overlay_Opacity;
+
 
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
+            
+            over.Opacity = 0;
+            over.Show();
+
             this.notification_sound_success = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\insight.wav");
             this.notification_sound_fail = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav");
             this.notification_sound_tour_start = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav");
@@ -516,6 +525,9 @@ namespace VTCManager_1._0._0
                                     Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
                                     num1 = data.Job.Mass;
                                     string str2 = num1.ToString();
+
+                                
+                                
                                     lastJobDictionary.Add("weight", str2);
                                 this.CitySource = data.Job.CitySource;
                                 this.CityDestination = data.Job.CityDestination;
@@ -696,6 +708,7 @@ namespace VTCManager_1._0._0
             this.topmenuwebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.eventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GUI_SIZE_BUTTON = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbl_Overlay = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -763,7 +776,8 @@ namespace VTCManager_1._0._0
             this.topMenuAccount,
             this.topmenuwebsite,
             this.eventsToolStripMenuItem,
-            this.GUI_SIZE_BUTTON});
+            this.GUI_SIZE_BUTTON,
+            this.lbl_Overlay});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1458, 32);
@@ -785,21 +799,21 @@ namespace VTCManager_1._0._0
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItemClick);
             // 
             // creditsToolStripMenuItem
             // 
             this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.creditsToolStripMenuItem.Text = "Über...";
             this.creditsToolStripMenuItem.Click += new System.EventHandler(this.CreditsToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItemClick);
             // 
@@ -846,6 +860,13 @@ namespace VTCManager_1._0._0
             this.GUI_SIZE_BUTTON.Text = "Button_Groesse";
             this.GUI_SIZE_BUTTON.ToolTipText = "Ansicht verkleinern / vergrößern";
             this.GUI_SIZE_BUTTON.Click += new System.EventHandler(this.buttonGroesseToolStripMenuItem_Click);
+            // 
+            // lbl_Overlay
+            // 
+            this.lbl_Overlay.Name = "lbl_Overlay";
+            this.lbl_Overlay.Size = new System.Drawing.Size(76, 28);
+            this.lbl_Overlay.Text = "Overlay";
+            this.lbl_Overlay.Click += new System.EventHandler(this.overlayToolStripMenuItem_Click);
             // 
             // linkLabel1
             // 
@@ -1174,6 +1195,7 @@ namespace VTCManager_1._0._0
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VTC-Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing_1);
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -1239,6 +1261,10 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
+
+            
+
+
             if (Directory.Exists(@"C:\Program Files\TruckersMP Launcher")) {
                 truckersMP_Link = @"C:\Program Files\TruckersMP Launcher\Launcher.exe";
                 truckersMP_Button.Visible = true;
@@ -1327,6 +1353,27 @@ namespace VTCManager_1._0._0
 
         }
 
+        private void overlayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
 
+            if(overlay_ist_offen == 0)
+            {
+                Main.over.Opacity = 1;
+                overlay_ist_offen = 1;
+            } else
+            {
+                Main.over.Opacity = 0;
+                overlay_ist_offen = 0;
+            }
+
+
+
+        }
+
+        private void Main_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            TaskBar_Icon.Dispose();
+        }
     }
 }

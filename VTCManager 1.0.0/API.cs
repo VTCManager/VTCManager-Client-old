@@ -35,6 +35,9 @@ namespace VTCManager_1._0._0
             this.new_job_path = "start_tour.php";
             this.loc_update_path = "loc_update.php";
             this.get_traffic_path = "traffic/top";
+
+           
+
         }
         public string HTTPSRequestGet(string url, Dictionary<string, string> getParameters = null)
         {
