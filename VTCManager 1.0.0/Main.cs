@@ -125,14 +125,14 @@ namespace VTCManager_1._0._0
         public static int overlay_ist_offen = 0;
         public static Form over = new Overlay_1();
         private Label label6;
-        private Label label5;
-        private Label label4;
+        private Label label_GAS;
+        private Label lbl_BREMSE;
         private ProgressBar progressBar_BREMSE;
         private ProgressBar progressBar_GAS;
-        private Label label3;
+        private Label lbl_RPM;
         private ProgressBar progressBar_RPM;
         private Label lbl_GANG;
-        private Label label7;
+        private Label lbl_KUPPLUNG;
         private ProgressBar progressBar_KUPPLUNG;
         public static int overlay_Opacity;
 
@@ -461,6 +461,10 @@ namespace VTCManager_1._0._0
                             {
                                 this.s.Write("0");
                             }*/
+
+                            if(!File.Exists("test"))  {
+
+                            }
                             this.CoordinateX = (double)data.Physics.CoordinateX;
                             this.CoordinateZ = (double)data.Physics.CoordinateZ;
                             this.rotation = (double)data.Physics.RotationX * Math.PI * 2.0;
@@ -745,15 +749,15 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lbl_KUPPLUNG = new System.Windows.Forms.Label();
             this.progressBar_KUPPLUNG = new System.Windows.Forms.ProgressBar();
             this.lbl_GANG = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label_GAS = new System.Windows.Forms.Label();
+            this.lbl_BREMSE = new System.Windows.Forms.Label();
             this.progressBar_BREMSE = new System.Windows.Forms.ProgressBar();
             this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbl_RPM = new System.Windows.Forms.Label();
             this.progressBar_RPM = new System.Windows.Forms.ProgressBar();
             this.thommy_Test = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
@@ -908,6 +912,7 @@ namespace VTCManager_1._0._0
             this.lbl_Overlay.Name = "lbl_Overlay";
             this.lbl_Overlay.Size = new System.Drawing.Size(76, 28);
             this.lbl_Overlay.Text = "Overlay";
+            this.lbl_Overlay.Visible = false;
             this.lbl_Overlay.Click += new System.EventHandler(this.overlayToolStripMenuItem_Click);
             // 
             // linkLabel1
@@ -946,15 +951,15 @@ namespace VTCManager_1._0._0
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.lbl_KUPPLUNG);
             this.panel2.Controls.Add(this.progressBar_KUPPLUNG);
             this.panel2.Controls.Add(this.lbl_GANG);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label_GAS);
+            this.panel2.Controls.Add(this.lbl_BREMSE);
             this.panel2.Controls.Add(this.progressBar_BREMSE);
             this.panel2.Controls.Add(this.progressBar_GAS);
-            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lbl_RPM);
             this.panel2.Controls.Add(this.progressBar_RPM);
             this.panel2.Controls.Add(this.thommy_Test);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
@@ -970,14 +975,14 @@ namespace VTCManager_1._0._0
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
             // 
-            // label7
+            // lbl_KUPPLUNG
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1, 448);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Kupplung";
+            this.lbl_KUPPLUNG.AutoSize = true;
+            this.lbl_KUPPLUNG.Location = new System.Drawing.Point(1, 448);
+            this.lbl_KUPPLUNG.Name = "lbl_KUPPLUNG";
+            this.lbl_KUPPLUNG.Size = new System.Drawing.Size(52, 13);
+            this.lbl_KUPPLUNG.TabIndex = 17;
+            this.lbl_KUPPLUNG.Text = "Kupplung";
             // 
             // progressBar_KUPPLUNG
             // 
@@ -1007,23 +1012,23 @@ namespace VTCManager_1._0._0
             this.label6.TabIndex = 14;
             this.label6.Text = "Streckenverlauf";
             // 
-            // label5
+            // label_GAS
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 419);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Gas";
+            this.label_GAS.AutoSize = true;
+            this.label_GAS.Location = new System.Drawing.Point(27, 419);
+            this.label_GAS.Name = "label_GAS";
+            this.label_GAS.Size = new System.Drawing.Size(26, 13);
+            this.label_GAS.TabIndex = 13;
+            this.label_GAS.Text = "Gas";
             // 
-            // label4
+            // lbl_BREMSE
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 480);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Bremse";
+            this.lbl_BREMSE.AutoSize = true;
+            this.lbl_BREMSE.Location = new System.Drawing.Point(11, 480);
+            this.lbl_BREMSE.Name = "lbl_BREMSE";
+            this.lbl_BREMSE.Size = new System.Drawing.Size(42, 13);
+            this.lbl_BREMSE.TabIndex = 12;
+            this.lbl_BREMSE.Text = "Bremse";
             // 
             // progressBar_BREMSE
             // 
@@ -1041,14 +1046,14 @@ namespace VTCManager_1._0._0
             this.progressBar_GAS.Step = 1;
             this.progressBar_GAS.TabIndex = 10;
             // 
-            // label3
+            // lbl_RPM
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 512);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "RPM";
+            this.lbl_RPM.AutoSize = true;
+            this.lbl_RPM.Location = new System.Drawing.Point(22, 512);
+            this.lbl_RPM.Name = "lbl_RPM";
+            this.lbl_RPM.Size = new System.Drawing.Size(31, 13);
+            this.lbl_RPM.TabIndex = 9;
+            this.lbl_RPM.Text = "RPM";
             // 
             // progressBar_RPM
             // 
@@ -1421,8 +1426,28 @@ namespace VTCManager_1._0._0
             {
                 truckersMP_Button.Visible = false;
             }
+
+
             Utilities util = new Utilities();
-            if(util.Reg_Lesen("TruckersMP_Autorun", "button_show") == "1")
+
+            // GAS_PROGRESS_AUSBLENDEN WENN 0
+            progressBar_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1" ? true : false);
+            label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1" ? true : false);
+            // BREMSE AUSBLENDEN WENN 0
+            progressBar_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1" ? true : false);
+            lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1" ? true : false);
+            // KUPPLUNG AUSBLENDEN WENN 0
+            progressBar_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1" ? true : false);
+            lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1" ? true : false);
+            // RPM AUSBLENDEN WENN 0
+            progressBar_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE") == "1" ? true : false);
+            lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE") == "1" ? true : false);
+            // GANG AUSBLENDEN WENN 0
+            lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1" ? true : false);
+
+
+
+            if (util.Reg_Lesen("Trucker_", "button_show") == "1")
             {
                 truckersMP_Button.Visible = true;
             } else

@@ -133,7 +133,7 @@ namespace VTCManager_1._0._0
             this.version_text.Name = "version_text";
             this.version_text.Size = new Size(101, 13);
             this.version_text.TabIndex = 7;
-            this.version_text.Text = "Version: 1.0.5 Beta";
+            this.version_text.Text = "Version: 1.1.1 Alpha";
             this.version_text.TextAlign = ContentAlignment.MiddleRight;
             this.AutoScaleDimensions = new SizeF(6f, 13f);
             this.AutoScaleMode = AutoScaleMode.Font;
@@ -244,7 +244,7 @@ namespace VTCManager_1._0._0
 
         private void Main_Load(object sender, EventArgs e)
         {
-            this.version_text.Text = "Version: 1.1.0";
+            this.version_text.Text = "Version: 1.1.1";
             version_int = 110;
             string fileName = this.api.HTTPSRequestPost("https://vtc.northwestvideo.de/api/app/download.php", new Dictionary<string, string>()
       {

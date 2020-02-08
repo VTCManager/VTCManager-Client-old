@@ -33,6 +33,12 @@ namespace VTCManager_1._0._0
         private Label label6;
         private NumericUpDown num_Overlay_Transparenz;
         private Label label5;
+        private GroupBox groupBox4;
+        private CheckBox chk_GANG;
+        private CheckBox chk_KUPPLUNG;
+        private CheckBox chk_BREMSE;
+        private CheckBox chk_GAS;
+        private CheckBox chk_RPM_ANZEIGE;
         private string selected_server_tm;
 
         public SettingsWindow() {
@@ -73,15 +79,22 @@ namespace VTCManager_1._0._0
             this.label3 = new System.Windows.Forms.Label();
             this.trucker_MP_Browser_Dialog = new System.Windows.Forms.FolderBrowserDialog();
             this.group_Overlay = new System.Windows.Forms.GroupBox();
-            this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.num_Overlay_Transparenz = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.num_Overlay_Transparenz = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chk_GANG = new System.Windows.Forms.CheckBox();
+            this.chk_KUPPLUNG = new System.Windows.Forms.CheckBox();
+            this.chk_BREMSE = new System.Windows.Forms.CheckBox();
+            this.chk_GAS = new System.Windows.Forms.CheckBox();
+            this.chk_RPM_ANZEIGE = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -120,7 +133,7 @@ namespace VTCManager_1._0._0
             // 
             // save_button
             // 
-            this.save_button.Location = new System.Drawing.Point(289, 537);
+            this.save_button.Location = new System.Drawing.Point(469, 546);
             this.save_button.Name = "save_button";
             this.save_button.Size = new System.Drawing.Size(149, 41);
             this.save_button.TabIndex = 3;
@@ -135,7 +148,7 @@ namespace VTCManager_1._0._0
             this.groupBox1.Controls.Add(this.speed_setup_box);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(222, 111);
+            this.groupBox1.Size = new System.Drawing.Size(271, 111);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Einstellungen";
@@ -146,7 +159,7 @@ namespace VTCManager_1._0._0
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Location = new System.Drawing.Point(12, 139);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(222, 100);
+            this.groupBox2.Size = new System.Drawing.Size(271, 100);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Design Einstellungen";
@@ -179,7 +192,7 @@ namespace VTCManager_1._0._0
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(13, 246);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(370, 156);
+            this.groupBox3.Size = new System.Drawing.Size(270, 156);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "TruckersMP Einstellungen";
@@ -189,9 +202,9 @@ namespace VTCManager_1._0._0
             this.truckers_autorun.AutoSize = true;
             this.truckers_autorun.Location = new System.Drawing.Point(13, 118);
             this.truckers_autorun.Name = "truckers_autorun";
-            this.truckers_autorun.Size = new System.Drawing.Size(230, 17);
+            this.truckers_autorun.Size = new System.Drawing.Size(129, 17);
             this.truckers_autorun.TabIndex = 4;
-            this.truckers_autorun.Text = "Truckers MP beim Start automatisch öffnen";
+            this.truckers_autorun.Text = "TruckersMP Autostart";
             this.truckers_autorun.UseVisualStyleBackColor = true;
             this.truckers_autorun.CheckedChanged += new System.EventHandler(this.truckers_autorun_CheckedChanged);
             // 
@@ -217,9 +230,9 @@ namespace VTCManager_1._0._0
             // 
             // truckersMP_Pfad_TextBox
             // 
-            this.truckersMP_Pfad_TextBox.Location = new System.Drawing.Point(10, 36);
+            this.truckersMP_Pfad_TextBox.Location = new System.Drawing.Point(6, 36);
             this.truckersMP_Pfad_TextBox.Name = "truckersMP_Pfad_TextBox";
-            this.truckersMP_Pfad_TextBox.Size = new System.Drawing.Size(354, 20);
+            this.truckersMP_Pfad_TextBox.Size = new System.Drawing.Size(258, 20);
             this.truckersMP_Pfad_TextBox.TabIndex = 1;
             // 
             // label3
@@ -241,29 +254,21 @@ namespace VTCManager_1._0._0
             this.group_Overlay.Controls.Add(this.num_Overlay_Transparenz);
             this.group_Overlay.Controls.Add(this.label5);
             this.group_Overlay.Controls.Add(this.combo_Bildschirme);
-            this.group_Overlay.Location = new System.Drawing.Point(263, 12);
+            this.group_Overlay.Location = new System.Drawing.Point(289, 12);
             this.group_Overlay.Name = "group_Overlay";
-            this.group_Overlay.Size = new System.Drawing.Size(326, 100);
+            this.group_Overlay.Size = new System.Drawing.Size(321, 111);
             this.group_Overlay.TabIndex = 7;
             this.group_Overlay.TabStop = false;
             this.group_Overlay.Text = "Overlay Einstellungen";
             // 
-            // combo_Bildschirme
+            // label6
             // 
-            this.combo_Bildschirme.FormattingEnabled = true;
-            this.combo_Bildschirme.Location = new System.Drawing.Point(116, 28);
-            this.combo_Bildschirme.Name = "combo_Bildschirme";
-            this.combo_Bildschirme.Size = new System.Drawing.Size(195, 21);
-            this.combo_Bildschirme.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Gaming-Monitor:";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(41, 58);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Transparenz:";
             // 
             // num_Overlay_Transparenz
             // 
@@ -278,18 +283,96 @@ namespace VTCManager_1._0._0
             0});
             this.num_Overlay_Transparenz.ValueChanged += new System.EventHandler(this.num_Overlay_Transparenz_ValueChanged);
             // 
-            // label6
+            // label5
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 58);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Transparenz:";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(26, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Gaming-Monitor:";
+            // 
+            // combo_Bildschirme
+            // 
+            this.combo_Bildschirme.FormattingEnabled = true;
+            this.combo_Bildschirme.Location = new System.Drawing.Point(116, 28);
+            this.combo_Bildschirme.Name = "combo_Bildschirme";
+            this.combo_Bildschirme.Size = new System.Drawing.Size(195, 21);
+            this.combo_Bildschirme.TabIndex = 0;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.chk_RPM_ANZEIGE);
+            this.groupBox4.Controls.Add(this.chk_GANG);
+            this.groupBox4.Controls.Add(this.chk_KUPPLUNG);
+            this.groupBox4.Controls.Add(this.chk_BREMSE);
+            this.groupBox4.Controls.Add(this.chk_GAS);
+            this.groupBox4.Location = new System.Drawing.Point(289, 139);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(321, 100);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Anzeige-Einstellungen";
+            // 
+            // chk_GANG
+            // 
+            this.chk_GANG.AutoSize = true;
+            this.chk_GANG.Location = new System.Drawing.Point(158, 23);
+            this.chk_GANG.Name = "chk_GANG";
+            this.chk_GANG.Size = new System.Drawing.Size(93, 17);
+            this.chk_GANG.TabIndex = 3;
+            this.chk_GANG.Text = "Gang-Anzeige";
+            this.chk_GANG.UseVisualStyleBackColor = true;
+            this.chk_GANG.CheckedChanged += new System.EventHandler(this.chk_GANG_CheckedChanged);
+            // 
+            // chk_KUPPLUNG
+            // 
+            this.chk_KUPPLUNG.AutoSize = true;
+            this.chk_KUPPLUNG.Location = new System.Drawing.Point(22, 69);
+            this.chk_KUPPLUNG.Name = "chk_KUPPLUNG";
+            this.chk_KUPPLUNG.Size = new System.Drawing.Size(102, 17);
+            this.chk_KUPPLUNG.TabIndex = 2;
+            this.chk_KUPPLUNG.Text = "Kupplungspedal";
+            this.chk_KUPPLUNG.UseVisualStyleBackColor = true;
+            this.chk_KUPPLUNG.CheckedChanged += new System.EventHandler(this.chk_KUPPLUNG_CheckedChanged);
+            // 
+            // chk_BREMSE
+            // 
+            this.chk_BREMSE.AutoSize = true;
+            this.chk_BREMSE.Location = new System.Drawing.Point(22, 46);
+            this.chk_BREMSE.Name = "chk_BREMSE";
+            this.chk_BREMSE.Size = new System.Drawing.Size(81, 17);
+            this.chk_BREMSE.TabIndex = 1;
+            this.chk_BREMSE.Text = "Bremspedal";
+            this.chk_BREMSE.UseVisualStyleBackColor = true;
+            this.chk_BREMSE.CheckedChanged += new System.EventHandler(this.chk_BREMSE_CheckedChanged);
+            // 
+            // chk_GAS
+            // 
+            this.chk_GAS.AutoSize = true;
+            this.chk_GAS.Location = new System.Drawing.Point(22, 23);
+            this.chk_GAS.Name = "chk_GAS";
+            this.chk_GAS.Size = new System.Drawing.Size(71, 17);
+            this.chk_GAS.TabIndex = 0;
+            this.chk_GAS.Text = "Gaspedal";
+            this.chk_GAS.UseVisualStyleBackColor = true;
+            this.chk_GAS.CheckedChanged += new System.EventHandler(this.chk_GAS_CheckedChanged);
+            // 
+            // chk_RPM_ANZEIGE
+            // 
+            this.chk_RPM_ANZEIGE.AutoSize = true;
+            this.chk_RPM_ANZEIGE.Location = new System.Drawing.Point(158, 44);
+            this.chk_RPM_ANZEIGE.Name = "chk_RPM_ANZEIGE";
+            this.chk_RPM_ANZEIGE.Size = new System.Drawing.Size(96, 17);
+            this.chk_RPM_ANZEIGE.TabIndex = 4;
+            this.chk_RPM_ANZEIGE.Text = "R/PM Anzeige";
+            this.chk_RPM_ANZEIGE.UseVisualStyleBackColor = true;
+            this.chk_RPM_ANZEIGE.CheckedChanged += new System.EventHandler(this.chk_RPM_ANZEIGE_CheckedChanged);
             // 
             // SettingsWindow
             // 
-            this.ClientSize = new System.Drawing.Size(744, 599);
+            this.ClientSize = new System.Drawing.Size(630, 599);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -309,6 +392,8 @@ namespace VTCManager_1._0._0
             this.group_Overlay.ResumeLayout(false);
             this.group_Overlay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -366,20 +451,48 @@ namespace VTCManager_1._0._0
             
 
             Utilities util2 = new Utilities();
+
             string wert99 = util2.Reg_Lesen("TruckersMP_Autorun", "autorun");
             string wert98 = util2.Reg_Lesen("TruckersMP_Autorun", "button_show");
-            if(wert99 == "1")
+            string wert22 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GAS");
+            string wert23 = util2.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE");
+            string wert24 = util2.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG");
+            string wert25 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GANG");
+            string wert26 = util2.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE");
+
+            if (wert99 == "1")
             {
                 truckers_autorun.CheckState = CheckState.Checked;
             } else
             {
                 truckers_autorun.CheckState = CheckState.Unchecked;
-                
             }
 
+
+            // CHECKBOXEN FÜLLEN FÜR PROGRESS BARS
+            if(wert22 == "1") { 
+                chk_GAS.CheckState = CheckState.Checked; } else { 
+                chk_GAS.CheckState = CheckState.Unchecked;  }
+            if (wert23 == "1") {
+                chk_BREMSE.CheckState = CheckState.Checked; } else {
+                chk_BREMSE.CheckState = CheckState.Unchecked;
+            }
+            if (wert24 == "1") {
+                chk_KUPPLUNG.CheckState = CheckState.Checked; } else {
+                chk_KUPPLUNG.CheckState = CheckState.Unchecked;
+            }
+            if (wert25 == "1") {
+                chk_GANG.CheckState = CheckState.Checked; } else {
+                chk_GANG.CheckState = CheckState.Unchecked;
+            }
+            if (wert26 == "1") { 
+                chk_RPM_ANZEIGE.CheckState = CheckState.Checked; } else {
+                chk_RPM_ANZEIGE.CheckState = CheckState.Unchecked;
+            }
+
+
+
             // Listbox mit Bildschirmen füllen
-
-
 
             combo_Bildschirme.Items.Clear();
             combo_Bildschirme.Items.Add(Screen.AllScreens.GetUpperBound(0));
@@ -425,11 +538,11 @@ namespace VTCManager_1._0._0
             if(truckers_autorun.CheckState == CheckState.Checked)
             {
                 Utilities util = new Utilities();
-                util.Reg_Schreiben("button_show", "1");
+                util.Reg_Schreiben("autorun", "1");
             } else
             {
                 Utilities util = new Utilities();
-                util.Reg_Schreiben("button_show", "0");
+                util.Reg_Schreiben("autorun", "0");
             }
         }
 
@@ -438,12 +551,12 @@ namespace VTCManager_1._0._0
             if (truckersMP_Button_anzeigen.CheckState == CheckState.Checked)
             {
                 Utilities util = new Utilities();
-                util.Reg_Schreiben("autorun", "1");
+                util.Reg_Schreiben("button_show", "1");
             }
             else
             {
                 Utilities util = new Utilities();
-                util.Reg_Schreiben("autorun", "0");
+                util.Reg_Schreiben("button_show", "0");
             }
         }
 
@@ -454,6 +567,76 @@ namespace VTCManager_1._0._0
             Main.overlay_ist_offen = 1;
             Main.over.Update();
             Console.WriteLine(anz/100);
+        }
+
+        private void chk_GAS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_GAS.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_GAS", "1");
+            }
+            else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_GAS", "0");
+            }
+        }
+
+        private void chk_BREMSE_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_BREMSE.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_BREMSE", "1");
+            }
+            else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_BREMSE", "0");
+            }
+        }
+
+        private void chk_KUPPLUNG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_KUPPLUNG.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_KUPPLUNG", "1");
+            }
+            else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_KUPPLUNG", "0");
+            }
+        }
+
+        private void chk_GANG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_GANG.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_GANG", "1");
+            }
+            else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_GANG", "0");
+            }
+        }
+
+        private void chk_RPM_ANZEIGE_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_RPM_ANZEIGE.CheckState == CheckState.Checked)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_RPM_ANZEIGE", "1");
+            }
+            else
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("show_RPM_ANZEIGE", "0");
+            }
         }
     }
 }
