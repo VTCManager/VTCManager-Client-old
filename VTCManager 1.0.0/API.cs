@@ -36,7 +36,8 @@ namespace VTCManager_1._0._0
             this.loc_update_path = "loc_update.php";
             this.get_traffic_path = "traffic/top";
 
-           
+        
+
 
         }
         public string HTTPSRequestGet(string url, Dictionary<string, string> getParameters = null)
@@ -60,10 +61,7 @@ namespace VTCManager_1._0._0
                 str2 = new StreamReader(stream).ReadToEnd();
             }
             response.Close();
-            Console.WriteLine(str2);
-            Console.WriteLine(str);
             return str2;
-
         }
         public string HTTPSRequestPost(string url, Dictionary<string, string> postParameters, bool outputError = true)
         {
@@ -93,6 +91,8 @@ namespace VTCManager_1._0._0
                 Console.WriteLine(str3);
                 Console.WriteLine(s);
                 return str3;
+
+                
             }
             catch (WebException exception)
             {

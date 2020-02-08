@@ -124,6 +124,16 @@ namespace VTCManager_1._0._0
         public static int truckersMP_autorun;
         public static int overlay_ist_offen = 0;
         public static Form over = new Overlay_1();
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private ProgressBar progressBar_BREMSE;
+        private ProgressBar progressBar_GAS;
+        private Label label3;
+        private ProgressBar progressBar_RPM;
+        private Label lbl_GANG;
+        private Label label7;
+        private ProgressBar progressBar_KUPPLUNG;
         public static int overlay_Opacity;
 
 
@@ -134,10 +144,23 @@ namespace VTCManager_1._0._0
             over.Opacity = 0;
             over.Show();
 
-            this.notification_sound_success = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\insight.wav");
-            this.notification_sound_fail = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav");
-            this.notification_sound_tour_start = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav");
-            this.notification_sound_tour_end = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav");
+            if (File.Exists(Environment.CurrentDirectory + @"\Ressources\insight.wav"))
+            {
+                this.notification_sound_success = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\insight.wav");
+            }
+            if (File.Exists(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav.wav"))
+            {
+                this.notification_sound_fail = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav");
+            }
+            if (File.Exists(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav"))
+            {
+                this.notification_sound_tour_start = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav");
+            }
+            if (File.Exists(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav"))
+            {
+                this.notification_sound_tour_end = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav");
+            }
+            
             this.username = username;
             this.driven_tours = driven_tours;
             this.act_bank_balance = act_bank_balance;
@@ -211,6 +234,7 @@ namespace VTCManager_1._0._0
             this.user_company_lb.Text = translation.user_company_lb + this.userCompany;
             this.version_lb.Text = translation.version;
             this.MenuAbmeldenButton.Text = translation.logout;
+
             if (this.settings.Cache.truckersmp_server == "sim1") {
                 this.label2.Text = "Server: Simulation 1";
             } else if (this.settings.Cache.truckersmp_server == "sim2")
@@ -345,6 +369,21 @@ namespace VTCManager_1._0._0
                             this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                         if (data.Truck != "")
                         {
+                            double kupp1 = Convert.ToDouble( data.Controls.UserClutch.ToString() )*100;
+                            double gas1 = Convert.ToDouble(data.Controls.UserThrottle.ToString()) * 100;
+                            double brems1 = Convert.ToDouble(data.Controls.UserBrake.ToString()) * 100;
+                            double rpm1 = Convert.ToDouble(data.Drivetrain.EngineRpm.ToString());
+                            double rpm_max = Convert.ToDouble(data.Drivetrain.EngineRpmMax.ToString());
+
+
+                            progressBar_KUPPLUNG.Value = Convert.ToInt32(kupp1);
+                            progressBar_GAS.Value = Convert.ToInt32(gas1);
+                            progressBar_BREMSE.Value = Convert.ToInt32(brems1);
+                            progressBar_RPM.Maximum = Convert.ToInt32(rpm_max);
+                            progressBar_RPM.Value = Convert.ToInt32(rpm1);
+                            progressBar_RPM.Refresh();
+
+                            lbl_GANG.Text = data.Drivetrain.Gear.ToString();
 
 
                             if (data.Truck == "Extra_D" || data.Truck == "Superb") {
@@ -364,15 +403,6 @@ namespace VTCManager_1._0._0
                             }
                             else
                             {
-                                if (this.jobRunning == true || this.stillTheSameJob == true)
-                                {
-                                    thommy_Test.Text = "Angehangen!";
-                                }
-                                else
-                                {
-                                    thommy_Test.Text = "Kein Hänger!";
-                                }
-
                                 this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
                             }
                             if(this.serial_start == false)
@@ -445,7 +475,6 @@ namespace VTCManager_1._0._0
                                 this.InitializeDiscord(0); //ot working uff cant update RPC
                                 this.discordRPCalreadrunning = true;
                             }
-                            
                         }
                         else
                         {
@@ -483,6 +512,8 @@ namespace VTCManager_1._0._0
                         this.depature_lb.Visible = false;
                         this.cargo_lb.Visible = false;
                         this.speed_lb.Text = translation.waiting_for_ets;
+ 
+
                     }
                 label_25:
                     double num2;
@@ -509,9 +540,9 @@ namespace VTCManager_1._0._0
                                     postParameters.Add("cargo", data.Job.Cargo);
                                     postParameters.Add("weight", ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString());
                                     postParameters.Add("depature", data.Job.CitySource);
-                                postParameters.Add("depature_company", data.Job.CompanySource);
-                                postParameters.Add("destination_company", data.Job.CompanyDestination);
-                                postParameters.Add("destination", data.Job.CityDestination);
+                                    postParameters.Add("depature_company", data.Job.CompanySource);
+                                    postParameters.Add("destination_company", data.Job.CompanyDestination);
+                                    postParameters.Add("destination", data.Job.CityDestination);
                                     postParameters.Add("truck_manufacturer", data.Manufacturer);
                                     postParameters.Add("truck_model", data.Truck);
                                     postParameters.Add("distance", this.totalDistance.ToString());
@@ -541,14 +572,10 @@ namespace VTCManager_1._0._0
                     }
                     if (this.jobRunning)
                     {
-               
                         if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
                         {
                             if (Utilities.IsGameRunning)
                             {
-                            
-
-
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
                                 {
@@ -557,7 +584,8 @@ namespace VTCManager_1._0._0
                                     this.progressBar1.Value = this.currentPercentage;
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
-                  {
+                                  
+                    {
                     {
                       "authcode",
                       this.authCode
@@ -617,7 +645,7 @@ namespace VTCManager_1._0._0
                                     this.jobID = "0";
                                     this.destination_lb.Text = "";
                                     this.depature_lb.Text = "";
-                                    this.cargo_lb.Text = translation.no_cargo_lb;
+                                    //this.cargo_lb.Text = translation.no_cargo_lb;
                                     this.lastJobDictionary.Clear();
                                 }
                                 else
@@ -629,18 +657,22 @@ namespace VTCManager_1._0._0
                                 }
                             }
                         }
+                        Console.WriteLine(this.s.ToString());
                         this.jobFinished = false;
                     }
-
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
-                    this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
-                    this.progressBar1.Value = this.currentPercentage;
+                    try
+                    {
+                        this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
+                    }
+                    catch { }
 
-                
+                    this.progressBar1.Value = this.currentPercentage;
                 }
             }
             catch
             {
+           
             }
         }
 
@@ -713,6 +745,16 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.progressBar_KUPPLUNG = new System.Windows.Forms.ProgressBar();
+            this.lbl_GANG = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.progressBar_BREMSE = new System.Windows.Forms.ProgressBar();
+            this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.progressBar_RPM = new System.Windows.Forms.ProgressBar();
             this.thommy_Test = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
@@ -904,6 +946,16 @@ namespace VTCManager_1._0._0
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.progressBar_KUPPLUNG);
+            this.panel2.Controls.Add(this.lbl_GANG);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.progressBar_BREMSE);
+            this.panel2.Controls.Add(this.progressBar_GAS);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.progressBar_RPM);
             this.panel2.Controls.Add(this.thommy_Test);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
@@ -917,6 +969,94 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(1, 448);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Kupplung";
+            // 
+            // progressBar_KUPPLUNG
+            // 
+            this.progressBar_KUPPLUNG.Location = new System.Drawing.Point(55, 443);
+            this.progressBar_KUPPLUNG.Name = "progressBar_KUPPLUNG";
+            this.progressBar_KUPPLUNG.Size = new System.Drawing.Size(493, 23);
+            this.progressBar_KUPPLUNG.Step = 1;
+            this.progressBar_KUPPLUNG.TabIndex = 16;
+            // 
+            // lbl_GANG
+            // 
+            this.lbl_GANG.AutoSize = true;
+            this.lbl_GANG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_GANG.Font = new System.Drawing.Font("Verdana", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_GANG.Location = new System.Drawing.Point(429, 295);
+            this.lbl_GANG.Name = "lbl_GANG";
+            this.lbl_GANG.Size = new System.Drawing.Size(120, 118);
+            this.lbl_GANG.TabIndex = 15;
+            this.lbl_GANG.Text = "1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(217, 540);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(82, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Streckenverlauf";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(27, 419);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Gas";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 480);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Bremse";
+            // 
+            // progressBar_BREMSE
+            // 
+            this.progressBar_BREMSE.Location = new System.Drawing.Point(55, 475);
+            this.progressBar_BREMSE.Name = "progressBar_BREMSE";
+            this.progressBar_BREMSE.Size = new System.Drawing.Size(493, 23);
+            this.progressBar_BREMSE.TabIndex = 11;
+            // 
+            // progressBar_GAS
+            // 
+            this.progressBar_GAS.ForeColor = System.Drawing.Color.DarkRed;
+            this.progressBar_GAS.Location = new System.Drawing.Point(55, 414);
+            this.progressBar_GAS.Name = "progressBar_GAS";
+            this.progressBar_GAS.Size = new System.Drawing.Size(493, 23);
+            this.progressBar_GAS.Step = 1;
+            this.progressBar_GAS.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 512);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "RPM";
+            // 
+            // progressBar_RPM
+            // 
+            this.progressBar_RPM.Location = new System.Drawing.Point(55, 507);
+            this.progressBar_RPM.Maximum = 10000;
+            this.progressBar_RPM.Name = "progressBar_RPM";
+            this.progressBar_RPM.Size = new System.Drawing.Size(493, 23);
+            this.progressBar_RPM.TabIndex = 8;
             // 
             // thommy_Test
             // 
@@ -1262,9 +1402,6 @@ namespace VTCManager_1._0._0
         private void Main_Load(object sender, EventArgs e)
         {
 
-            
-
-
             if (Directory.Exists(@"C:\Program Files\TruckersMP Launcher")) {
                 truckersMP_Link = @"C:\Program Files\TruckersMP Launcher\Launcher.exe";
                 truckersMP_Button.Visible = true;
@@ -1355,8 +1492,6 @@ namespace VTCManager_1._0._0
 
         private void overlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-
             if(overlay_ist_offen == 0)
             {
                 Main.over.Opacity = 1;
@@ -1366,14 +1501,12 @@ namespace VTCManager_1._0._0
                 Main.over.Opacity = 0;
                 overlay_ist_offen = 0;
             }
-
-
-
         }
 
         private void Main_FormClosing_1(object sender, FormClosingEventArgs e)
         {
             TaskBar_Icon.Dispose();
         }
+
     }
 }
