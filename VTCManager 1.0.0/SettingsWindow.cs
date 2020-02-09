@@ -84,11 +84,11 @@ namespace VTCManager_1._0._0
             this.label5 = new System.Windows.Forms.Label();
             this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chk_RPM_ANZEIGE = new System.Windows.Forms.CheckBox();
             this.chk_GANG = new System.Windows.Forms.CheckBox();
             this.chk_KUPPLUNG = new System.Windows.Forms.CheckBox();
             this.chk_BREMSE = new System.Windows.Forms.CheckBox();
             this.chk_GAS = new System.Windows.Forms.CheckBox();
-            this.chk_RPM_ANZEIGE = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -314,6 +314,17 @@ namespace VTCManager_1._0._0
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Anzeige-Einstellungen";
             // 
+            // chk_RPM_ANZEIGE
+            // 
+            this.chk_RPM_ANZEIGE.AutoSize = true;
+            this.chk_RPM_ANZEIGE.Location = new System.Drawing.Point(158, 44);
+            this.chk_RPM_ANZEIGE.Name = "chk_RPM_ANZEIGE";
+            this.chk_RPM_ANZEIGE.Size = new System.Drawing.Size(96, 17);
+            this.chk_RPM_ANZEIGE.TabIndex = 4;
+            this.chk_RPM_ANZEIGE.Text = "R/PM Anzeige";
+            this.chk_RPM_ANZEIGE.UseVisualStyleBackColor = true;
+            this.chk_RPM_ANZEIGE.CheckedChanged += new System.EventHandler(this.chk_RPM_ANZEIGE_CheckedChanged);
+            // 
             // chk_GANG
             // 
             this.chk_GANG.AutoSize = true;
@@ -358,17 +369,6 @@ namespace VTCManager_1._0._0
             this.chk_GAS.UseVisualStyleBackColor = true;
             this.chk_GAS.CheckedChanged += new System.EventHandler(this.chk_GAS_CheckedChanged);
             // 
-            // chk_RPM_ANZEIGE
-            // 
-            this.chk_RPM_ANZEIGE.AutoSize = true;
-            this.chk_RPM_ANZEIGE.Location = new System.Drawing.Point(158, 44);
-            this.chk_RPM_ANZEIGE.Name = "chk_RPM_ANZEIGE";
-            this.chk_RPM_ANZEIGE.Size = new System.Drawing.Size(96, 17);
-            this.chk_RPM_ANZEIGE.TabIndex = 4;
-            this.chk_RPM_ANZEIGE.Text = "R/PM Anzeige";
-            this.chk_RPM_ANZEIGE.UseVisualStyleBackColor = true;
-            this.chk_RPM_ANZEIGE.CheckedChanged += new System.EventHandler(this.chk_RPM_ANZEIGE_CheckedChanged);
-            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
@@ -382,6 +382,7 @@ namespace VTCManager_1._0._0
             this.Name = "SettingsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Einstellungen";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsWindow_FormClosed);
             this.Load += new System.EventHandler(this.SettingsWindow_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -400,49 +401,60 @@ namespace VTCManager_1._0._0
 
         private void save_button_Click(object sender, EventArgs e)
         {
+            Utilities util = new Utilities();
+
             if (this.comboBox1.Text == "Simulation 1")
             {
                 this.selected_server_tm = "sim1";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
                 this.label2.Text = "Simulation 1";
+                // Edit by Thommy
+
+                util.Reg_Schreiben("verkehr_SERVER", "sim1");
+
             }
             else if (this.comboBox1.Text == "Simulation 2")
             {
                 this.selected_server_tm = "sim2";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
-                
+                this.label2.Text = "Simulation 2";
+                util.Reg_Schreiben("verkehr_SERVER", "sim2");
 
             }
             else if (this.comboBox1.Text == "Arcade")
             {
                 this.selected_server_tm = "arc1";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
+                this.label2.Text = "Arcade";
+                util.Reg_Schreiben("verkehr_SERVER", "arc1");
             }
             else if (this.comboBox1.Text == "EU Promods 1")
             {
                 this.selected_server_tm = "eupromods1";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
+                util.Reg_Schreiben("verkehr_SERVER", "eupromods1");
             }
             else if (this.comboBox1.Text == "EU Promods 2")
             {
                 this.selected_server_tm = "eupromods2";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
+                util.Reg_Schreiben("verkehr_SERVER", "eupromods2");
             }
             if (speed_setup_box.Checked)
             {
                 this.data.Cache.speed_mode = "mph";
+                util.Reg_Schreiben("speed_MODE", "mph");
             }
             else
             {
                 this.data.Cache.speed_mode = "kmh";
+                util.Reg_Schreiben("speed_MODE", "kmh");
             }
             this.data.SaveJobID();
-            MessageBox.Show(translation.save_info);
+
+            //MessageBox.Show(translation.save_info);
 
             // Edit by Thommy
-
-
-
             this.Close();
         }
 
@@ -637,6 +649,11 @@ namespace VTCManager_1._0._0
                 Utilities util = new Utilities();
                 util.Reg_Schreiben("show_RPM_ANZEIGE", "0");
             }
+        }
+
+        private void SettingsWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+       
         }
     }
 }

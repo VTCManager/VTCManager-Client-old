@@ -235,67 +235,66 @@ namespace VTCManager_1._0._0
             this.version_lb.Text = translation.version;
             this.MenuAbmeldenButton.Text = translation.logout;
 
-            if (this.settings.Cache.truckersmp_server == "sim1") {
-                this.label2.Text = "Server: Simulation 1";
-            } else if (this.settings.Cache.truckersmp_server == "sim2")
-            {
-                this.label2.Text = "Server: Simulation 2";
-            }
-            else if (this.settings.Cache.truckersmp_server == "arc1")
-            {
-                this.label2.Text = "Server: Arcade 1";
-            }
-            else if (this.settings.Cache.truckersmp_server == "eupromods1")
-            {
-                this.label2.Text = "Server: ProMods 1";
-            }
-            else if (this.settings.Cache.truckersmp_server == "eupromods2")
-            {
-                this.label2.Text = "Server: ProMods 2";
-            }
+            
         }
 
         private void load_traffic()
         {
-            if (string.IsNullOrEmpty(this.settings.Cache.truckersmp_server) == true) {
+            Utilities utils = new Utilities();
+            string server = utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
+
+            if (string.IsNullOrEmpty(server) == true) {
                 this.settings.Cache.truckersmp_server = "sim1";
                     }
-            Console.WriteLine(this.settings.Cache.truckersmp_server);
-            this.tableLayoutPanel1.Controls.Clear();
-            this.tableLayoutPanel1.RowStyles.Clear();
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.18533F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.81467F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 78);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 9;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(518, 179);
-            this.tableLayoutPanel1.TabIndex = 4;
-            API api = new API();
-            Dictionary<string, string> postParameters = new Dictionary<string, string>();
-            postParameters.Add("server", this.settings.Cache.truckersmp_server);
-            postParameters.Add("game", "ets2");
-            this.traffic_response = this.api.HTTPSRequestGet(this.api.trucky_api_server + this.api.get_traffic_path, postParameters).ToString();
-            var truckyTopTraffic = TruckyTopTraffic.FromJson(this.traffic_response);
-            this.AddItem(truckyTopTraffic.Response[0].Name, truckyTopTraffic.Response[0].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[1].Name, truckyTopTraffic.Response[1].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[2].Name, truckyTopTraffic.Response[2].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[3].Name, truckyTopTraffic.Response[3].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[4].Name, truckyTopTraffic.Response[4].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[5].Name, truckyTopTraffic.Response[5].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[6].Name, truckyTopTraffic.Response[6].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[7].Name, truckyTopTraffic.Response[7].Players.ToString());
-            this.AddItem(truckyTopTraffic.Response[8].Name, truckyTopTraffic.Response[8].Players.ToString());
+
+            Console.WriteLine(server);
+
+            if (this.GUI_SIZE == 1)
+            {
+                this.tableLayoutPanel1.Controls.Clear();
+                this.tableLayoutPanel1.RowStyles.Clear();
+                this.tableLayoutPanel1.ColumnCount = 2;
+                this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.18533F));
+                this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.81467F));
+                this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 78);
+                this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+                this.tableLayoutPanel1.RowCount = 9;
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel1.Size = new System.Drawing.Size(518, 179);
+                this.tableLayoutPanel1.TabIndex = 4;
+                API api = new API();
+                Dictionary<string, string> postParameters = new Dictionary<string, string>();
+                postParameters.Add("server", server);
+                postParameters.Add("game", "ets2");
+                this.traffic_response = this.api.HTTPSRequestGet(this.api.trucky_api_server + this.api.get_traffic_path, postParameters).ToString();
+                var truckyTopTraffic = TruckyTopTraffic.FromJson(this.traffic_response);
+                this.AddItem(truckyTopTraffic.Response[0].Name, truckyTopTraffic.Response[0].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[1].Name, truckyTopTraffic.Response[1].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[2].Name, truckyTopTraffic.Response[2].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[3].Name, truckyTopTraffic.Response[3].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[4].Name, truckyTopTraffic.Response[4].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[5].Name, truckyTopTraffic.Response[5].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[6].Name, truckyTopTraffic.Response[6].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[7].Name, truckyTopTraffic.Response[7].Players.ToString());
+                this.AddItem(truckyTopTraffic.Response[8].Name, truckyTopTraffic.Response[8].Players.ToString());
+
+                // Verkehr Label aktualisieren
+
+                if (server == "sim1") { label2.Text = "Server: Simulation 1"; }
+                if (server == "sim2") { label2.Text = "Server: Simulation 2"; }
+                if (server == "arc1") { label2.Text = "Server: Arcade 1"; }
+                if (server == "eupromods1") { label2.Text = "Server: ProMods 1"; }
+                if (server == "eupromods2") { label2.Text = "Server: ProMods 2"; }
+            }
 
         }
         private void AddItem(string road, string traffic)
@@ -685,8 +684,6 @@ namespace VTCManager_1._0._0
             this.jobRunning = true;
             try
             {
-
-
                 this.load_traffic();
             }
             catch (Exception)
@@ -749,14 +746,14 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label_GAS = new System.Windows.Forms.Label();
+            this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
             this.lbl_KUPPLUNG = new System.Windows.Forms.Label();
             this.progressBar_KUPPLUNG = new System.Windows.Forms.ProgressBar();
             this.lbl_GANG = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label_GAS = new System.Windows.Forms.Label();
             this.lbl_BREMSE = new System.Windows.Forms.Label();
             this.progressBar_BREMSE = new System.Windows.Forms.ProgressBar();
-            this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
             this.lbl_RPM = new System.Windows.Forms.Label();
             this.progressBar_RPM = new System.Windows.Forms.ProgressBar();
             this.thommy_Test = new System.Windows.Forms.Label();
@@ -945,20 +942,20 @@ namespace VTCManager_1._0._0
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label2.Location = new System.Drawing.Point(13, 41);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 19);
+            this.label2.Size = new System.Drawing.Size(18, 19);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Server: Simulation 1";
+            this.label2.Text = "...";
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label_GAS);
+            this.panel2.Controls.Add(this.progressBar_GAS);
             this.panel2.Controls.Add(this.lbl_KUPPLUNG);
             this.panel2.Controls.Add(this.progressBar_KUPPLUNG);
             this.panel2.Controls.Add(this.lbl_GANG);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label_GAS);
             this.panel2.Controls.Add(this.lbl_BREMSE);
             this.panel2.Controls.Add(this.progressBar_BREMSE);
-            this.panel2.Controls.Add(this.progressBar_GAS);
             this.panel2.Controls.Add(this.lbl_RPM);
             this.panel2.Controls.Add(this.progressBar_RPM);
             this.panel2.Controls.Add(this.thommy_Test);
@@ -974,6 +971,24 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
+            // 
+            // label_GAS
+            // 
+            this.label_GAS.AutoSize = true;
+            this.label_GAS.Location = new System.Drawing.Point(26, 419);
+            this.label_GAS.Name = "label_GAS";
+            this.label_GAS.Size = new System.Drawing.Size(26, 13);
+            this.label_GAS.TabIndex = 13;
+            this.label_GAS.Text = "Gas";
+            // 
+            // progressBar_GAS
+            // 
+            this.progressBar_GAS.ForeColor = System.Drawing.Color.DarkRed;
+            this.progressBar_GAS.Location = new System.Drawing.Point(55, 414);
+            this.progressBar_GAS.Name = "progressBar_GAS";
+            this.progressBar_GAS.Size = new System.Drawing.Size(493, 23);
+            this.progressBar_GAS.Step = 1;
+            this.progressBar_GAS.TabIndex = 10;
             // 
             // lbl_KUPPLUNG
             // 
@@ -1012,15 +1027,6 @@ namespace VTCManager_1._0._0
             this.label6.TabIndex = 14;
             this.label6.Text = "Streckenverlauf";
             // 
-            // label_GAS
-            // 
-            this.label_GAS.AutoSize = true;
-            this.label_GAS.Location = new System.Drawing.Point(27, 419);
-            this.label_GAS.Name = "label_GAS";
-            this.label_GAS.Size = new System.Drawing.Size(26, 13);
-            this.label_GAS.TabIndex = 13;
-            this.label_GAS.Text = "Gas";
-            // 
             // lbl_BREMSE
             // 
             this.lbl_BREMSE.AutoSize = true;
@@ -1036,15 +1042,6 @@ namespace VTCManager_1._0._0
             this.progressBar_BREMSE.Name = "progressBar_BREMSE";
             this.progressBar_BREMSE.Size = new System.Drawing.Size(493, 23);
             this.progressBar_BREMSE.TabIndex = 11;
-            // 
-            // progressBar_GAS
-            // 
-            this.progressBar_GAS.ForeColor = System.Drawing.Color.DarkRed;
-            this.progressBar_GAS.Location = new System.Drawing.Point(55, 414);
-            this.progressBar_GAS.Name = "progressBar_GAS";
-            this.progressBar_GAS.Size = new System.Drawing.Size(493, 23);
-            this.progressBar_GAS.Step = 1;
-            this.progressBar_GAS.TabIndex = 10;
             // 
             // lbl_RPM
             // 
@@ -1388,7 +1385,61 @@ namespace VTCManager_1._0._0
         private void einstellungenToolStripMenuItemClick(object sender, EventArgs e)
         {
             SettingsWindow Settingswindow = new SettingsWindow();
+            Settingswindow.FormClosing += new FormClosingEventHandler(ChildFormClosing);
             Settingswindow.ShowDialog();
+        }
+
+        private void ChildFormClosing(object sender, FormClosingEventArgs e)
+        {
+            Utilities regi = new Utilities();
+            // Progresses und Labels aktualisieren auf FORM1
+            if(regi.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1")
+            {
+                progressBar_GAS.Visible = true;
+                label_GAS.Visible = true;
+            } else
+            {
+                label_GAS.Visible = false;
+                progressBar_GAS.Visible = false;
+            }
+            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1")
+            {
+                lbl_BREMSE.Visible = true;
+                progressBar_BREMSE.Visible = true;
+            }
+            else
+            {
+                lbl_BREMSE.Visible = false;
+                progressBar_BREMSE.Visible = false;
+            }
+            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1")
+            {
+                lbl_KUPPLUNG.Visible = true;
+                progressBar_KUPPLUNG.Visible = true;
+            }
+            else
+            {
+                lbl_KUPPLUNG.Visible = false;
+                progressBar_KUPPLUNG.Visible = false;
+            }
+            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE") == "1")
+            {
+                lbl_RPM.Visible = true;
+                progressBar_RPM.Visible = true;
+            }
+            else
+            {
+                lbl_RPM.Visible = false;
+                progressBar_RPM.Visible = false;
+            }
+            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1")
+            {
+                lbl_GANG.Visible = true;
+            }
+            else
+            {
+                lbl_GANG.Visible = false;
+            }
         }
 
         private void MenuAbmeldenButton_Click(object sender, EventArgs e)
@@ -1445,8 +1496,7 @@ namespace VTCManager_1._0._0
             // GANG AUSBLENDEN WENN 0
             lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1" ? true : false);
 
-
-
+            // TruckersMP Button visible
             if (util.Reg_Lesen("Trucker_", "button_show") == "1")
             {
                 truckersMP_Button.Visible = true;
@@ -1532,6 +1582,7 @@ namespace VTCManager_1._0._0
         {
             TaskBar_Icon.Dispose();
         }
+
 
     }
 }
