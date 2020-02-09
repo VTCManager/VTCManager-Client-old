@@ -471,7 +471,7 @@ namespace VTCManager_1._0._0
             string wert24 = util2.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG");
             string wert25 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GANG");
             string wert26 = util2.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE");
-
+            string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
             if (wert99 == "1")
             {
                 truckers_autorun.CheckState = CheckState.Checked;
@@ -480,9 +480,17 @@ namespace VTCManager_1._0._0
                 truckers_autorun.CheckState = CheckState.Unchecked;
             }
 
+            // Server COMBO vorauswahl
+            if (wert27 == "sim1") { comboBox1.Text = "Simulation 1"; }
+            if (wert27 == "sim2") { comboBox1.Text = "Simulation 2"; }
+            if (wert27 == "arc1") { comboBox1.Text = "Arcade 1"; }
+            if (wert27 == "eupromods1") { comboBox1.Text = "EU Promods 1"; }
+            if (wert27 == "eupromods2") { comboBox1.Text = "EU Promods 2"; }
+
+
 
             // CHECKBOXEN FÜLLEN FÜR PROGRESS BARS
-            if(wert22 == "1") { 
+            if (wert22 == "1") { 
                 chk_GAS.CheckState = CheckState.Checked; } else { 
                 chk_GAS.CheckState = CheckState.Unchecked;  }
             if (wert23 == "1") {
