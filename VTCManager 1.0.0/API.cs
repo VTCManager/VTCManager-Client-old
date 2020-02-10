@@ -22,8 +22,6 @@ namespace VTCManager_1._0._0
         public string job_update_path;
         public string new_job_path;
         public string trucky_api_server;
-        public string messages = "messages.php";
-        public string messages_server = "https://darkwings.zwpc.de/";
         public API()
         {
             this.login_path = "login.php";

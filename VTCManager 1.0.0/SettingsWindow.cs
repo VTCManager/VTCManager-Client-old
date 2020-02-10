@@ -18,16 +18,9 @@ namespace VTCManager_1._0._0
         private CheckBox speed_setup_box;
         private Button save_button;
         private GroupBox groupBox1;
-        private GroupBox groupBox2;
-        private Label label2;
-        private CheckBox checkBox1;
-        private GroupBox groupBox3;
-        private TextBox truckersMP_Pfad_TextBox;
+        private GroupBox btn_TruckersMP_suchen;
         private Label label3;
-        private FolderBrowserDialog trucker_MP_Browser_Dialog;
         private CheckBox truckers_autorun;
-        private CheckBox truckersMP_Button_anzeigen;
-        private Label label4;
         private GroupBox group_Overlay;
         private ComboBox combo_Bildschirme;
         private Label label6;
@@ -39,7 +32,13 @@ namespace VTCManager_1._0._0
         private CheckBox chk_BREMSE;
         private CheckBox chk_GAS;
         private CheckBox chk_RPM_ANZEIGE;
+        private Button button1;
         private string selected_server_tm;
+        private System.Windows.Forms.OpenFileDialog tmp_Trucker;
+        private TextBox truckersMP_Pfad_TextBox;
+        private Label label4;
+        private NumericUpDown traffic_Update_Intervall;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
             this.data = new SettingsManager();
@@ -68,33 +67,31 @@ namespace VTCManager_1._0._0
             this.speed_setup_box = new System.Windows.Forms.CheckBox();
             this.save_button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.truckers_autorun = new System.Windows.Forms.CheckBox();
-            this.truckersMP_Button_anzeigen = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.btn_TruckersMP_suchen = new System.Windows.Forms.GroupBox();
             this.truckersMP_Pfad_TextBox = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.truckers_autorun = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.trucker_MP_Browser_Dialog = new System.Windows.Forms.FolderBrowserDialog();
             this.group_Overlay = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.num_Overlay_Transparenz = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.traffic_Update_Intervall = new System.Windows.Forms.NumericUpDown();
             this.chk_RPM_ANZEIGE = new System.Windows.Forms.CheckBox();
             this.chk_GANG = new System.Windows.Forms.CheckBox();
             this.chk_KUPPLUNG = new System.Windows.Forms.CheckBox();
             this.chk_BREMSE = new System.Windows.Forms.CheckBox();
             this.chk_GAS = new System.Windows.Forms.CheckBox();
+            this.tmp_Trucker = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.traffic_Update_Intervall)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -153,87 +150,46 @@ namespace VTCManager_1._0._0
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Einstellungen";
             // 
-            // groupBox2
+            // btn_TruckersMP_suchen
             // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 139);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(271, 100);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Design Einstellungen";
+            this.btn_TruckersMP_suchen.Controls.Add(this.truckersMP_Pfad_TextBox);
+            this.btn_TruckersMP_suchen.Controls.Add(this.button1);
+            this.btn_TruckersMP_suchen.Controls.Add(this.truckers_autorun);
+            this.btn_TruckersMP_suchen.Controls.Add(this.label3);
+            this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(12, 134);
+            this.btn_TruckersMP_suchen.Name = "btn_TruckersMP_suchen";
+            this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 143);
+            this.btn_TruckersMP_suchen.TabIndex = 6;
+            this.btn_TruckersMP_suchen.TabStop = false;
+            this.btn_TruckersMP_suchen.Text = "TruckersMP Einstellungen";
             // 
-            // label2
+            // truckersMP_Pfad_TextBox
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "(In Vorbereitung)";
+            this.truckersMP_Pfad_TextBox.Location = new System.Drawing.Point(7, 37);
+            this.truckersMP_Pfad_TextBox.Name = "truckersMP_Pfad_TextBox";
+            this.truckersMP_Pfad_TextBox.Size = new System.Drawing.Size(228, 20);
+            this.truckersMP_Pfad_TextBox.TabIndex = 10;
             // 
-            // checkBox1
+            // button1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(26, 28);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(79, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Dark-Mode";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.truckers_autorun);
-            this.groupBox3.Controls.Add(this.truckersMP_Button_anzeigen);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.truckersMP_Pfad_TextBox);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(13, 246);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(270, 156);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "TruckersMP Einstellungen";
+            this.button1.Location = new System.Drawing.Point(241, 36);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(25, 22);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // truckers_autorun
             // 
             this.truckers_autorun.AutoSize = true;
-            this.truckers_autorun.Location = new System.Drawing.Point(13, 118);
+            this.truckers_autorun.Location = new System.Drawing.Point(6, 63);
             this.truckers_autorun.Name = "truckers_autorun";
             this.truckers_autorun.Size = new System.Drawing.Size(129, 17);
             this.truckers_autorun.TabIndex = 4;
             this.truckers_autorun.Text = "TruckersMP Autostart";
             this.truckers_autorun.UseVisualStyleBackColor = true;
             this.truckers_autorun.CheckedChanged += new System.EventHandler(this.truckers_autorun_CheckedChanged);
-            // 
-            // truckersMP_Button_anzeigen
-            // 
-            this.truckersMP_Button_anzeigen.AutoSize = true;
-            this.truckersMP_Button_anzeigen.Location = new System.Drawing.Point(13, 94);
-            this.truckersMP_Button_anzeigen.Name = "truckersMP_Button_anzeigen";
-            this.truckersMP_Button_anzeigen.Size = new System.Drawing.Size(167, 17);
-            this.truckersMP_Button_anzeigen.TabIndex = 3;
-            this.truckersMP_Button_anzeigen.Text = "Truckers MP Button anzeigen";
-            this.truckersMP_Button_anzeigen.UseVisualStyleBackColor = true;
-            this.truckersMP_Button_anzeigen.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 63);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(151, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "(Wird automatisch eingefügt !) ";
-            // 
-            // truckersMP_Pfad_TextBox
-            // 
-            this.truckersMP_Pfad_TextBox.Location = new System.Drawing.Point(6, 36);
-            this.truckersMP_Pfad_TextBox.Name = "truckersMP_Pfad_TextBox";
-            this.truckersMP_Pfad_TextBox.Size = new System.Drawing.Size(258, 20);
-            this.truckersMP_Pfad_TextBox.TabIndex = 1;
             // 
             // label3
             // 
@@ -243,10 +199,6 @@ namespace VTCManager_1._0._0
             this.label3.Size = new System.Drawing.Size(107, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Pfad zu TruckersMP:";
-            // 
-            // trucker_MP_Browser_Dialog
-            // 
-            this.trucker_MP_Browser_Dialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // group_Overlay
             // 
@@ -302,17 +254,53 @@ namespace VTCManager_1._0._0
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.traffic_Update_Intervall);
             this.groupBox4.Controls.Add(this.chk_RPM_ANZEIGE);
             this.groupBox4.Controls.Add(this.chk_GANG);
             this.groupBox4.Controls.Add(this.chk_KUPPLUNG);
             this.groupBox4.Controls.Add(this.chk_BREMSE);
             this.groupBox4.Controls.Add(this.chk_GAS);
-            this.groupBox4.Location = new System.Drawing.Point(289, 139);
+            this.groupBox4.Location = new System.Drawing.Point(289, 134);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(321, 100);
+            this.groupBox4.Size = new System.Drawing.Size(321, 143);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Anzeige-Einstellungen";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(22, 107);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(163, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Reload Verkehr nach Sekunden:";
+            // 
+            // traffic_Update_Intervall
+            // 
+            this.traffic_Update_Intervall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.traffic_Update_Intervall.Location = new System.Drawing.Point(186, 100);
+            this.traffic_Update_Intervall.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.traffic_Update_Intervall.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.traffic_Update_Intervall.Name = "traffic_Update_Intervall";
+            this.traffic_Update_Intervall.Size = new System.Drawing.Size(65, 26);
+            this.traffic_Update_Intervall.TabIndex = 5;
+            this.traffic_Update_Intervall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.traffic_Update_Intervall.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.traffic_Update_Intervall.ValueChanged += new System.EventHandler(this.traffic_Update_Intervall_ValueChanged);
             // 
             // chk_RPM_ANZEIGE
             // 
@@ -369,13 +357,16 @@ namespace VTCManager_1._0._0
             this.chk_GAS.UseVisualStyleBackColor = true;
             this.chk_GAS.CheckedChanged += new System.EventHandler(this.chk_GAS_CheckedChanged);
             // 
+            // tmp_Trucker
+            // 
+            this.tmp_Trucker.FileName = "T";
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.group_Overlay);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.btn_TruckersMP_suchen);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save_button);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -386,15 +377,14 @@ namespace VTCManager_1._0._0
             this.Load += new System.EventHandler(this.SettingsWindow_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.btn_TruckersMP_suchen.ResumeLayout(false);
+            this.btn_TruckersMP_suchen.PerformLayout();
             this.group_Overlay.ResumeLayout(false);
             this.group_Overlay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.traffic_Update_Intervall)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -407,7 +397,6 @@ namespace VTCManager_1._0._0
             {
                 this.selected_server_tm = "sim1";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
-                this.label2.Text = "Simulation 1";
                 // Edit by Thommy
 
                 util.Reg_Schreiben("verkehr_SERVER", "sim1");
@@ -417,7 +406,6 @@ namespace VTCManager_1._0._0
             {
                 this.selected_server_tm = "sim2";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
-                this.label2.Text = "Simulation 2";
                 util.Reg_Schreiben("verkehr_SERVER", "sim2");
 
             }
@@ -425,7 +413,6 @@ namespace VTCManager_1._0._0
             {
                 this.selected_server_tm = "arc1";
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
-                this.label2.Text = "Arcade";
                 util.Reg_Schreiben("verkehr_SERVER", "arc1");
             }
             else if (this.comboBox1.Text == "EU Promods 1")
@@ -465,13 +452,31 @@ namespace VTCManager_1._0._0
             Utilities util2 = new Utilities();
 
             string wert99 = util2.Reg_Lesen("TruckersMP_Autorun", "autorun");
-            string wert98 = util2.Reg_Lesen("TruckersMP_Autorun", "button_show");
             string wert22 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GAS");
             string wert23 = util2.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE");
             string wert24 = util2.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG");
             string wert25 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GANG");
             string wert26 = util2.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE");
             string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
+            string wert28 = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            string wert29 = util2.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
+            
+            if(wert29 == null)
+            {
+                traffic_Update_Intervall.Value = 5;
+            } else
+            {
+                traffic_Update_Intervall.Value = Convert.ToDecimal(wert29);
+            }
+
+            
+
+
+            if (wert28.ToString() != null)
+            {
+                truckersMP_Pfad_TextBox.Text = wert28;
+            }
+
             if (wert99 == "1")
             {
                 truckers_autorun.CheckState = CheckState.Checked;
@@ -530,26 +535,8 @@ namespace VTCManager_1._0._0
                 combo_Bildschirme.Items.Add(Screen.AllScreens[3].DeviceName);
             }
 
-            // Button anzeigen vorauswahl
-            if (wert98 == "1")
-            {
-                truckersMP_Button_anzeigen.CheckState = CheckState.Checked;
-            }
-            else
-            {
-                truckersMP_Button_anzeigen.CheckState = CheckState.Unchecked;
-            }
-
-
             // Variablen abrufen von Main
             var link = Main.truckersMP_Link;
-
-            // Ausgabe in Settings
-            truckersMP_Pfad_TextBox.Text = link;
-
-
-            // Checkbox autorun laden
-
 
         }
 
@@ -566,19 +553,6 @@ namespace VTCManager_1._0._0
             }
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (truckersMP_Button_anzeigen.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("button_show", "1");
-            }
-            else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("button_show", "0");
-            }
-        }
 
         private void num_Overlay_Transparenz_ValueChanged(object sender, EventArgs e)
         {
@@ -663,5 +637,27 @@ namespace VTCManager_1._0._0
         {
        
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tmp_Trucker = new System.Windows.Forms.OpenFileDialog();
+            tmp_Trucker.InitialDirectory =
+            tmp_Trucker.Filter = "TruckersMP Launcher (launcher.exe)|launcher.exe|Alle Dateien (*.*)|*.*";
+            if (tmp_Trucker.ShowDialog() == DialogResult.OK)
+            {
+                Utilities util = new Utilities();
+                util.Reg_Schreiben("TruckersMP_Pfad", tmp_Trucker.FileName);
+                truckersMP_Pfad_TextBox.Text = tmp_Trucker.FileName.ToString();
+            }
+                
+        }
+
+        private void traffic_Update_Intervall_ValueChanged(object sender, EventArgs e)
+        {
+            Utilities util = new Utilities();
+            util.Reg_Schreiben("Reload_Traffic_Sekunden", traffic_Update_Intervall.Value.ToString());
+            
+        }
+
     }
 }

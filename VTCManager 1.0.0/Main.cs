@@ -47,9 +47,7 @@ namespace VTCManager_1._0._0
         private Panel panel2;
         private Timer send_location;
         private Timer send_speedo;
-
-        //new GUI
-        private MenuStrip menuStrip1;
+        public MenuStrip menuStrip1;
         private ToolStripMenuItem einstellungenToolStripMenuItem;
         private ToolStripMenuItem beendenToolStripMenuItem;
         private ToolStripMenuItem topMenuAccount;
@@ -117,24 +115,25 @@ namespace VTCManager_1._0._0
         // GUI by Thommy
         public int GUI_SIZE = 1;
         public static string truckersMP_Link;
-        private Label thommy_Test;
         private ToolStripMenuItem lbl_Overlay;
         public static int truckersMP_autorun;
         public static int overlay_ist_offen = 0;
         public static Form over = new Overlay_1();
         private Label label6;
-        private Label label_GAS;
-        private Label lbl_BREMSE;
-        private ProgressBar progressBar_BREMSE;
-        private ProgressBar progressBar_GAS;
-        private Label lbl_RPM;
-        private ProgressBar progressBar_RPM;
-        private Label lbl_GANG;
-        private Label lbl_KUPPLUNG;
-        private ProgressBar progressBar_KUPPLUNG;
+        public Label label_GAS;
+        public Label lbl_BREMSE;
+        public ProgressBar progressBar_BREMSE;
+        public ProgressBar progressBar_GAS;
+        public Label lbl_RPM;
+        public ProgressBar progressBar_RPM;
+        public Label lbl_GANG;
+        public Label lbl_KUPPLUNG;
+        public ProgressBar progressBar_KUPPLUNG;
         private ToolStripMenuItem darkToolStripMenuItem;
         public static int overlay_Opacity;
-
+        public Timer updateTraffic;
+        private Label lbl_Reload_Time;
+        public int Is_DarkMode_On;
 
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
@@ -691,14 +690,6 @@ namespace VTCManager_1._0._0
         private void send_tour_status_Tick(object sender, EventArgs e)
         {
             this.jobRunning = true;
-            try
-            {
-                this.load_traffic();
-            }
-            catch (Exception)
-            {
-
-            }
             this.locationupdate();
         }
 
@@ -766,7 +757,6 @@ namespace VTCManager_1._0._0
             this.progressBar_BREMSE = new System.Windows.Forms.ProgressBar();
             this.lbl_RPM = new System.Windows.Forms.Label();
             this.progressBar_RPM = new System.Windows.Forms.ProgressBar();
-            this.thommy_Test = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -792,6 +782,8 @@ namespace VTCManager_1._0._0
             this.act_bank_balance_lb = new System.Windows.Forms.Label();
             this.driven_tours_lb = new System.Windows.Forms.Label();
             this.groupVerkehr = new System.Windows.Forms.GroupBox();
+            this.updateTraffic = new System.Windows.Forms.Timer(this.components);
+            this.lbl_Reload_Time = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -904,6 +896,7 @@ namespace VTCManager_1._0._0
             this.eventsToolStripMenuItem.Size = new System.Drawing.Size(91, 28);
             this.eventsToolStripMenuItem.Text = "Events";
             this.eventsToolStripMenuItem.ToolTipText = "Zeige aktuelle Events (in Bearbeitung)";
+            this.eventsToolStripMenuItem.Visible = false;
             // 
             // GUI_SIZE_BUTTON
             // 
@@ -928,6 +921,7 @@ namespace VTCManager_1._0._0
             this.darkToolStripMenuItem.Image = global::VTCManager_1._0._0.Properties.Resources.icons8_film_noir_50;
             this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
             this.darkToolStripMenuItem.Size = new System.Drawing.Size(36, 28);
+            this.darkToolStripMenuItem.ToolTipText = "Komm auf die Dunkle Seite";
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
             // linkLabel1
@@ -935,10 +929,10 @@ namespace VTCManager_1._0._0
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(342, 342);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(140, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(145, 13);
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "(powered by Truckapp.com)";
+            this.linkLabel1.Text = "(powered by Truckyapp.com)";
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
@@ -976,7 +970,6 @@ namespace VTCManager_1._0._0
             this.panel2.Controls.Add(this.progressBar_BREMSE);
             this.panel2.Controls.Add(this.lbl_RPM);
             this.panel2.Controls.Add(this.progressBar_RPM);
-            this.panel2.Controls.Add(this.thommy_Test);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
             this.panel2.Controls.Add(this.progressBar1);
@@ -1077,14 +1070,6 @@ namespace VTCManager_1._0._0
             this.progressBar_RPM.Name = "progressBar_RPM";
             this.progressBar_RPM.Size = new System.Drawing.Size(493, 23);
             this.progressBar_RPM.TabIndex = 8;
-            // 
-            // thommy_Test
-            // 
-            this.thommy_Test.AutoSize = true;
-            this.thommy_Test.Location = new System.Drawing.Point(52, 235);
-            this.thommy_Test.Name = "thommy_Test";
-            this.thommy_Test.Size = new System.Drawing.Size(0, 13);
-            this.thommy_Test.TabIndex = 7;
             // 
             // status_jb_canc_lb
             // 
@@ -1333,6 +1318,7 @@ namespace VTCManager_1._0._0
             // 
             this.groupVerkehr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupVerkehr.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupVerkehr.Controls.Add(this.lbl_Reload_Time);
             this.groupVerkehr.Controls.Add(this.tableLayoutPanel1);
             this.groupVerkehr.Controls.Add(this.label1);
             this.groupVerkehr.Controls.Add(this.linkLabel1);
@@ -1342,6 +1328,21 @@ namespace VTCManager_1._0._0
             this.groupVerkehr.Size = new System.Drawing.Size(537, 367);
             this.groupVerkehr.TabIndex = 7;
             this.groupVerkehr.TabStop = false;
+            // 
+            // updateTraffic
+            // 
+            this.updateTraffic.Enabled = true;
+            this.updateTraffic.Interval = 30000;
+            this.updateTraffic.Tick += new System.EventHandler(this.updateTraffic_Tick);
+            // 
+            // lbl_Reload_Time
+            // 
+            this.lbl_Reload_Time.AutoSize = true;
+            this.lbl_Reload_Time.Location = new System.Drawing.Point(12, 345);
+            this.lbl_Reload_Time.Name = "lbl_Reload_Time";
+            this.lbl_Reload_Time.Size = new System.Drawing.Size(16, 13);
+            this.lbl_Reload_Time.TabIndex = 6;
+            this.lbl_Reload_Time.Text = "...";
             // 
             // Main
             // 
@@ -1480,25 +1481,13 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
+            Utilities util3 = new Utilities();
 
-            if (Directory.Exists(@"C:\Program Files\TruckersMP Launcher"))
+            int reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+            lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
+
+            if (util3.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "") 
             {
-                truckersMP_Link = @"C:\Program Files\TruckersMP Launcher\Launcher.exe";
-                truckersMP_Button.Visible = true;
-            }
-            else if (Directory.Exists(@"D:\Program Files\TruckersMP Launcher"))
-            {
-                truckersMP_Link = @"D:\Program Files\TruckersMP Launcher\Launcher.exe";
-                truckersMP_Button.Visible = true;
-            }
-            else if (Directory.Exists(@"E:\Program Files\TruckersMP Launcher"))
-            {
-                truckersMP_Link = @"E:\Program Files\TruckersMP Launcher\Launcher.exe";
-                truckersMP_Button.Visible = true;
-            }
-            else if (Directory.Exists(@"F:\Program Files\TruckersMP Launcher"))
-            {
-                truckersMP_Link = @"F:\Program Files\TruckersMP Launcher\Launcher.exe";
                 truckersMP_Button.Visible = true;
             }
             else
@@ -1506,8 +1495,11 @@ namespace VTCManager_1._0._0
                 truckersMP_Button.Visible = false;
             }
 
+            
 
             Utilities util = new Utilities();
+            // TMP Button anzeigen wenn Pfad in den Settings
+           truckersMP_Button.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
 
             // GAS_PROGRESS_AUSBLENDEN WENN 0
             progressBar_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1" ? true : false);
@@ -1524,15 +1516,7 @@ namespace VTCManager_1._0._0
             // GANG AUSBLENDEN WENN 0
             lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1" ? true : false);
 
-            // TruckersMP Button visible
-            if (util.Reg_Lesen("TruckersMP_Autorun", "button_show") == "1")
-            {
-                truckersMP_Button.Visible = true;
-            }
-            else
-            {
-                truckersMP_Button.Visible = false;
-            }
+
             // Autostart von TruckersMP 
             if (util.Reg_Lesen("TruckersMP_Autorun", "autorun") == "1")
             {
@@ -1545,7 +1529,14 @@ namespace VTCManager_1._0._0
 
         private void truckersMP_Button_Click(object sender, EventArgs e)
         {
-            Process.Start(truckersMP_Link);
+            if(truckersMP_Link != null)
+            {
+                Process.Start(truckersMP_Link);
+            } else
+            {
+                MessageBox.Show("Kein Link zu Truckers-MP angegeben!\nBitte schaue in den Einstellungen nach.", "Kein Link!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1616,11 +1607,55 @@ namespace VTCManager_1._0._0
 
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            menuStrip1.BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
-            menuStrip1.ForeColor = System.Drawing.Color.Gray;
-            this.BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
-            this.ForeColor = System.Drawing.Color.LightGray;
+            if(Is_DarkMode_On == 0)
+            {
+                Is_DarkMode_On = 1;
+                menuStrip1.BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
+                menuStrip1.ForeColor = System.Drawing.Color.Gray;
+                BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
+                ForeColor = System.Drawing.Color.LightGray;
 
+                lbl_RPM.Visible = false;
+                label_GAS.Visible = false;
+                lbl_BREMSE.Visible = false;
+                lbl_GANG.Visible = false;
+                lbl_KUPPLUNG.Visible = false;
+
+                progressBar_BREMSE.Visible = false;
+                progressBar_GAS.Visible = false;
+                progressBar_KUPPLUNG.Visible = false;
+                progressBar_RPM.Visible = false;
+                lbl_GANG.Visible = false;
+
+            } else
+            {
+                Is_DarkMode_On = 0;
+                menuStrip1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                menuStrip1.ForeColor = System.Drawing.Color.Gray;
+                BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+                ForeColor = System.Drawing.Color.Black;
+
+                lbl_RPM.Visible = true;
+                label_GAS.Visible = true;
+                lbl_BREMSE.Visible = true;
+                lbl_GANG.Visible = true;
+                lbl_KUPPLUNG.Visible = true;
+
+                progressBar_BREMSE.Visible = true;
+                progressBar_GAS.Visible = true;
+                progressBar_KUPPLUNG.Visible = true;
+                progressBar_RPM.Visible = true;
+                lbl_GANG.Visible = true;
+            }
+        }
+
+        private void updateTraffic_Tick(object sender, EventArgs e)
+        {
+            Utilities util3 = new Utilities();
+            int wert = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+            updateTraffic.Interval = wert * 1000;
+            lbl_Reload_Time.Text = "Reload-Interval: " + wert + " Sek.";
+            this.load_traffic();
         }
     }
 }
