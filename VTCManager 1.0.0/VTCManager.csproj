@@ -94,6 +94,7 @@
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ModifyProgressBarColor.cs" />
     <Compile Include="Overlay_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,8 +126,9 @@
     <Reference Include="DiscordRPC, Version=1.0.147.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DiscordRichPresence.1.0.147\lib\net35\DiscordRPC.dll</HintPath>
     </Reference>
-    <Reference Include="Ets2SdkClient">
-      <HintPath>..\..\..\..\Downloads\release_v1_4_0\C# Demo\Ets2SdkClient.dll</HintPath>
+    <Reference Include="Ets2SdkClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Ets2SdkClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
@@ -230,15 +232,32 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ressources\AutopilotEnd_fx.wav" />
-    <Content Include="Ressources\AutopilotStart_fx.wav" />
-    <Content Include="Ressources\icons8-expand-24.png" />
-    <Content Include="Ressources\icons8-komprimieren-24.png" />
+    <None Include="Resources\icons8-film-noir-50.png" />
+    <Content Include="Ressources\AutopilotEnd_fx.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\AutopilotStart_fx.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\icons8-expand-24.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\icons8-film-noir-50 %281%29.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\icons8-film-noir-50.png" />
+    <Content Include="Ressources\icons8-komprimieren-24.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Ressources\insight.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Ressources\time-is-now.wav" />
-    <Content Include="Ressources\vtcmanager-icon.png" />
+    <Content Include="Ressources\time-is-now.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\vtcmanager-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="vtcmanager-icon.ico" />
   </ItemGroup>
   <ItemGroup>

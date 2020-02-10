@@ -1521,6 +1521,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E6FCC604157940E9AB6FE0B6C99B6855"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_EA19EC172B4A054841701E910621ECE6"
         "OwnerKey" = "8:_4B50FEC6F8F943108C7BD2B790C977E7"
         "MsmSig" = "8:_UNDEFINED"
@@ -1936,6 +1942,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -5334,6 +5348,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E6FCC604157940E9AB6FE0B6C99B6855"
+            {
+            "SourcePath" = "8:C:\\NorthWestMediaGroup\\VTC-Manager\\Ressources\\AutopilotEnd_fx.wav"
+            "TargetName" = "8:AutopilotEnd_fx.wav"
+            "Tag" = "8:"
+            "Folder" = "8:_F2B0E7BAC3D246E7854F18257A1CB669"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EA19EC172B4A054841701E910621ECE6"
             {
             "AssemblyRegister" = "3:1"
@@ -5783,7 +5817,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:VTC-Manager"
         "ProductCode" = "8:{C48C0771-26FA-44AD-A030-D6228F4EBA99}"
-        "PackageCode" = "8:{AA425C6F-1319-4015-9E8E-A34A9379199C}"
+        "PackageCode" = "8:{79AB0B68-BCFC-43DA-810E-3E4FFEB2948D}"
         "UpgradeCode" = "8:{F8D873CF-BF13-421B-A724-EEFACFFAFDA0}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

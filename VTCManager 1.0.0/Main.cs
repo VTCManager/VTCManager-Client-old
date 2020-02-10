@@ -132,6 +132,7 @@ namespace VTCManager_1._0._0
         private Label lbl_GANG;
         private Label lbl_KUPPLUNG;
         private ProgressBar progressBar_KUPPLUNG;
+        private ToolStripMenuItem darkToolStripMenuItem;
         public static int overlay_Opacity;
 
 
@@ -221,6 +222,8 @@ namespace VTCManager_1._0._0
             client.Invoke();
         }
 
+
+
         private void InitializeTranslation()
         {
             this.label1.Text = translation.traffic_main_lb;
@@ -254,8 +257,8 @@ namespace VTCManager_1._0._0
                 this.tableLayoutPanel1.Controls.Clear();
                 this.tableLayoutPanel1.RowStyles.Clear();
                 this.tableLayoutPanel1.ColumnCount = 2;
-                this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.18533F));
-                this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.81467F));
+               // this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.18533F));
+               // this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.81467F));
                 this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 78);
                 this.tableLayoutPanel1.Name = "tableLayoutPanel1";
                 this.tableLayoutPanel1.RowCount = 9;
@@ -374,7 +377,6 @@ namespace VTCManager_1._0._0
                             double rpm1 = Convert.ToDouble(data.Drivetrain.EngineRpm.ToString());
                             double rpm_max = Convert.ToDouble(data.Drivetrain.EngineRpmMax.ToString());
 
-
                             progressBar_KUPPLUNG.Value = Convert.ToInt32(kupp1);
                             progressBar_GAS.Value = Convert.ToInt32(gas1);
                             progressBar_BREMSE.Value = Convert.ToInt32(brems1);
@@ -382,7 +384,14 @@ namespace VTCManager_1._0._0
                             progressBar_RPM.Value = Convert.ToInt32(rpm1);
                             progressBar_RPM.Refresh();
 
-                            lbl_GANG.Text = data.Drivetrain.Gear.ToString();
+                            if(data.Drivetrain.Gear.ToString() == "-1")
+                            {
+                                lbl_GANG.Text = "R";
+                            } else
+                            {
+                                lbl_GANG.Text = data.Drivetrain.Gear.ToString();
+                            }
+                            
 
 
                             if (data.Truck == "Extra_D" || data.Truck == "Superb")
@@ -407,7 +416,6 @@ namespace VTCManager_1._0._0
                             }
                             if (this.serial_start == false)
                             {
-
                                 this.serial_start = true;
                             }
                             this.speed = data.Drivetrain.SpeedKmh;
@@ -431,8 +439,6 @@ namespace VTCManager_1._0._0
                                     this.blinker_int = 0;
                                 }
                             }
-
-
 
                             /*this.s.Write("0"); //ABS
                             this.s.Write("0"); //Handbrake
@@ -745,6 +751,7 @@ namespace VTCManager_1._0._0
             this.eventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GUI_SIZE_BUTTON = new System.Windows.Forms.ToolStripMenuItem();
             this.lbl_Overlay = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -823,7 +830,8 @@ namespace VTCManager_1._0._0
             this.topmenuwebsite,
             this.eventsToolStripMenuItem,
             this.GUI_SIZE_BUTTON,
-            this.lbl_Overlay});
+            this.lbl_Overlay,
+            this.darkToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1458, 32);
@@ -914,6 +922,13 @@ namespace VTCManager_1._0._0
             this.lbl_Overlay.Text = "Overlay";
             this.lbl_Overlay.Visible = false;
             this.lbl_Overlay.Click += new System.EventHandler(this.overlayToolStripMenuItem_Click);
+            // 
+            // darkToolStripMenuItem
+            // 
+            this.darkToolStripMenuItem.Image = global::VTCManager_1._0._0.Properties.Resources.icons8_film_noir_50;
+            this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(36, 28);
+            this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
             // linkLabel1
             // 
@@ -1147,9 +1162,9 @@ namespace VTCManager_1._0._0
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.18533F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.81467F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 63);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(39, 63);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 9;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1161,8 +1176,7 @@ namespace VTCManager_1._0._0
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 179);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(470, 179);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // panel4
@@ -1252,22 +1266,25 @@ namespace VTCManager_1._0._0
             this.groupStatistiken.Controls.Add(this.driven_tours_lb);
             this.groupStatistiken.Location = new System.Drawing.Point(0, 35);
             this.groupStatistiken.Name = "groupStatistiken";
-            this.groupStatistiken.Size = new System.Drawing.Size(499, 178);
+            this.groupStatistiken.Size = new System.Drawing.Size(534, 178);
             this.groupStatistiken.TabIndex = 6;
             this.groupStatistiken.TabStop = false;
             // 
             // truckersMP_Button
             // 
             this.truckersMP_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.truckersMP_Button.BackColor = System.Drawing.Color.Silver;
             this.truckersMP_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("truckersMP_Button.BackgroundImage")));
             this.truckersMP_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.truckersMP_Button.Location = new System.Drawing.Point(412, 121);
+            this.truckersMP_Button.FlatAppearance.BorderSize = 0;
+            this.truckersMP_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.truckersMP_Button.Location = new System.Drawing.Point(447, 121);
             this.truckersMP_Button.Margin = new System.Windows.Forms.Padding(0);
             this.truckersMP_Button.Name = "truckersMP_Button";
             this.truckersMP_Button.Size = new System.Drawing.Size(84, 54);
             this.truckersMP_Button.TabIndex = 6;
             this.truckersMP_Button.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.truckersMP_Button.UseVisualStyleBackColor = true;
+            this.truckersMP_Button.UseVisualStyleBackColor = false;
             this.truckersMP_Button.Click += new System.EventHandler(this.truckersMP_Button_Click);
             // 
             // user_company_lb
@@ -1314,13 +1331,15 @@ namespace VTCManager_1._0._0
             // 
             // groupVerkehr
             // 
+            this.groupVerkehr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupVerkehr.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupVerkehr.Controls.Add(this.tableLayoutPanel1);
             this.groupVerkehr.Controls.Add(this.label1);
             this.groupVerkehr.Controls.Add(this.linkLabel1);
             this.groupVerkehr.Controls.Add(this.label2);
             this.groupVerkehr.Location = new System.Drawing.Point(0, 223);
             this.groupVerkehr.Name = "groupVerkehr";
-            this.groupVerkehr.Size = new System.Drawing.Size(498, 367);
+            this.groupVerkehr.Size = new System.Drawing.Size(537, 367);
             this.groupVerkehr.TabIndex = 7;
             this.groupVerkehr.TabStop = false;
             // 
@@ -1506,7 +1525,7 @@ namespace VTCManager_1._0._0
             lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1" ? true : false);
 
             // TruckersMP Button visible
-            if (util.Reg_Lesen("Trucker_", "button_show") == "1")
+            if (util.Reg_Lesen("TruckersMP_Autorun", "button_show") == "1")
             {
                 truckersMP_Button.Visible = true;
             }
@@ -1595,6 +1614,13 @@ namespace VTCManager_1._0._0
             TaskBar_Icon.Dispose();
         }
 
+        private void darkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menuStrip1.BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
+            menuStrip1.ForeColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
+            this.ForeColor = System.Drawing.Color.LightGray;
 
+        }
     }
 }

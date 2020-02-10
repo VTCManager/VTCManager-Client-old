@@ -71,9 +71,9 @@ namespace VTCManager_1._0._0
                                 if ((process.MainWindowTitle.StartsWith("American Truck Simulator") || (process.ProcessName == "amtrucks.exe")))
                                 {
                                     _cachedRunningFlag = true;
-                                    if (process.ProcessName == "eurotrucks2")
+                                    if (process.ProcessName == "amtrucks")
                                     {
-                                        LastRunningGameName = "ETS2";
+                                        LastRunningGameName = "ATS";
                                     }
                                     return _cachedRunningFlag;
                                 }
