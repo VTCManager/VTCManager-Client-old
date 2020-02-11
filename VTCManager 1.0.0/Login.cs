@@ -41,6 +41,10 @@ namespace VTCManager_1._0._0
         private Translation translation;
         private SettingsManager settings;
         private String first_start;
+        // Edit by Thommy
+        // Auf Öffentlichkeit prüfen || true = Öffentlich || false = keine Prüfung
+        private bool oeffentlich = false;
+
 
         public Login() {
             
@@ -245,12 +249,12 @@ namespace VTCManager_1._0._0
         private void Main_Load(object sender, EventArgs e)
         {
             this.version_text.Text = "Version: 1.1.1";
-            version_int = 110;
+            version_int = 111;
             string fileName = this.api.HTTPSRequestPost("https://vtc.northwestvideo.de/api/app/download.php", new Dictionary<string, string>()
       {
         {
           "version",
-          "1.1.0"
+          "1.1.1"
         }
       }, true);
             if (string.IsNullOrEmpty(fileName))
@@ -259,27 +263,32 @@ namespace VTCManager_1._0._0
             }
             conv_fileName = fileName.Replace(".", string.Empty);
             fileName_int = System.Convert.ToInt32(conv_fileName);
-            if (fileName_int != version_int)
+
+            // Prüfen ob es eine Öffentliche Version ist:
+            if (oeffentlich == true)
             {
-                switch (MessageBox.Show(translation.update_part1+ fileName+translation.update_part2, translation.update_avail_window, MessageBoxButtons.YesNo))
+                if (fileName_int != version_int)
                 {
-                    case DialogResult.Yes:
+                    switch (MessageBox.Show(translation.update_part1 + fileName + translation.update_part2, translation.update_avail_window, MessageBoxButtons.YesNo))
+                    {
+                        case DialogResult.Yes:
                             this.first_start = "false";
                             this.settings.Cache.first_start = this.first_start;
                             this.settings.SaveJobID();
                             this.userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                             this.downloaddirectory = Path.Combine(userFolder, ".vtcmanager");
                             WebClient webClient = new WebClient();
-                            webClient.DownloadFile("http://vtc.northwestvideo.de/api/app/VTCMInstaller-latest.exe", this.downloaddirectory+ "/VTCMInstaller-latest.exe");
-                        Process ExternalProcess = new Process();
-                        ExternalProcess.StartInfo.FileName = this.downloaddirectory+"/VTCMInstaller-latest.exe";
-                        ExternalProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                        ExternalProcess.Start();
-                        Application.Exit();
-                        break;
-                    case DialogResult.No:
-                        Application.Exit();
-                        break;
+                            webClient.DownloadFile("http://vtc.northwestvideo.de/api/app/VTCMInstaller-latest.exe", this.downloaddirectory + "/VTCMInstaller-latest.exe");
+                            Process ExternalProcess = new Process();
+                            ExternalProcess.StartInfo.FileName = this.downloaddirectory + "/VTCMInstaller-latest.exe";
+                            ExternalProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                            ExternalProcess.Start();
+                            Application.Exit();
+                            break;
+                        case DialogResult.No:
+                            Application.Exit();
+                            break;
+                    }
                 }
             }
             this.preferences.CreateConfig();

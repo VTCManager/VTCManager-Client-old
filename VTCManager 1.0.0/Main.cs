@@ -92,7 +92,7 @@ namespace VTCManager_1._0._0
         public string CitySource;
         private SerialPortStream s;
         private bool serial_start = false;
-        private bool first_run_speedo;
+        //private bool first_run_speedo;
         private NotifyIcon TaskBar_Icon;
         private ContextMenuStrip contextTaskbar;
         private ToolStripMenuItem öffnenToolStripMenuItem;
@@ -134,11 +134,14 @@ namespace VTCManager_1._0._0
         public Timer updateTraffic;
         private Label lbl_Reload_Time;
         public int Is_DarkMode_On;
-
+        private Label label3;
+        public int reload;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
+            // Revision
 
+        
             over.Opacity = 0;
             over.Show();
 
@@ -233,7 +236,7 @@ namespace VTCManager_1._0._0
             this.driven_tours_lb.Text = translation.driven_tours_lb + this.driven_tours;
             this.act_bank_balance_lb.Text = translation.act_bank_balance + this.act_bank_balance + "€";
             this.user_company_lb.Text = translation.user_company_lb + this.userCompany;
-            this.version_lb.Text = translation.version;
+            //this.version_lb.Text = translation.version;
             this.MenuAbmeldenButton.Text = translation.logout;
 
 
@@ -782,8 +785,9 @@ namespace VTCManager_1._0._0
             this.act_bank_balance_lb = new System.Windows.Forms.Label();
             this.driven_tours_lb = new System.Windows.Forms.Label();
             this.groupVerkehr = new System.Windows.Forms.GroupBox();
-            this.updateTraffic = new System.Windows.Forms.Timer(this.components);
             this.lbl_Reload_Time = new System.Windows.Forms.Label();
+            this.updateTraffic = new System.Windows.Forms.Timer(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1185,11 +1189,11 @@ namespace VTCManager_1._0._0
             // version_lb
             // 
             this.version_lb.AutoSize = true;
-            this.version_lb.Location = new System.Drawing.Point(1349, 9);
+            this.version_lb.Location = new System.Drawing.Point(1287, 9);
             this.version_lb.Name = "version_lb";
             this.version_lb.Size = new System.Drawing.Size(102, 13);
             this.version_lb.TabIndex = 5;
-            this.version_lb.Text = "Version: 1.1.1 Alpha";
+            this.version_lb.Text = "";
             // 
             // TaskBar_Icon
             // 
@@ -1329,12 +1333,6 @@ namespace VTCManager_1._0._0
             this.groupVerkehr.TabIndex = 7;
             this.groupVerkehr.TabStop = false;
             // 
-            // updateTraffic
-            // 
-            this.updateTraffic.Enabled = true;
-            this.updateTraffic.Interval = 30000;
-            this.updateTraffic.Tick += new System.EventHandler(this.updateTraffic_Tick);
-            // 
             // lbl_Reload_Time
             // 
             this.lbl_Reload_Time.AutoSize = true;
@@ -1344,9 +1342,25 @@ namespace VTCManager_1._0._0
             this.lbl_Reload_Time.TabIndex = 6;
             this.lbl_Reload_Time.Text = "...";
             // 
+            // updateTraffic
+            // 
+            this.updateTraffic.Enabled = true;
+            this.updateTraffic.Interval = 30000;
+            this.updateTraffic.Tick += new System.EventHandler(this.updateTraffic_Tick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1395, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Rev. 1";
+            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1458, 622);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupVerkehr);
             this.Controls.Add(this.groupStatistiken);
             this.Controls.Add(this.version_lb);
@@ -1483,7 +1497,12 @@ namespace VTCManager_1._0._0
         {
             Utilities util3 = new Utilities();
 
-            int reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+            reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+            if(reload == 0)
+            {
+                util3.Reg_Schreiben("Reload_Traffic_Sekunden", "7");
+            }
+
             lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
 
             if (util3.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "") 
@@ -1523,6 +1542,7 @@ namespace VTCManager_1._0._0
                 Process.Start(truckersMP_Link);
             }
 
+ 
 
         }
 
