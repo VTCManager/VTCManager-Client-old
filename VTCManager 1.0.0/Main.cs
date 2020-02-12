@@ -135,6 +135,10 @@ namespace VTCManager_1._0._0
         private Label lbl_Reload_Time;
         public int Is_DarkMode_On;
         private Label label3;
+        private ToolStripMenuItem serverstatusToolStripMenuItem;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel WebServer_Status_label;
+        private ToolStripStatusLabel Label_DB_Server;
         public int reload;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
@@ -739,6 +743,7 @@ namespace VTCManager_1._0._0
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serverstatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topMenuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuAbmeldenButton = new System.Windows.Forms.ToolStripMenuItem();
             this.topmenuwebsite = new System.Windows.Forms.ToolStripMenuItem();
@@ -788,6 +793,9 @@ namespace VTCManager_1._0._0
             this.lbl_Reload_Time = new System.Windows.Forms.Label();
             this.updateTraffic = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.WebServer_Status_label = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -795,6 +803,7 @@ namespace VTCManager_1._0._0
             this.contextTaskbar.SuspendLayout();
             this.groupStatistiken.SuspendLayout();
             this.groupVerkehr.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // send_tour_status
@@ -839,7 +848,8 @@ namespace VTCManager_1._0._0
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.einstellungenToolStripMenuItem,
             this.creditsToolStripMenuItem,
-            this.beendenToolStripMenuItem});
+            this.beendenToolStripMenuItem,
+            this.serverstatusToolStripMenuItem});
             this.dateiToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateiToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("dateiToolStripMenuItem.Image")));
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
@@ -866,6 +876,12 @@ namespace VTCManager_1._0._0
             this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItemClick);
+            // 
+            // serverstatusToolStripMenuItem
+            // 
+            this.serverstatusToolStripMenuItem.Name = "serverstatusToolStripMenuItem";
+            this.serverstatusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.serverstatusToolStripMenuItem.Text = "Serverstatus";
             // 
             // topMenuAccount
             // 
@@ -1191,9 +1207,8 @@ namespace VTCManager_1._0._0
             this.version_lb.AutoSize = true;
             this.version_lb.Location = new System.Drawing.Point(1287, 9);
             this.version_lb.Name = "version_lb";
-            this.version_lb.Size = new System.Drawing.Size(102, 13);
+            this.version_lb.Size = new System.Drawing.Size(0, 13);
             this.version_lb.TabIndex = 5;
-            this.version_lb.Text = "";
             // 
             // TaskBar_Icon
             // 
@@ -1327,7 +1342,7 @@ namespace VTCManager_1._0._0
             this.groupVerkehr.Controls.Add(this.label1);
             this.groupVerkehr.Controls.Add(this.linkLabel1);
             this.groupVerkehr.Controls.Add(this.label2);
-            this.groupVerkehr.Location = new System.Drawing.Point(0, 223);
+            this.groupVerkehr.Location = new System.Drawing.Point(0, 243);
             this.groupVerkehr.Name = "groupVerkehr";
             this.groupVerkehr.Size = new System.Drawing.Size(537, 367);
             this.groupVerkehr.TabIndex = 7;
@@ -1357,9 +1372,34 @@ namespace VTCManager_1._0._0
             this.label3.TabIndex = 8;
             this.label3.Text = "Rev. 1";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.WebServer_Status_label,
+            this.Label_DB_Server});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 620);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1458, 22);
+            this.statusStrip1.TabIndex = 9;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // WebServer_Status_label
+            // 
+            this.WebServer_Status_label.Name = "WebServer_Status_label";
+            this.WebServer_Status_label.Size = new System.Drawing.Size(10, 17);
+            this.WebServer_Status_label.Text = ".";
+            this.WebServer_Status_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Label_DB_Server
+            // 
+            this.Label_DB_Server.Name = "Label_DB_Server";
+            this.Label_DB_Server.Size = new System.Drawing.Size(10, 17);
+            this.Label_DB_Server.Text = ".";
+            // 
             // Main
             // 
-            this.ClientSize = new System.Drawing.Size(1458, 622);
+            this.ClientSize = new System.Drawing.Size(1458, 642);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupVerkehr);
             this.Controls.Add(this.groupStatistiken);
@@ -1387,6 +1427,8 @@ namespace VTCManager_1._0._0
             this.groupStatistiken.PerformLayout();
             this.groupVerkehr.ResumeLayout(false);
             this.groupVerkehr.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1676,6 +1718,34 @@ namespace VTCManager_1._0._0
             updateTraffic.Interval = wert * 1000;
             lbl_Reload_Time.Text = "Reload-Interval: " + wert + " Sek.";
             this.load_traffic();
+
+
+            // Serverstatus in Statusleiste anzeigen
+            Servercheck sc = new Servercheck();
+            var green = new Bitmap(Properties.Resources.iconfinder_bulled_green_1930264);
+            var red = new Bitmap(Properties.Resources.iconfinder_bullet_red_84435);
+            // Webserver-Check
+            try
+            {
+                WebServer_Status_label.Text = "";
+                WebServer_Status_label.Image = (sc.WS_Check() == true) ? green : red;
+            } catch(Exception Fehler_Server)
+            {
+                MessageBox.Show("Keine Verbindung zum Webserver\n" + Fehler_Server.Message, "Fehler Verbindung", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // DB-Check
+            try
+            {
+                Label_DB_Server.Text = "";
+                Label_DB_Server.Image = (sc.DB_Check() == true) ? green : red;
+            }
+            catch (Exception Fehler_Server)
+            {
+                MessageBox.Show("Keine Verbindung zum Datenbankserver\n" + Fehler_Server.Message, "Fehler Verbindung", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
         }
+
     }
 }

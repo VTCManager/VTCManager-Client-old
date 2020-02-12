@@ -63,6 +63,26 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_bulled_green_1930264 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_bulled_green_1930264", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_bullet_red_84435 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_bullet_red_84435", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_film_noir_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-film-noir-50", resourceCulture);

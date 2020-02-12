@@ -108,6 +108,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Servercheck.cs" />
     <Compile Include="SettingsDataObject.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="SettingsWindow.cs">
@@ -235,10 +236,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-film-noir-50.png" />
+    <Content Include="iconfinder_bulled-green_1930264.png" />
+    <Content Include="iconfinder_bullet-red_84435.png" />
+    <None Include="Resources\iconfinder_bullet-red_84435.png" />
+    <None Include="Resources\iconfinder_bulled-green_1930264.png" />
     <Content Include="Ressources\AutopilotEnd_fx.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ressources\AutopilotStart_fx.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\iconfinder_bulled-green_1930264.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\iconfinder_bullet-red_84435.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ressources\icons8-expand-24.png">
