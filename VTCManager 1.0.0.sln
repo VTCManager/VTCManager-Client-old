@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTCManager", "VTCManager 1.0.0\VTCManager.csproj", "{AEFF0226-FE54-457F-8B94-C75136E3DDB3}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VTC-Manager Installation", "VTC-Manager Installation\VTC-Manager Installation.vdproj", "{4B078912-49C8-4FB1-8172-287A96D3FF10}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,8 +15,6 @@ Global
 		{AEFF0226-FE54-457F-8B94-C75136E3DDB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEFF0226-FE54-457F-8B94-C75136E3DDB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEFF0226-FE54-457F-8B94-C75136E3DDB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B078912-49C8-4FB1-8172-287A96D3FF10}.Debug|Any CPU.ActiveCfg = Debug
-		{4B078912-49C8-4FB1-8172-287A96D3FF10}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

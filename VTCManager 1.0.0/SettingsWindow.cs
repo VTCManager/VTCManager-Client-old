@@ -447,7 +447,7 @@ namespace VTCManager_1._0._0
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
-            
+            group_Overlay.Visible = false;
 
             Utilities util2 = new Utilities();
 
@@ -460,8 +460,32 @@ namespace VTCManager_1._0._0
             string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
             string wert28 = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             string wert29 = util2.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
-            
-            if(wert29 == null)
+
+
+            if (wert22 == null)
+            {
+                wert22 = "1";
+            }
+            if (wert23 == null)
+            {
+                wert23 = "1";
+            }
+            if (wert24 == null)
+            {
+                wert24 = "1";
+            }
+            if (wert25 == null)
+            {
+                wert25 = "1";
+            }
+            if (wert26 == null)
+            {
+                wert26 = "1";
+            }
+
+
+
+            if (wert29 == null)
             {
                 traffic_Update_Intervall.Value = 5;
             } else
@@ -469,12 +493,16 @@ namespace VTCManager_1._0._0
                 traffic_Update_Intervall.Value = Convert.ToDecimal(wert29);
             }
 
+
             
 
 
             if (wert28.ToString() != null)
             {
                 truckersMP_Pfad_TextBox.Text = wert28;
+            } else
+            {
+                truckersMP_Pfad_TextBox.Text = "";
             }
 
             if (wert99 == "1")
@@ -486,6 +514,7 @@ namespace VTCManager_1._0._0
             }
 
             // Server COMBO vorauswahl
+            if(wert27 == "") { wert27 = "Simulation 1"; }
             if (wert27 == "sim1") { comboBox1.Text = "Simulation 1"; }
             if (wert27 == "sim2") { comboBox1.Text = "Simulation 2"; }
             if (wert27 == "arc1") { comboBox1.Text = "Arcade 1"; }

@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Net;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -140,6 +141,8 @@ namespace VTCManager_1._0._0
         private ToolStripStatusLabel WebServer_Status_label;
         private ToolStripStatusLabel Label_DB_Server;
         public int reload;
+        private object data2;
+        private object updated;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -248,18 +251,21 @@ namespace VTCManager_1._0._0
 
         private void load_traffic()
         {
+            string server;
             Utilities utils = new Utilities();
-            string server = utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
 
-            if (string.IsNullOrEmpty(server) == true)
+            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER")) == true)
             {
                 this.settings.Cache.truckersmp_server = "sim1";
+                server = "sim1";
+            } else
+            {
+                server = utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
             }
+            
 
             Console.WriteLine(server);
 
-            if (this.GUI_SIZE == 1)
-            {
                 this.tableLayoutPanel1.Controls.Clear();
                 this.tableLayoutPanel1.RowStyles.Clear();
                 this.tableLayoutPanel1.ColumnCount = 2;
@@ -284,6 +290,7 @@ namespace VTCManager_1._0._0
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 postParameters.Add("server", server);
                 postParameters.Add("game", "ets2");
+
                 this.traffic_response = this.api.HTTPSRequestGet(this.api.trucky_api_server + this.api.get_traffic_path, postParameters).ToString();
                 var truckyTopTraffic = TruckyTopTraffic.FromJson(this.traffic_response);
                 this.AddItem(truckyTopTraffic.Response[0].Name, truckyTopTraffic.Response[0].Players.ToString());
@@ -303,7 +310,7 @@ namespace VTCManager_1._0._0
                 if (server == "arc1") { label2.Text = "Server: Arcade 1"; }
                 if (server == "eupromods1") { label2.Text = "Server: ProMods 1"; }
                 if (server == "eupromods2") { label2.Text = "Server: ProMods 2"; }
-            }
+            
 
         }
         private void AddItem(string road, string traffic)
@@ -372,23 +379,26 @@ namespace VTCManager_1._0._0
                     float num1;
                     if (Utilities.IsGameRunning)
                     {
+
+                        // Rest km
                         this.progressBar1.Style = ProgressBarStyle.Continuous;
                         if ((double)data.Job.NavigationDistanceLeft != 0.0)
                             this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                         if (data.Truck != "")
                         {
-                            double kupp1 = Convert.ToDouble(data.Controls.UserClutch.ToString()) * 100;
-                            double gas1 = Convert.ToDouble(data.Controls.UserThrottle.ToString()) * 100;
-                            double brems1 = Convert.ToDouble(data.Controls.UserBrake.ToString()) * 100;
-                            double rpm1 = Convert.ToDouble(data.Drivetrain.EngineRpm.ToString());
-                            double rpm_max = Convert.ToDouble(data.Drivetrain.EngineRpmMax.ToString());
+                            int kupp1 = Convert.ToInt32(data.Controls.UserClutch) * 100;
+                            int gas1 = Convert.ToInt32(data.Controls.UserThrottle) * 100;
+                            int brems1 = Convert.ToInt32(data.Controls.UserBrake) * 100;
+                            int rpm1 = Convert.ToInt32(data.Drivetrain.EngineRpm-70);
+                            int rpm_max = Convert.ToInt32(data.Drivetrain.EngineRpmMax);
 
                             progressBar_KUPPLUNG.Value = Convert.ToInt32(kupp1);
                             progressBar_GAS.Value = Convert.ToInt32(gas1);
                             progressBar_BREMSE.Value = Convert.ToInt32(brems1);
+                            progressBar_RPM.Minimum = 0;
                             progressBar_RPM.Maximum = Convert.ToInt32(rpm_max);
                             progressBar_RPM.Value = Convert.ToInt32(rpm1);
-                            progressBar_RPM.Refresh();
+                            //progressBar_RPM.Refresh();
 
                             if(data.Drivetrain.Gear.ToString() == "-1")
                             {
@@ -537,59 +547,67 @@ namespace VTCManager_1._0._0
                     double num2;
                     if (this.jobStarted)
                     {
+                        string hash_tag = get_unique_string(20);
+
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
                             flag = !enumerator.MoveNext();
                         if (flag)
                         {
-                            if ((double)data.Job.NavigationDistanceLeft != 0.0 && data.Job.CityDestination != "")
-                            {
+                                if ((double)data.Job.NavigationDistanceLeft != 0.0 && data.Job.CityDestination != "")
+                                {
+                                
+                              
+                                    notification_sound_tour_start.Play();
+                                    this.totalDistance = (int)data.Job.NavigationDistanceLeft;
+                                    num2 = (double)data.Job.Income * 0.15;
+                                    this.cargo_lb.Text = translation.freight_lb + data.Job.Cargo + " (" + ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString() + "t)";
+                                    this.depature_lb.Text = translation.depature_lb + data.Job.CitySource + " ( " + data.Job.CompanySource + " ) ";
+                                    this.destination_lb.Text = translation.destination_lb + data.Job.CityDestination + " ( " + data.Job.CompanyDestination + " )";
+                                    this.progressBar1.Visible = true;
+                                    this.fuelatstart = data.Drivetrain.Fuel;
+                                    Dictionary<string, string> postParameters = new Dictionary<string, string>();
+                                    postParameters.Add("authcode", this.authCode);
+                                    postParameters.Add("cargo", data.Job.Cargo);
+                                    postParameters.Add("weight", ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString());
+                                    postParameters.Add("depature", data.Job.CitySource);
+                                    postParameters.Add("depature_company", data.Job.CompanySource);
+                                    postParameters.Add("destination_company", data.Job.CompanyDestination);
+                                    postParameters.Add("destination", data.Job.CityDestination);
+                                    postParameters.Add("truck_manufacturer", data.Manufacturer);
+                                    postParameters.Add("truck_model", data.Truck);
+                                    postParameters.Add("distance", this.totalDistance.ToString());
+                                    postParameters.Add("HASH_TAG", hash_tag);
 
-                                notification_sound_tour_start.Play();
-                                this.totalDistance = (int)data.Job.NavigationDistanceLeft;
-                                num2 = (double)data.Job.Income * 0.15;
-                                this.cargo_lb.Text = translation.freight_lb + data.Job.Cargo + " (" + ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString() + "t)";
-                                this.depature_lb.Text = translation.depature_lb + data.Job.CitySource + " ( " + data.Job.CompanySource + " ) ";
-                                this.destination_lb.Text = translation.destination_lb + data.Job.CityDestination + " ( " + data.Job.CompanyDestination + " )";
-                                this.progressBar1.Visible = true;
-                                this.fuelatstart = data.Drivetrain.Fuel;
-                                Dictionary<string, string> postParameters = new Dictionary<string, string>();
-                                postParameters.Add("authcode", this.authCode);
-                                postParameters.Add("cargo", data.Job.Cargo);
-                                postParameters.Add("weight", ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString());
-                                postParameters.Add("depature", data.Job.CitySource);
-                                postParameters.Add("depature_company", data.Job.CompanySource);
-                                postParameters.Add("destination_company", data.Job.CompanyDestination);
-                                postParameters.Add("destination", data.Job.CityDestination);
-                                postParameters.Add("truck_manufacturer", data.Manufacturer);
-                                postParameters.Add("truck_model", data.Truck);
-                                postParameters.Add("distance", this.totalDistance.ToString());
+                                    this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
+                                    this.settings.Cache.SaveJobID = "this.jobID";
+                                    this.settings.SaveJobID();
+                                    this.lastJobDictionary.Add("cargo", data.Job.Cargo);
+                                    this.lastJobDictionary.Add("source", data.Job.CitySource);
+                                    this.lastJobDictionary.Add("destination", data.Job.CityDestination);
+                                    this.lastJobDictionary.Add("income", Convert.ToString(data.Job.Income));
 
-                                this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
-                                this.settings.Cache.SaveJobID = "this.jobID";
-                                this.settings.SaveJobID();
-                                this.lastJobDictionary.Add("cargo", data.Job.Cargo);
-                                this.lastJobDictionary.Add("source", data.Job.CitySource);
-                                this.lastJobDictionary.Add("destination", data.Job.CityDestination);
-                                Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
-                                num1 = data.Job.Mass;
-                                string str2 = num1.ToString();
+                                    Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
+                                    num1 = data.Job.Mass;
+                                    string str2 = num1.ToString();
 
 
-
-                                lastJobDictionary.Add("weight", str2);
-                                this.CitySource = data.Job.CitySource;
-                                this.CityDestination = data.Job.CityDestination;
-                                this.InitializeDiscord(1);
-                                this.send_tour_status.Enabled = true;
-                                this.send_tour_status.Start();
-                                this.jobStarted = false;
-                            }
+                                    lastJobDictionary.Add("weight", str2);
+                                //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
+                                    this.CitySource = data.Job.CitySource;
+                                    this.CityDestination = data.Job.CityDestination;
+                                    this.InitializeDiscord(1);
+                                    this.send_tour_status.Enabled = true;
+                                    this.send_tour_status.Start();
+                                    this.jobStarted = false;
+                                }
                         }
 
                     }
                     if (this.jobRunning)
                     {
+                        string hash_tag = get_unique_string(20);
+
                         if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
                         {
                             if (Utilities.IsGameRunning)
@@ -599,24 +617,32 @@ namespace VTCManager_1._0._0
                                 {
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
                                         this.totalDistance = (int)data.Job.NavigationDistanceLeft;
-                                    this.progressBar1.Value = this.currentPercentage;
+
+                                    this.progressBar1.Minimum = 0;
+                                    this.progressBar1.Maximum = Convert.ToInt32( data.Job.NavigationDistanceLeft / 1000 );
+                                    this.progressBar1.Value = this.currentPercentage / 1000;
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
 
                     {
-                    {
-                      "authcode",
-                      this.authCode
-                    },
-                    {
-                      "job_id",
-                      this.jobID
-                    },
-                    {
-                      "percentage",
-                      this.currentPercentage.ToString()
-                    }
+                       
+                        {
+                          "authcode",
+                          this.authCode
+                        },
+                        {
+                          "job_id",
+                          this.jobID
+                        },
+                        {
+                          "percentage",
+                          this.currentPercentage.ToString()
+                        },
+                        {
+                          "HASH_TAG", hash_tag
+                        }
                   }, false).ToString();
+                                    
                                 }
                             }
                         }
@@ -633,6 +659,7 @@ namespace VTCManager_1._0._0
                             {
                                 if (this.lastNotZeroDistance <= 2000 && this.currentPercentage > 90)
                                 {
+                                    
                                     Console.WriteLine(this.lastNotZeroDistance);
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
@@ -688,9 +715,21 @@ namespace VTCManager_1._0._0
                     this.progressBar1.Value = this.currentPercentage;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                //MessageBox.Show("Fehler: " + ex.Message + "\n" + ex.ToString());
+            }
+        }
 
+        string get_unique_string(int string_length)
+        {
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                var bit_count = (string_length * 6);
+                var byte_count = ((bit_count + 7) / 8); // rounded up
+                var bytes = new byte[byte_count];
+                rng.GetBytes(bytes);
+                return Convert.ToBase64String(bytes);
             }
         }
 
@@ -859,29 +898,30 @@ namespace VTCManager_1._0._0
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItemClick);
             // 
             // creditsToolStripMenuItem
             // 
             this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.creditsToolStripMenuItem.Text = "Über...";
             this.creditsToolStripMenuItem.Click += new System.EventHandler(this.CreditsToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItemClick);
             // 
             // serverstatusToolStripMenuItem
             // 
             this.serverstatusToolStripMenuItem.Name = "serverstatusToolStripMenuItem";
-            this.serverstatusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.serverstatusToolStripMenuItem.Text = "Serverstatus";
+            this.serverstatusToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.serverstatusToolStripMenuItem.Text = "Serverstatus (Inaktiv)";
+            this.serverstatusToolStripMenuItem.Click += new System.EventHandler(this.serverstatusToolStripMenuItem_Click);
             // 
             // topMenuAccount
             // 
@@ -1556,7 +1596,6 @@ namespace VTCManager_1._0._0
                 truckersMP_Button.Visible = false;
             }
 
-            
 
             Utilities util = new Utilities();
             // TMP Button anzeigen wenn Pfad in den Settings
@@ -1584,6 +1623,7 @@ namespace VTCManager_1._0._0
                 Process.Start(truckersMP_Link);
             }
 
+            
  
 
         }
@@ -1591,7 +1631,9 @@ namespace VTCManager_1._0._0
 
         private void truckersMP_Button_Click(object sender, EventArgs e)
         {
-            if(truckersMP_Link != null)
+            Utilities utils4 = new Utilities();
+            truckersMP_Link = utils4.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            if (truckersMP_Link != null)
             {
                 Process.Start(truckersMP_Link);
             } else
@@ -1676,18 +1718,18 @@ namespace VTCManager_1._0._0
                 menuStrip1.ForeColor = System.Drawing.Color.Gray;
                 BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
                 ForeColor = System.Drawing.Color.LightGray;
+                Utilities util = new Utilities();
+                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
+                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
+                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
+                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
+                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
 
-                lbl_RPM.Visible = false;
-                label_GAS.Visible = false;
-                lbl_BREMSE.Visible = false;
-                lbl_GANG.Visible = false;
-                lbl_KUPPLUNG.Visible = false;
-
-                progressBar_BREMSE.Visible = false;
-                progressBar_GAS.Visible = false;
-                progressBar_KUPPLUNG.Visible = false;
-                progressBar_RPM.Visible = false;
-                lbl_GANG.Visible = false;
+                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
+                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
+                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
+                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
+                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
 
             } else
             {
@@ -1696,18 +1738,18 @@ namespace VTCManager_1._0._0
                 menuStrip1.ForeColor = System.Drawing.Color.Gray;
                 BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
                 ForeColor = System.Drawing.Color.Black;
+                Utilities util = new Utilities();
+                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
+                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
+                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
+                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
+                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
 
-                lbl_RPM.Visible = true;
-                label_GAS.Visible = true;
-                lbl_BREMSE.Visible = true;
-                lbl_GANG.Visible = true;
-                lbl_KUPPLUNG.Visible = true;
-
-                progressBar_BREMSE.Visible = true;
-                progressBar_GAS.Visible = true;
-                progressBar_KUPPLUNG.Visible = true;
-                progressBar_RPM.Visible = true;
-                lbl_GANG.Visible = true;
+                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
+                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
+                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
+                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
+                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
             }
         }
 
@@ -1746,6 +1788,12 @@ namespace VTCManager_1._0._0
 
 
         }
+
+        private void serverstatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }
