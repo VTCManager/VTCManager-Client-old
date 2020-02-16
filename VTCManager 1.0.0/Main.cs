@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -135,12 +136,14 @@ namespace VTCManager_1._0._0
         public Timer updateTraffic;
         private Label lbl_Reload_Time;
         public int Is_DarkMode_On;
-        private Label label3;
+        private Label lbl_Revision;
         private ToolStripMenuItem serverstatusToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel WebServer_Status_label;
         private ToolStripStatusLabel Label_DB_Server;
         public int reload;
+        private PictureBox speed_Image;
+        private Label neue_splimit;
         public string hash_tag;
 
         //private object data2;
@@ -430,6 +433,15 @@ namespace VTCManager_1._0._0
                             }
                             else
                             {
+                                if (Convert.ToInt32(data.Job.SpeedLimit) <= 5) { speed_Image.Image = Properties.Resources._00; }
+                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 9 && Convert.ToInt32(data.Job.SpeedLimit) <= 12) { speed_Image.Image = Properties.Resources._30; }
+                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 13 && Convert.ToInt32(data.Job.SpeedLimit) <= 15) { speed_Image.Image = Properties.Resources._50; }
+                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 19 && Convert.ToInt32(data.Job.SpeedLimit) <= 22) { speed_Image.Image = Properties.Resources._70; }
+                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 22 && Convert.ToInt32(data.Job.SpeedLimit) <= 23) { speed_Image.Image = Properties.Resources._80; }
+                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 24 && Convert.ToInt32(data.Job.SpeedLimit) <= 26) { speed_Image.Image = Properties.Resources._90; }
+
+                                neue_splimit.Text = data.Job.SpeedLimit.ToString();
+
                                 this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
                             }
                             if (this.serial_start == false)
@@ -814,6 +826,7 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.speed_Image = new System.Windows.Forms.PictureBox();
             this.label_GAS = new System.Windows.Forms.Label();
             this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
             this.lbl_KUPPLUNG = new System.Windows.Forms.Label();
@@ -851,13 +864,15 @@ namespace VTCManager_1._0._0
             this.groupVerkehr = new System.Windows.Forms.GroupBox();
             this.lbl_Reload_Time = new System.Windows.Forms.Label();
             this.updateTraffic = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbl_Revision = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.WebServer_Status_label = new System.Windows.Forms.ToolStripStatusLabel();
             this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
+            this.neue_splimit = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).BeginInit();
             this.panel4.SuspendLayout();
             this.contextTaskbar.SuspendLayout();
             this.groupStatistiken.SuspendLayout();
@@ -1040,6 +1055,8 @@ namespace VTCManager_1._0._0
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.neue_splimit);
+            this.panel2.Controls.Add(this.speed_Image);
             this.panel2.Controls.Add(this.label_GAS);
             this.panel2.Controls.Add(this.progressBar_GAS);
             this.panel2.Controls.Add(this.lbl_KUPPLUNG);
@@ -1062,6 +1079,16 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
+            // 
+            // speed_Image
+            // 
+            this.speed_Image.Image = ((System.Drawing.Image)(resources.GetObject("speed_Image.Image")));
+            this.speed_Image.InitialImage = ((System.Drawing.Image)(resources.GetObject("speed_Image.InitialImage")));
+            this.speed_Image.Location = new System.Drawing.Point(4, 258);
+            this.speed_Image.Name = "speed_Image";
+            this.speed_Image.Size = new System.Drawing.Size(150, 150);
+            this.speed_Image.TabIndex = 18;
+            this.speed_Image.TabStop = false;
             // 
             // label_GAS
             // 
@@ -1423,14 +1450,15 @@ namespace VTCManager_1._0._0
             this.updateTraffic.Interval = 30000;
             this.updateTraffic.Tick += new System.EventHandler(this.updateTraffic_Tick);
             // 
-            // label3
+            // lbl_Revision
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1395, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Rev. 1";
+            this.lbl_Revision.AutoSize = true;
+            this.lbl_Revision.Location = new System.Drawing.Point(1373, 9);
+            this.lbl_Revision.Name = "lbl_Revision";
+            this.lbl_Revision.Size = new System.Drawing.Size(39, 13);
+            this.lbl_Revision.TabIndex = 8;
+            this.lbl_Revision.Text = "Rev. 3";
+            this.lbl_Revision.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // statusStrip1
             // 
@@ -1456,11 +1484,20 @@ namespace VTCManager_1._0._0
             this.Label_DB_Server.Size = new System.Drawing.Size(10, 17);
             this.Label_DB_Server.Text = ".";
             // 
+            // neue_splimit
+            // 
+            this.neue_splimit.AutoSize = true;
+            this.neue_splimit.Location = new System.Drawing.Point(200, 319);
+            this.neue_splimit.Name = "neue_splimit";
+            this.neue_splimit.Size = new System.Drawing.Size(35, 13);
+            this.neue_splimit.TabIndex = 19;
+            this.neue_splimit.Text = "label3";
+            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1458, 642);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lbl_Revision);
             this.Controls.Add(this.groupVerkehr);
             this.Controls.Add(this.groupStatistiken);
             this.Controls.Add(this.version_lb);
@@ -1481,6 +1518,7 @@ namespace VTCManager_1._0._0
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).EndInit();
             this.panel4.ResumeLayout(false);
             this.contextTaskbar.ResumeLayout(false);
             this.groupStatistiken.ResumeLayout(false);
@@ -1597,6 +1635,12 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
+
+            
+
+
+            lbl_Revision.Text = "REV: 1.1.1.18";
+
             Utilities util3 = new Utilities();
 
             reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));

@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AEFF0226-FE54-457F-8B94-C75136E3DDB3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>VTCManager_1._0._0</RootNamespace>
     <AssemblyName>VTCManager 1.0.0</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -35,7 +35,7 @@
     <SuiteName>VTC-Manager</SuiteName>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -246,6 +246,15 @@
     <Content Include="iconfinder_bullet-red_84435.png" />
     <None Include="Resources\iconfinder_bullet-red_84435.png" />
     <None Include="Resources\iconfinder_bulled-green_1930264.png" />
+    <None Include="Resources\00.png" />
+    <None Include="Resources\10.png" />
+    <None Include="Resources\30.png" />
+    <None Include="Resources\50.png" />
+    <None Include="Resources\70.png" />
+    <None Include="Resources\80.png" />
+    <None Include="Resources\100.png" />
+    <None Include="Resources\120.png" />
+    <None Include="Resources\90.png" />
     <Content Include="Ressources\AutopilotEnd_fx.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
