@@ -141,8 +141,10 @@ namespace VTCManager_1._0._0
         private ToolStripStatusLabel WebServer_Status_label;
         private ToolStripStatusLabel Label_DB_Server;
         public int reload;
-        private object data2;
-        private object updated;
+        public string hash_tag;
+
+        //private object data2;
+        //private object updated;
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -547,7 +549,18 @@ namespace VTCManager_1._0._0
                     double num2;
                     if (this.jobStarted)
                     {
-                        string hash_tag = get_unique_string(20);
+                        // PRÜFEN OB EIN JOB HASH_TAG IN DER REG STEHT
+                        Utilities util = new Utilities();
+                        if(util.Reg_Lesen("TruckersMP_Autorun", "HASH_TAG") == null)
+                        {
+                           this.hash_tag = get_unique_string(20);
+                           util.Reg_Schreiben("HASH_TAG", hash_tag);
+
+                        } else
+                        {
+                            this.hash_tag = util.Reg_Lesen("TruckersMP_Autorun", "HASH_TAG");
+                        }
+                       // PRÜFUNG ENDE
 
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
@@ -580,6 +593,7 @@ namespace VTCManager_1._0._0
                                     postParameters.Add("HASH_TAG", hash_tag);
 
                                     this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
+   
                                     this.settings.Cache.SaveJobID = "this.jobID";
                                     this.settings.SaveJobID();
                                     this.lastJobDictionary.Add("cargo", data.Job.Cargo);
@@ -606,8 +620,6 @@ namespace VTCManager_1._0._0
                     }
                     if (this.jobRunning)
                     {
-                        string hash_tag = get_unique_string(20);
-
                         if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
                         {
                             if (Utilities.IsGameRunning)
@@ -619,8 +631,8 @@ namespace VTCManager_1._0._0
                                         this.totalDistance = (int)data.Job.NavigationDistanceLeft;
 
                                     this.progressBar1.Minimum = 0;
-                                    this.progressBar1.Maximum = Convert.ToInt32( data.Job.NavigationDistanceLeft / 1000 );
-                                    this.progressBar1.Value = this.currentPercentage / 1000;
+                                    this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
+                                    this.progressBar1.Value = this.currentPercentage;
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
 
@@ -639,7 +651,7 @@ namespace VTCManager_1._0._0
                           this.currentPercentage.ToString()
                         },
                         {
-                          "HASH_TAG", hash_tag
+                          "HASH_TAG", this.hash_tag
                         }
                   }, false).ToString();
                                     
@@ -659,7 +671,11 @@ namespace VTCManager_1._0._0
                             {
                                 if (this.lastNotZeroDistance <= 2000 && this.currentPercentage > 90)
                                 {
-                                    
+                                    // HASH_TAG AUS DER REG ENTFERNEN
+                                    Utilities util = new Utilities();
+                                    util.Reg_Schreiben("HASH_TAG", "");
+
+
                                     Console.WriteLine(this.lastNotZeroDistance);
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
@@ -680,7 +696,10 @@ namespace VTCManager_1._0._0
                                         postParameters.Add("refueled", "true");
                                     }
                                     postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
+                                    postParameters.Add("HASH_TAG", this.hash_tag);
+
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString();
+
                                     this.InitializeDiscord(0);
                                     this.totalDistance = 0;
                                     this.invertedDistance = 0;
@@ -758,6 +777,7 @@ namespace VTCManager_1._0._0
                 string str3 = num2.ToString();
                 dictionary3.Add("rotation", str3);
                 postParameters.Add("authcode", this.authCode);
+                postParameters.Add("HASH_TAG", this.hash_tag);
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
             }
         }
@@ -1793,7 +1813,6 @@ namespace VTCManager_1._0._0
         {
 
         }
-
 
     }
 }
