@@ -38,6 +38,9 @@ namespace VTCManager_1._0._0
         private TextBox truckersMP_Pfad_TextBox;
         private Label label4;
         private NumericUpDown traffic_Update_Intervall;
+        private GroupBox groupBox_AntiAFK;
+        private TextBox txt_Anti_AFK_Text;
+        private CheckBox chk_antiafk_on_off;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
@@ -86,12 +89,16 @@ namespace VTCManager_1._0._0
             this.chk_BREMSE = new System.Windows.Forms.CheckBox();
             this.chk_GAS = new System.Windows.Forms.CheckBox();
             this.tmp_Trucker = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
+            this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
+            this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.traffic_Update_Intervall)).BeginInit();
+            this.groupBox_AntiAFK.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -361,9 +368,38 @@ namespace VTCManager_1._0._0
             // 
             this.tmp_Trucker.FileName = "T";
             // 
+            // groupBox_AntiAFK
+            // 
+            this.groupBox_AntiAFK.Controls.Add(this.chk_antiafk_on_off);
+            this.groupBox_AntiAFK.Controls.Add(this.txt_Anti_AFK_Text);
+            this.groupBox_AntiAFK.Location = new System.Drawing.Point(12, 284);
+            this.groupBox_AntiAFK.Name = "groupBox_AntiAFK";
+            this.groupBox_AntiAFK.Size = new System.Drawing.Size(598, 79);
+            this.groupBox_AntiAFK.TabIndex = 9;
+            this.groupBox_AntiAFK.TabStop = false;
+            this.groupBox_AntiAFK.Text = "Anti - AFK";
+            // 
+            // txt_Anti_AFK_Text
+            // 
+            this.txt_Anti_AFK_Text.Location = new System.Drawing.Point(10, 20);
+            this.txt_Anti_AFK_Text.Name = "txt_Anti_AFK_Text";
+            this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(578, 20);
+            this.txt_Anti_AFK_Text.TabIndex = 0;
+            // 
+            // chk_antiafk_on_off
+            // 
+            this.chk_antiafk_on_off.AutoSize = true;
+            this.chk_antiafk_on_off.Location = new System.Drawing.Point(10, 47);
+            this.chk_antiafk_on_off.Name = "chk_antiafk_on_off";
+            this.chk_antiafk_on_off.Size = new System.Drawing.Size(106, 17);
+            this.chk_antiafk_on_off.TabIndex = 1;
+            this.chk_antiafk_on_off.Text = "Anti AFK An/Aus";
+            this.chk_antiafk_on_off.UseVisualStyleBackColor = true;
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
+            this.Controls.Add(this.groupBox_AntiAFK);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
@@ -385,6 +421,8 @@ namespace VTCManager_1._0._0
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.traffic_Update_Intervall)).EndInit();
+            this.groupBox_AntiAFK.ResumeLayout(false);
+            this.groupBox_AntiAFK.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -437,6 +475,22 @@ namespace VTCManager_1._0._0
                 this.data.Cache.speed_mode = "kmh";
                 util.Reg_Schreiben("speed_MODE", "kmh");
             }
+
+            // ANTI_AFK
+            util.Reg_Schreiben("ANTI_AFK", txt_Anti_AFK_Text.Text);
+           if(chk_antiafk_on_off.CheckState == CheckState.Checked)
+            {
+                if(txt_Anti_AFK_Text.Text == "")
+                {
+                    util.Reg_Schreiben("ANTI_AFK", "Der neue VTC-Manager wünscht Gute und Sichere Fahrt !");
+                }
+                util.Reg_Schreiben("ANTI_AFK_AN", "1");
+            } else
+            {
+                util.Reg_Schreiben("ANTI_AFK_AN","0");
+            }
+
+
             this.data.SaveJobID();
 
             //MessageBox.Show(translation.save_info);
@@ -460,6 +514,8 @@ namespace VTCManager_1._0._0
             string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
             string wert28 = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             string wert29 = util2.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
+            string wert30 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
+            string wert31 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
 
 
             if (wert22 == null)
@@ -544,7 +600,9 @@ namespace VTCManager_1._0._0
                 chk_RPM_ANZEIGE.CheckState = CheckState.Unchecked;
             }
 
-
+            // ANTI_AFK
+            chk_antiafk_on_off.CheckState = (wert30 == "1") ? CheckState.Checked : CheckState.Unchecked;
+            txt_Anti_AFK_Text.Text = (wert31 != null) ? wert31.ToString() : "";
 
             // Listbox mit Bildschirmen füllen
 

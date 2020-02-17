@@ -12,6 +12,7 @@ using System.IO;
 using System.Media;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -144,10 +145,19 @@ namespace VTCManager_1._0._0
         public int reload;
         private PictureBox speed_Image;
         private Label neue_splimit;
+        public Timer anti_AFK_TIMER;
         public string hash_tag;
+        public int anti_afk_on_off;
 
-        //private object data2;
-        //private object updated;
+        // Get a handle to an application window.
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindWindow(string lpClassName,
+            string lpWindowName);
+
+        // Activate an application window.
+        [DllImport("USER32.DLL")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
@@ -384,7 +394,6 @@ namespace VTCManager_1._0._0
                     float num1;
                     if (Utilities.IsGameRunning)
                     {
-
                         // Rest km
                         this.progressBar1.Style = ProgressBarStyle.Continuous;
                         if ((double)data.Job.NavigationDistanceLeft != 0.0)
@@ -826,6 +835,7 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.neue_splimit = new System.Windows.Forms.Label();
             this.speed_Image = new System.Windows.Forms.PictureBox();
             this.label_GAS = new System.Windows.Forms.Label();
             this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
@@ -868,7 +878,7 @@ namespace VTCManager_1._0._0
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.WebServer_Status_label = new System.Windows.Forms.ToolStripStatusLabel();
             this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
-            this.neue_splimit = new System.Windows.Forms.Label();
+            this.anti_AFK_TIMER = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1079,6 +1089,15 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
+            // 
+            // neue_splimit
+            // 
+            this.neue_splimit.AutoSize = true;
+            this.neue_splimit.Location = new System.Drawing.Point(200, 319);
+            this.neue_splimit.Name = "neue_splimit";
+            this.neue_splimit.Size = new System.Drawing.Size(35, 13);
+            this.neue_splimit.TabIndex = 19;
+            this.neue_splimit.Text = "label3";
             // 
             // speed_Image
             // 
@@ -1484,14 +1503,10 @@ namespace VTCManager_1._0._0
             this.Label_DB_Server.Size = new System.Drawing.Size(10, 17);
             this.Label_DB_Server.Text = ".";
             // 
-            // neue_splimit
+            // anti_AFK_TIMER
             // 
-            this.neue_splimit.AutoSize = true;
-            this.neue_splimit.Location = new System.Drawing.Point(200, 319);
-            this.neue_splimit.Name = "neue_splimit";
-            this.neue_splimit.Size = new System.Drawing.Size(35, 13);
-            this.neue_splimit.TabIndex = 19;
-            this.neue_splimit.Text = "label3";
+            this.anti_AFK_TIMER.Interval = 5000;
+            this.anti_AFK_TIMER.Tick += new System.EventHandler(this.anti_AFK_TIMER_Tick);
             // 
             // Main
             // 
@@ -1642,6 +1657,8 @@ namespace VTCManager_1._0._0
             lbl_Revision.Text = "REV: 1.1.1.18";
 
             Utilities util3 = new Utilities();
+
+            
 
             reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
             if(reload == 0)
@@ -1858,5 +1875,13 @@ namespace VTCManager_1._0._0
 
         }
 
+
+        private void anti_AFK_TIMER_Tick(object sender, EventArgs e)
+        {
+            SendKeys.SendWait("y");
+            SendKeys.SendWait("VCT - Manager: Test-Message");
+            SendKeys.Send("{ENTER}");
+
+        }
     }
 }
