@@ -25,13 +25,16 @@ namespace VTCManager_1._0._0
         public API()
         {
             this.login_path = "login.php";
-            this.api_server = "https://vtc.northwestvideo.de/api/app/";
+            //this.api_server = "https://vtc.northwestvideo.de/api/app/";
+            this.api_server = "https://vtc.northwestvideo.de/api/app_beta/";
+            //this.api_server = "https://www.zwpc.de/api/";
             this.trucky_api_server = "https://api.truckyapp.com/v2/";
             this.load_data_path = "load_data.php";
             this.canceltourpath = "cancel_tour.php";
             this.job_update_path = "job_update.php";
             this.finishjob_path = "job_finish.php";
             this.new_job_path = "start_tour.php";
+            //this.new_job_path = "start_tour_2.php";
             this.loc_update_path = "loc_update.php";
             this.get_traffic_path = "traffic/top";
 

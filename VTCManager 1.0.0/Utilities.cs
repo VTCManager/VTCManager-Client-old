@@ -15,6 +15,7 @@ namespace VTCManager_1._0._0
         private static long _lastCheckTime;
         private static bool _cachedRunningFlag;
         private static string _chachedGame;
+        private static string _max;
 
         //Properties
         public static string LastRunningGameName { get; set; }
@@ -95,6 +96,48 @@ namespace VTCManager_1._0._0
                 return _cachedRunningFlag;
             }
         }
+
+        public static bool IsDiscordRunning
+        {
+            get
+            {
+                if ((DateTime.Now - new DateTime(Interlocked.Read(ref _lastCheckTime))) > TimeSpan.FromSeconds(3.0))
+                {
+                    Interlocked.Exchange(ref _lastCheckTime, DateTime.Now.Ticks);
+                    Process[] processes = Process.GetProcesses();
+                    int index = 0;
+                    while (true)
+                    {
+                        if (index < processes.Length)
+                        {
+                            Process process = processes[index];
+                            try
+                            {
+                                if ((process.MainWindowTitle.StartsWith("Discord") || (process.ProcessName == "Discord.exe")))
+                                {
+                                    _cachedRunningFlag = true;
+      
+                                    return _cachedRunningFlag;
+                                }
+
+                            }
+                            catch
+                            {
+                            }
+                            index++;
+                            continue;
+                        }
+                        else
+                        {
+                            _cachedRunningFlag = false;
+                        }
+                        break;
+                    }
+                }
+                return _cachedRunningFlag;
+            }
+        }
+
         public static string WhichGameIsRunning
         {
             get
@@ -121,6 +164,9 @@ namespace VTCManager_1._0._0
                 return _chachedGame;
             }
         }
+
+
+
 
         // Edit by Thommy
         public void Reg_Schreiben(string name, string wert)
