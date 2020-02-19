@@ -16,6 +16,7 @@ namespace VTCManager_1._0._0
         private static bool _cachedRunningFlag;
         private static string _chachedGame;
         private static string _max;
+        private static bool _DiscordRunningFlag;
 
         //Properties
         public static string LastRunningGameName { get; set; }
@@ -113,11 +114,13 @@ namespace VTCManager_1._0._0
                             Process process = processes[index];
                             try
                             {
-                                if ((process.MainWindowTitle.StartsWith("Discord") || (process.ProcessName == "Discord.exe")))
+                              
+
+                                if (process.ProcessName == "Discord")
                                 {
-                                    _cachedRunningFlag = true;
+                                    _DiscordRunningFlag = true;
       
-                                    return _cachedRunningFlag;
+                                    return _DiscordRunningFlag;
                                 }
 
                             }
@@ -129,12 +132,13 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                            _cachedRunningFlag = false;
+
+                            _DiscordRunningFlag = false;
                         }
                         break;
                     }
                 }
-                return _cachedRunningFlag;
+                return _DiscordRunningFlag;
             }
         }
 

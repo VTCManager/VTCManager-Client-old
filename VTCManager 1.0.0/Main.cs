@@ -397,9 +397,7 @@ namespace VTCManager_1._0._0
                     float num1;
                     if (Utilities.IsGameRunning)
                     {
-                        // ANTI_AFK
-
-
+          
                         // Rest km
                         this.progressBar1.Style = ProgressBarStyle.Continuous;
                         if ((double)data.Job.NavigationDistanceLeft != 0.0)
@@ -1624,27 +1622,27 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
-            lbl_Revision.Text = "REV: 1.1.1.18";
+            lbl_Revision.Text = "REV: BE1.2.0.1";
 
-            if (Utilities.IsDiscordRunning)
-            {
-                
-                client = new DiscordRpcClient("678939831879073792");
-                client.Initialize();
-
-                client.SetPresence(new RichPresence()
+                if(Utilities.IsDiscordRunning == true)
                 {
-                    Details = "Die neue Speditions-Software",
-                    State = "vtc.northwestvideo.de",
-                    Assets = new Assets()
+                    client = new DiscordRpcClient("678939831879073792");
+                    client.Initialize();
+                    client.SetPresence(new RichPresence()
                     {
-                        LargeImageKey = "image_large",
-                        LargeImageText = "Deine neue Speditionsverwaltung !",
-                        SmallImageKey = "image_small"
-                    }
-                });
+                        Details = "Das ist Verwaltung!",
+                        State = "vtc.northwestvideo.de",
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = "rpc1_1",
+                            LargeImageText = "VTConnect"
+                        }  
+                    
+                    });
+                } 
+        
                 
-            }
+           
 
 
 
@@ -1871,6 +1869,8 @@ namespace VTCManager_1._0._0
         {
 
         }
+
+
     }
 
 
