@@ -114,8 +114,6 @@ namespace VTCManager_1._0._0
                             Process process = processes[index];
                             try
                             {
-                              
-
                                 if (process.ProcessName == "Discord")
                                 {
                                     _DiscordRunningFlag = true;
@@ -132,7 +130,7 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-
+                     
                             _DiscordRunningFlag = false;
                         }
                         break;

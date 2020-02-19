@@ -1626,6 +1626,7 @@ namespace VTCManager_1._0._0
 
                 if(Utilities.IsDiscordRunning == true)
                 {
+
                     client = new DiscordRpcClient("678939831879073792");
                     client.Initialize();
                     client.SetPresence(new RichPresence()
