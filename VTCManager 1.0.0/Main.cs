@@ -1809,6 +1809,7 @@ namespace VTCManager_1._0._0
                 this.groupStatistiken.Visible = false;
                 this.groupVerkehr.Visible = false;
                 this.Size = new Size(581, 661);
+                this.speed_Image.Location = new Point(220, 300);
                 this.panel2.Location = new Point(5, 28);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/expand.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
@@ -1819,8 +1820,9 @@ namespace VTCManager_1._0._0
                 GUI_SIZE = 1;
                 this.groupStatistiken.Visible = true;
                 this.groupVerkehr.Visible = true;
-                this.Size = new Size(1474, 661);
+                this.Size = new Size(1404, 681);
                 this.panel2.Location = new Point(540, 28);
+                this.speed_Image.Location = new Point(210, 313);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/komprimieren.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
 
@@ -1860,6 +1862,7 @@ namespace VTCManager_1._0._0
             if (Is_DarkMode_On == 0)
             {
                 Is_DarkMode_On = 1;
+                this.BackgroundImage = null;
                 menuStrip1.BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
                 menuStrip1.ForeColor = System.Drawing.Color.Gray;
                 BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
@@ -1880,6 +1883,15 @@ namespace VTCManager_1._0._0
             } else
             {
                 Is_DarkMode_On = 0;
+
+                Utilities util3 = new Utilities();
+                string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
+                if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
+                else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
+                else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
+                else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
+                else { this.BackgroundImage = null; }
+
                 menuStrip1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
                 menuStrip1.ForeColor = System.Drawing.Color.Gray;
                 BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
