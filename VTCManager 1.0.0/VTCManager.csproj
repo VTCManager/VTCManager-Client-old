@@ -230,7 +230,7 @@
       <DependentUpon>Overlay_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsWindow.resx">
@@ -246,15 +246,39 @@
     <Content Include="iconfinder_bullet-red_84435.png" />
     <None Include="Resources\iconfinder_bullet-red_84435.png" />
     <None Include="Resources\iconfinder_bulled-green_1930264.png" />
-    <None Include="Resources\00.png" />
-    <None Include="Resources\10.png" />
-    <None Include="Resources\30.png" />
-    <None Include="Resources\50.png" />
-    <None Include="Resources\70.png" />
-    <None Include="Resources\80.png" />
-    <None Include="Resources\100.png" />
-    <None Include="Resources\120.png" />
-    <None Include="Resources\90.png" />
+    <None Include="Resources\test_bg_1.png" />
+    <None Include="Resources\oldcar1.jpg" />
+    <None Include="Resources\oldcar2.jpg" />
+    <None Include="Resources\oldcar3.jpg" />
+    <None Include="Resources\oldcar4.jpg" />
+    <None Include="Resources\rpc1.jpg" />
+    <None Include="Resources\00.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\120.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\30.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\50.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\70.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\80.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\90.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Ressources\AutopilotEnd_fx.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

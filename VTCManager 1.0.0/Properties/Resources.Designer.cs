@@ -22,7 +22,7 @@ namespace VTCManager_1._0._0.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace VTCManager_1._0._0.Properties {
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VTCManager_1._0._0.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace VTCManager_1._0._0.Properties {
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,9 +63,9 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _00 {
+        public static System.Drawing.Bitmap _00 {
             get {
-                object obj = ResourceManager.GetObject("_00", resourceCulture);
+                object obj = ResourceManager.GetObject("00", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,27 +73,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _10 {
-            get {
-                object obj = ResourceManager.GetObject("_10", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _100 {
-            get {
-                object obj = ResourceManager.GetObject("_100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _120 {
+        public static System.Drawing.Bitmap _120 {
             get {
                 object obj = ResourceManager.GetObject("_120", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +83,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _30 {
+        public static System.Drawing.Bitmap _30 {
             get {
                 object obj = ResourceManager.GetObject("_30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +93,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _50 {
+        public static System.Drawing.Bitmap _50 {
             get {
                 object obj = ResourceManager.GetObject("_50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +103,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _70 {
+        public static System.Drawing.Bitmap _70 {
             get {
                 object obj = ResourceManager.GetObject("_70", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +113,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _80 {
+        public static System.Drawing.Bitmap _80 {
             get {
                 object obj = ResourceManager.GetObject("_80", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +123,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _90 {
+        public static System.Drawing.Bitmap _90 {
             get {
                 object obj = ResourceManager.GetObject("_90", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +133,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap iconfinder_bulled_green_1930264 {
+        public static System.Drawing.Bitmap iconfinder_bulled_green_1930264 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder_bulled_green_1930264", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +143,7 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap iconfinder_bullet_red_84435 {
+        public static System.Drawing.Bitmap iconfinder_bullet_red_84435 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder_bullet_red_84435", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,9 +153,69 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_film_noir_50 {
+        public static System.Drawing.Bitmap icons8_film_noir_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-film-noir-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap oldcar1 {
+            get {
+                object obj = ResourceManager.GetObject("oldcar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap oldcar2 {
+            get {
+                object obj = ResourceManager.GetObject("oldcar2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap oldcar3 {
+            get {
+                object obj = ResourceManager.GetObject("oldcar3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap oldcar4 {
+            get {
+                object obj = ResourceManager.GetObject("oldcar4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap rpc1 {
+            get {
+                object obj = ResourceManager.GetObject("rpc1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap test_bg_1 {
+            get {
+                object obj = ResourceManager.GetObject("test_bg_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

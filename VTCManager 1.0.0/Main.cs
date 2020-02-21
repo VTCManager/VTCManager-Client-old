@@ -63,7 +63,6 @@ namespace VTCManager_1._0._0
         public System.Windows.Forms.ProgressBar progressBar1;
         private ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.Label truck_lb;
-        private System.Windows.Forms.Label notavaiblepanel4;
         private Label label1;
         public Label label2;
         private Translation translation;
@@ -145,6 +144,12 @@ namespace VTCManager_1._0._0
         public int reload;
         private PictureBox speed_Image;
         public Timer anti_AFK_TIMER;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem oldCar1ToolStripMenuItem;
+        private ToolStripMenuItem oldCar2ToolStripMenuItem;
+        private ToolStripMenuItem oldCar3ToolStripMenuItem;
+        private ToolStripMenuItem oldCar4ToolStripMenuItem;
+        private ToolStripMenuItem keinsToolStripMenuItem;
         public int anti_afk_on_off;
         public DiscordRpcClient Client { get; private set; }
 
@@ -603,6 +608,9 @@ namespace VTCManager_1._0._0
                                 postParameters.Add("distance", this.totalDistance.ToString());
                                 this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
 
+                                Utilities util = new Utilities();
+                                util.Reg_Schreiben("jobID", this.jobID);
+
                                 this.settings.Cache.SaveJobID = this.jobID;
                                 this.settings.SaveJobID();
                                 this.lastJobDictionary.Add("cargo", data.Job.Cargo);
@@ -628,7 +636,7 @@ namespace VTCManager_1._0._0
                     }
                     if (this.jobRunning)
                     {
-      
+                       // Console.WriteLine("JOB-ID: " + this.jobID.ToString());
 
                         if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
                         {
@@ -701,6 +709,8 @@ namespace VTCManager_1._0._0
                                     postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
 
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString();
+                                   
+                                   // Console.WriteLine(this.jobID.ToString());
 
                                     this.InitializeDiscord(0);
                                     this.totalDistance = 0;
@@ -709,6 +719,7 @@ namespace VTCManager_1._0._0
                                     this.lastNotZeroDistance = 0;
                                     this.lastCargoDamage = 0.0f;
                                     this.jobID = "0";
+                                    this.jobID = null;
                                     this.destination_lb.Text = "";
                                     this.depature_lb.Text = "";
                                     //this.cargo_lb.Text = translation.no_cargo_lb;
@@ -812,6 +823,12 @@ namespace VTCManager_1._0._0
             this.GUI_SIZE_BUTTON = new System.Windows.Forms.ToolStripMenuItem();
             this.lbl_Overlay = new System.Windows.Forms.ToolStripMenuItem();
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.oldCar1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oldCar2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oldCar3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oldCar4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -836,7 +853,6 @@ namespace VTCManager_1._0._0
             this.speed_lb = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.notavaiblepanel4 = new System.Windows.Forms.Label();
             this.version_lb = new System.Windows.Forms.Label();
             this.TaskBar_Icon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextTaskbar = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -863,7 +879,6 @@ namespace VTCManager_1._0._0
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).BeginInit();
-            this.panel4.SuspendLayout();
             this.contextTaskbar.SuspendLayout();
             this.groupStatistiken.SuspendLayout();
             this.groupVerkehr.SuspendLayout();
@@ -900,7 +915,8 @@ namespace VTCManager_1._0._0
             this.eventsToolStripMenuItem,
             this.GUI_SIZE_BUTTON,
             this.lbl_Overlay,
-            this.darkToolStripMenuItem});
+            this.darkToolStripMenuItem,
+            this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1458, 32);
@@ -1009,6 +1025,53 @@ namespace VTCManager_1._0._0
             this.darkToolStripMenuItem.ToolTipText = "Komm auf die Dunkle Seite";
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.oldCar1ToolStripMenuItem,
+            this.oldCar2ToolStripMenuItem,
+            this.oldCar3ToolStripMenuItem,
+            this.oldCar4ToolStripMenuItem,
+            this.keinsToolStripMenuItem});
+            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(36, 28);
+            // 
+            // oldCar1ToolStripMenuItem
+            // 
+            this.oldCar1ToolStripMenuItem.Name = "oldCar1ToolStripMenuItem";
+            this.oldCar1ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.oldCar1ToolStripMenuItem.Text = "Old Car 1";
+            this.oldCar1ToolStripMenuItem.Click += new System.EventHandler(this.oldCar1ToolStripMenuItem_Click);
+            // 
+            // oldCar2ToolStripMenuItem
+            // 
+            this.oldCar2ToolStripMenuItem.Name = "oldCar2ToolStripMenuItem";
+            this.oldCar2ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.oldCar2ToolStripMenuItem.Text = "Old Car 2";
+            this.oldCar2ToolStripMenuItem.Click += new System.EventHandler(this.oldCar2ToolStripMenuItem_Click);
+            // 
+            // oldCar3ToolStripMenuItem
+            // 
+            this.oldCar3ToolStripMenuItem.Name = "oldCar3ToolStripMenuItem";
+            this.oldCar3ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.oldCar3ToolStripMenuItem.Text = "Old Car 3";
+            this.oldCar3ToolStripMenuItem.Click += new System.EventHandler(this.oldCar3ToolStripMenuItem_Click);
+            // 
+            // oldCar4ToolStripMenuItem
+            // 
+            this.oldCar4ToolStripMenuItem.Name = "oldCar4ToolStripMenuItem";
+            this.oldCar4ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.oldCar4ToolStripMenuItem.Text = "Old Car 4";
+            this.oldCar4ToolStripMenuItem.Click += new System.EventHandler(this.oldCar4ToolStripMenuItem_Click);
+            // 
+            // keinsToolStripMenuItem
+            // 
+            this.keinsToolStripMenuItem.Name = "keinsToolStripMenuItem";
+            this.keinsToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.keinsToolStripMenuItem.Text = "Keins";
+            this.keinsToolStripMenuItem.Click += new System.EventHandler(this.keinsToolStripMenuItem_Click);
+            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -1045,6 +1108,7 @@ namespace VTCManager_1._0._0
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.speed_Image);
             this.panel2.Controls.Add(this.label_GAS);
             this.panel2.Controls.Add(this.progressBar_GAS);
@@ -1071,11 +1135,11 @@ namespace VTCManager_1._0._0
             // 
             // speed_Image
             // 
-            this.speed_Image.Image = ((System.Drawing.Image)(resources.GetObject("speed_Image.Image")));
-            this.speed_Image.InitialImage = ((System.Drawing.Image)(resources.GetObject("speed_Image.InitialImage")));
-            this.speed_Image.Location = new System.Drawing.Point(4, 258);
+            this.speed_Image.Image = global::VTCManager_1._0._0.Properties.Resources._00;
+            this.speed_Image.InitialImage = null;
+            this.speed_Image.Location = new System.Drawing.Point(210, 313);
             this.speed_Image.Name = "speed_Image";
-            this.speed_Image.Size = new System.Drawing.Size(150, 150);
+            this.speed_Image.Size = new System.Drawing.Size(100, 100);
             this.speed_Image.TabIndex = 18;
             this.speed_Image.TabStop = false;
             // 
@@ -1262,21 +1326,11 @@ namespace VTCManager_1._0._0
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.notavaiblepanel4);
+            this.panel4.BackColor = System.Drawing.Color.Transparent;
             this.panel4.Location = new System.Drawing.Point(1097, 28);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(349, 582);
             this.panel4.TabIndex = 4;
-            // 
-            // notavaiblepanel4
-            // 
-            this.notavaiblepanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.notavaiblepanel4.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.notavaiblepanel4.Location = new System.Drawing.Point(0, 0);
-            this.notavaiblepanel4.Name = "notavaiblepanel4";
-            this.notavaiblepanel4.Size = new System.Drawing.Size(349, 582);
-            this.notavaiblepanel4.TabIndex = 0;
-            this.notavaiblepanel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // version_lb
             // 
@@ -1339,6 +1393,7 @@ namespace VTCManager_1._0._0
             // 
             // groupStatistiken
             // 
+            this.groupStatistiken.BackColor = System.Drawing.Color.Transparent;
             this.groupStatistiken.Controls.Add(this.truckersMP_Button);
             this.groupStatistiken.Controls.Add(this.user_company_lb);
             this.groupStatistiken.Controls.Add(this.statistic_panel_topic);
@@ -1413,6 +1468,7 @@ namespace VTCManager_1._0._0
             // 
             this.groupVerkehr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupVerkehr.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupVerkehr.BackColor = System.Drawing.Color.Transparent;
             this.groupVerkehr.Controls.Add(this.lbl_Reload_Time);
             this.groupVerkehr.Controls.Add(this.tableLayoutPanel1);
             this.groupVerkehr.Controls.Add(this.label1);
@@ -1481,6 +1537,7 @@ namespace VTCManager_1._0._0
             // 
             // Main
             // 
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1458, 642);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lbl_Revision);
@@ -1505,7 +1562,6 @@ namespace VTCManager_1._0._0
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).EndInit();
-            this.panel4.ResumeLayout(false);
             this.contextTaskbar.ResumeLayout(false);
             this.groupStatistiken.ResumeLayout(false);
             this.groupStatistiken.PerformLayout();
@@ -1640,16 +1696,22 @@ namespace VTCManager_1._0._0
                         }  
                     
                     });
-                } 
-        
-                
+                }
+
+
+            // Back Test
+
+             Utilities util3 = new Utilities();
+
+            string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
+
+            if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
+            else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
+            else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
+            else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
+            else { this.BackgroundImage = null; }
+     
            
-
-
-
-           
-
-            Utilities util3 = new Utilities();
             reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
             if (reload == 0)
             {
@@ -1746,6 +1808,7 @@ namespace VTCManager_1._0._0
                 this.panel2.Location = new Point(5, 28);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/expand.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
+                this.BackgroundImage = null;
             }
             else
             {
@@ -1756,6 +1819,14 @@ namespace VTCManager_1._0._0
                 this.panel2.Location = new Point(540, 28);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/komprimieren.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
+
+                Utilities util3 = new Utilities();
+                string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
+                if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
+                else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
+                else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
+                else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
+                else { this.BackgroundImage = null; }
             }
 
 
@@ -1871,7 +1942,40 @@ namespace VTCManager_1._0._0
 
         }
 
+        private void oldCar1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = Properties.Resources.oldcar1;
+            Utilities util = new Utilities();
+            util.Reg_Schreiben("Background", "oldcar1");
+        }
 
+        private void oldCar2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = Properties.Resources.oldcar2;
+            Utilities util = new Utilities();
+            util.Reg_Schreiben("Background", "oldcar2");
+        }
+
+        private void oldCar3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = Properties.Resources.oldcar3;
+            Utilities util = new Utilities();
+            util.Reg_Schreiben("Background", "oldcar3");
+        }
+
+        private void oldCar4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = Properties.Resources.oldcar4;
+            Utilities util = new Utilities();
+            util.Reg_Schreiben("Background", "oldcar4");
+        }
+
+        private void keinsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = null;
+            Utilities util = new Utilities();
+            util.Reg_Schreiben("Background", "");
+        }
     }
 
 
