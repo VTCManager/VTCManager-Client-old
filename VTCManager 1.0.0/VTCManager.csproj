@@ -35,7 +35,7 @@
     <SuiteName>VTC-Manager</SuiteName>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -93,6 +93,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="API.cs" />
     <Compile Include="CacheDataObject.cs" />
     <Compile Include="Extensions.cs" />
@@ -121,6 +127,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Starter.cs" />
+    <Compile Include="Thommy.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="Trucky_Traffic_Converter.cs" />
     <Compile Include="Ueber.cs">
@@ -222,6 +229,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>

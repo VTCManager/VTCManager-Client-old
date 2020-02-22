@@ -136,7 +136,7 @@ namespace VTCManager_1._0._0
         public Timer updateTraffic;
         private Label lbl_Reload_Time;
         public int Is_DarkMode_On;
-        private Label lbl_Revision;
+        public Label lbl_Revision;
         private ToolStripMenuItem serverstatusToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel WebServer_Status_label;
@@ -151,6 +151,8 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem oldCar4ToolStripMenuItem;
         private ToolStripMenuItem keinsToolStripMenuItem;
         public int anti_afk_on_off;
+        private Label label3;
+        public static string labelRevision;
         public DiscordRpcClient Client { get; private set; }
 
 
@@ -877,6 +879,7 @@ namespace VTCManager_1._0._0
             this.WebServer_Status_label = new System.Windows.Forms.ToolStripStatusLabel();
             this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
             this.anti_AFK_TIMER = new System.Windows.Forms.Timer(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1501,12 +1504,13 @@ namespace VTCManager_1._0._0
             // lbl_Revision
             // 
             this.lbl_Revision.AutoSize = true;
-            this.lbl_Revision.Location = new System.Drawing.Point(1303, 8);
+            this.lbl_Revision.BackColor = System.Drawing.Color.Transparent;
+            this.lbl_Revision.Location = new System.Drawing.Point(1312, 9);
             this.lbl_Revision.Name = "lbl_Revision";
-            this.lbl_Revision.Size = new System.Drawing.Size(39, 13);
+            this.lbl_Revision.Size = new System.Drawing.Size(16, 13);
             this.lbl_Revision.TabIndex = 8;
-            this.lbl_Revision.Text = "Rev. 3";
-            this.lbl_Revision.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_Revision.Text = "...";
+            this.lbl_Revision.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // statusStrip1
             // 
@@ -1539,10 +1543,22 @@ namespace VTCManager_1._0._0
             this.anti_AFK_TIMER.Interval = 10000;
             this.anti_AFK_TIMER.Tick += new System.EventHandler(this.anti_AFK_TIMER_Tick);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(1261, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Revision:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Main
             // 
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1388, 642);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lbl_Revision);
             this.Controls.Add(this.groupVerkehr);
@@ -1559,6 +1575,7 @@ namespace VTCManager_1._0._0
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VTC-Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing_1);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -1682,7 +1699,17 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
-            lbl_Revision.Text = "REV: BE1.2.0.1";
+            Thommy th = new Thommy();
+
+            lbl_Revision.Text = "1203";
+            labelRevision = lbl_Revision.Text;
+
+            if(lbl_Revision.Text != th.Aktuelle_Version_lesen()) {
+                About ab = new About();
+                ab.Show();
+                this.Hide();
+            }
+            
 
                 if(Utilities.IsDiscordRunning == true)
                 {
@@ -1997,6 +2024,12 @@ namespace VTCManager_1._0._0
             this.BackgroundImage = null;
             Utilities util = new Utilities();
             util.Reg_Schreiben("Background", "");
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            TaskBar_Icon.Dispose();
+            
         }
     }
 
