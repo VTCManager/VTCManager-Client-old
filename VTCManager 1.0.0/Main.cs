@@ -152,6 +152,8 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem keinsToolStripMenuItem;
         public int anti_afk_on_off;
         private Label label3;
+        private PictureBox ets2_button;
+        private PictureBox ats_button;
         public static string labelRevision;
         public DiscordRpcClient Client { get; private set; }
 
@@ -866,6 +868,8 @@ namespace VTCManager_1._0._0
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupStatistiken = new System.Windows.Forms.GroupBox();
+            this.ats_button = new System.Windows.Forms.PictureBox();
+            this.ets2_button = new System.Windows.Forms.PictureBox();
             this.truckersMP_Button = new System.Windows.Forms.Button();
             this.user_company_lb = new System.Windows.Forms.Label();
             this.statistic_panel_topic = new System.Windows.Forms.Label();
@@ -886,6 +890,8 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).BeginInit();
             this.contextTaskbar.SuspendLayout();
             this.groupStatistiken.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ats_button)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ets2_button)).BeginInit();
             this.groupVerkehr.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -1400,6 +1406,8 @@ namespace VTCManager_1._0._0
             // groupStatistiken
             // 
             this.groupStatistiken.BackColor = System.Drawing.Color.Transparent;
+            this.groupStatistiken.Controls.Add(this.ats_button);
+            this.groupStatistiken.Controls.Add(this.ets2_button);
             this.groupStatistiken.Controls.Add(this.truckersMP_Button);
             this.groupStatistiken.Controls.Add(this.user_company_lb);
             this.groupStatistiken.Controls.Add(this.statistic_panel_topic);
@@ -1411,15 +1419,39 @@ namespace VTCManager_1._0._0
             this.groupStatistiken.TabIndex = 6;
             this.groupStatistiken.TabStop = false;
             // 
+            // ats_button
+            // 
+            this.ats_button.Image = global::VTCManager_1._0._0.Properties.Resources.ats2l;
+            this.ats_button.Location = new System.Drawing.Point(17, 124);
+            this.ats_button.Name = "ats_button";
+            this.ats_button.Size = new System.Drawing.Size(100, 54);
+            this.ats_button.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ats_button.TabIndex = 8;
+            this.ats_button.TabStop = false;
+            this.ats_button.Visible = false;
+            this.ats_button.Click += new System.EventHandler(this.ats_button_Click);
+            // 
+            // ets2_button
+            // 
+            this.ets2_button.Image = global::VTCManager_1._0._0.Properties.Resources._280px_Ets2_logo;
+            this.ets2_button.Location = new System.Drawing.Point(225, 124);
+            this.ets2_button.Name = "ets2_button";
+            this.ets2_button.Size = new System.Drawing.Size(100, 54);
+            this.ets2_button.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ets2_button.TabIndex = 7;
+            this.ets2_button.TabStop = false;
+            this.ets2_button.Visible = false;
+            this.ets2_button.Click += new System.EventHandler(this.ets2_button_Click);
+            // 
             // truckersMP_Button
             // 
             this.truckersMP_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.truckersMP_Button.BackColor = System.Drawing.Color.Silver;
+            this.truckersMP_Button.BackColor = System.Drawing.Color.Transparent;
             this.truckersMP_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("truckersMP_Button.BackgroundImage")));
             this.truckersMP_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.truckersMP_Button.FlatAppearance.BorderSize = 0;
             this.truckersMP_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.truckersMP_Button.Location = new System.Drawing.Point(447, 121);
+            this.truckersMP_Button.Location = new System.Drawing.Point(450, 124);
             this.truckersMP_Button.Margin = new System.Windows.Forms.Padding(0);
             this.truckersMP_Button.Name = "truckersMP_Button";
             this.truckersMP_Button.Size = new System.Drawing.Size(84, 54);
@@ -1586,6 +1618,8 @@ namespace VTCManager_1._0._0
             this.contextTaskbar.ResumeLayout(false);
             this.groupStatistiken.ResumeLayout(false);
             this.groupStatistiken.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ats_button)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ets2_button)).EndInit();
             this.groupVerkehr.ResumeLayout(false);
             this.groupVerkehr.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -1699,19 +1733,41 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
-            Thommy th = new Thommy();
+            // TEST 
+
+            Utilities util3 = new Utilities();
+
 
             lbl_Revision.Text = "1203";
             labelRevision = lbl_Revision.Text;
 
-            if(lbl_Revision.Text != th.Aktuelle_Version_lesen()) {
-                About ab = new About();
-                ab.Show();
-                this.Hide();
-            }
-            
+            // Prüfen ob ETS2 und aTS Pfade angegeben sind. Wenn nicht -> Dialog
 
-                if(Utilities.IsDiscordRunning == true)
+
+            if (util3.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
+            {
+                ETS2_Pfad_Window win = new ETS2_Pfad_Window();
+                win.Show();
+            } else
+            {
+                ets2_button.Visible = true;
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
+            }
+
+            if (util3.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") == "")
+            {
+                ETS2_Pfad_Window win = new ETS2_Pfad_Window();
+                win.Show();
+            } else
+            {
+                ats_button.Visible = true;
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
+            }
+
+
+            if (Utilities.IsDiscordRunning == true)
                 {
 
                     client = new DiscordRpcClient("678939831879073792");
@@ -1723,7 +1779,7 @@ namespace VTCManager_1._0._0
                         Assets = new Assets()
                         {
                             LargeImageKey = "rpc1_1",
-                            LargeImageText = "VTConnect"
+                            LargeImageText = "VTC-Manager"
                         }  
                     
                     });
@@ -1732,7 +1788,7 @@ namespace VTCManager_1._0._0
 
             // Back Test
 
-             Utilities util3 = new Utilities();
+
 
             string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
 
@@ -2030,6 +2086,18 @@ namespace VTCManager_1._0._0
         {
             TaskBar_Icon.Dispose();
             
+        }
+
+        private void ets2_button_Click(object sender, EventArgs e)
+        {
+            Utilities util = new Utilities();
+            Process.Start(util.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + "eurotrucks2.exe");
+        }
+
+        private void ats_button_Click(object sender, EventArgs e)
+        {
+            Utilities util = new Utilities();
+            Process.Start(util.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + "amtrucks.exe");
         }
     }
 

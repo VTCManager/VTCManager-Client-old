@@ -139,11 +139,17 @@
   <data name="test_bg_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test_bg_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="iconfinder_bullet_red_84435" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconfinder_bullet-red_84435.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="280px-Ets2_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\280px-Ets2_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="00" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iconfinder_bulled_green_1930264" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconfinder_bulled-green_1930264.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,7 +169,10 @@
   <data name="oldcar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\oldcar1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="00" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ats2l" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ats2l.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ets2_telemetry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ets2-telemetry.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

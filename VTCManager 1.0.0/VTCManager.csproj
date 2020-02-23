@@ -101,6 +101,12 @@
     </Compile>
     <Compile Include="API.cs" />
     <Compile Include="CacheDataObject.cs" />
+    <Compile Include="ETS2-Pfad_Window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ETS2-Pfad_Window.Designer.cs">
+      <DependentUpon>ETS2-Pfad_Window.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -232,6 +238,9 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ETS2-Pfad_Window.resx">
+      <DependentUpon>ETS2-Pfad_Window.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -274,6 +283,9 @@
     <Content Include="Resources\120.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\280px-Ets2_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\30.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -287,6 +299,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\90.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\ats2l.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\ets2-telemetry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Ressources\AutopilotEnd_fx.wav">

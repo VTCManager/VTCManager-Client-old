@@ -83,6 +83,16 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap _280px_Ets2_logo {
+            get {
+                object obj = ResourceManager.GetObject("280px-Ets2_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap _30 {
             get {
                 object obj = ResourceManager.GetObject("_30", resourceCulture);
@@ -127,6 +137,26 @@ namespace VTCManager_1._0._0.Properties {
             get {
                 object obj = ResourceManager.GetObject("_90", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ats2l {
+            get {
+                object obj = ResourceManager.GetObject("ats2l", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        public static byte[] ets2_telemetry {
+            get {
+                object obj = ResourceManager.GetObject("ets2_telemetry", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
