@@ -120,7 +120,6 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem lbl_Overlay;
         public static int truckersMP_autorun;
         public static int overlay_ist_offen = 0;
-        public static Form over = new Overlay_1();
         private Label label6;
         private ToolStripMenuItem darkToolStripMenuItem;
         public static int overlay_Opacity;
@@ -163,10 +162,6 @@ namespace VTCManager_1._0._0
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
             // Revision
-
-
-            over.Opacity = 0;
-            over.Show();
 
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\insight.wav"))
             {
@@ -1614,7 +1609,7 @@ namespace VTCManager_1._0._0
             lbl_Revision.Text = "1206";
             labelRevision = lbl_Revision.Text;
 
-            // Prüfen ob ETS2 und aTS Pfade angegeben sind. Wenn nicht -> Dialog
+            // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
 
             Utilities util3 = new Utilities();
             if (util3.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
@@ -1767,16 +1762,7 @@ namespace VTCManager_1._0._0
 
         private void overlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (overlay_ist_offen == 0)
-            {
-                Main.over.Opacity = 1;
-                overlay_ist_offen = 1;
-            }
-            else
-            {
-                Main.over.Opacity = 0;
-                overlay_ist_offen = 0;
-            }
+    
         }
 
         private void Main_FormClosing_1(object sender, FormClosingEventArgs e)

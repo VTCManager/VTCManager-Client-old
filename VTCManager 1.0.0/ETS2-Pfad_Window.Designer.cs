@@ -135,11 +135,11 @@
             // 
             // folderBrowserDialog_ETS
             // 
-            this.folderBrowserDialog_ETS.RootFolder = System.Environment.SpecialFolder.ProgramFilesX86;
+            this.folderBrowserDialog_ETS.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // folderBrowserDialog_ATS
             // 
-            this.folderBrowserDialog_ATS.RootFolder = System.Environment.SpecialFolder.ProgramFilesX86;
+            this.folderBrowserDialog_ATS.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // pictureBox3
             // 

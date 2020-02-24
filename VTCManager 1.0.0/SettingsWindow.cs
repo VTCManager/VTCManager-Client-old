@@ -208,7 +208,7 @@ namespace VTCManager_1._0._0
             0,
             0,
             0});
-            this.num_Overlay_Transparenz.ValueChanged += new System.EventHandler(this.num_Overlay_Transparenz_ValueChanged);
+
             // 
             // label5
             // 
@@ -419,15 +419,6 @@ namespace VTCManager_1._0._0
 
         }
 
-
-        private void num_Overlay_Transparenz_ValueChanged(object sender, EventArgs e)
-        {
-            double anz = (double)num_Overlay_Transparenz.Value;
-            Main.over.Opacity = anz/100;
-            Main.overlay_ist_offen = 1;
-            Main.over.Update();
-            Console.WriteLine(anz/100);
-        }
 
 
 

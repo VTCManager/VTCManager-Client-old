@@ -91,7 +91,7 @@ namespace VTCManager_1._0._0
             ats_pfad.Text = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
 
             if (!File.Exists(ets_pfad.Text + @"\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            if (!File.Exists(ats_pfad.Text + @"\amtrucks.exe")) { MessageBox.Show("In diesem Ordner ist keine Spieldatei von ATS ! " + Environment.NewLine + "Bitte gibt den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            //if (!File.Exists(ats_pfad.Text + @"\amtrucks.exe")) { MessageBox.Show("In diesem Ordner ist keine Spieldatei von ATS ! " + Environment.NewLine + "Bitte gibt den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
 
             this.Dispose();
@@ -111,7 +111,7 @@ namespace VTCManager_1._0._0
             ats_pfad.Text = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
 
             if (!File.Exists(ets_pfad.Text + @"\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            if (!File.Exists(ats_pfad.Text + @"\amtrucks.exe")) { MessageBox.Show("In diesem Ordner ist keine Spieldatei von ATS ! " + Environment.NewLine + "Bitte gibt den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            //if (!File.Exists(ats_pfad.Text + @"\amtrucks.exe")) { MessageBox.Show("In diesem Ordner ist keine Spieldatei von ATS ! " + Environment.NewLine + "Bitte gibt den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
 
             this.Dispose();
