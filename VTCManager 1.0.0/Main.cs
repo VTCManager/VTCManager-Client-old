@@ -122,15 +122,6 @@ namespace VTCManager_1._0._0
         public static int overlay_ist_offen = 0;
         public static Form over = new Overlay_1();
         private Label label6;
-        public Label label_GAS;
-        public Label lbl_BREMSE;
-        public ProgressBar progressBar_BREMSE;
-        public ProgressBar progressBar_GAS;
-        public Label lbl_RPM;
-        public ProgressBar progressBar_RPM;
-        public Label lbl_GANG;
-        public Label lbl_KUPPLUNG;
-        public ProgressBar progressBar_KUPPLUNG;
         private ToolStripMenuItem darkToolStripMenuItem;
         public static int overlay_Opacity;
         public Timer updateTraffic;
@@ -154,6 +145,7 @@ namespace VTCManager_1._0._0
         private Label label3;
         private PictureBox ets2_button;
         private PictureBox ats_button;
+        private PictureBox picture_Gang;
         public static string labelRevision;
         public DiscordRpcClient Client { get; private set; }
 
@@ -415,29 +407,39 @@ namespace VTCManager_1._0._0
                             this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                         if (data.Truck != "")
                         {
-                            int kupp1 = Convert.ToInt32(data.Controls.UserClutch) * 100;
-                            int gas1 = Convert.ToInt32(data.Controls.UserThrottle) * 100;
-                            int brems1 = Convert.ToInt32(data.Controls.UserBrake) * 100;
-                            int rpm1 = Convert.ToInt32(data.Drivetrain.EngineRpm - 70);
-                            int rpm_max = Convert.ToInt32(data.Drivetrain.EngineRpmMax);
-
-                            progressBar_KUPPLUNG.Value = Convert.ToInt32(kupp1);
-                            progressBar_GAS.Value = Convert.ToInt32(gas1);
-                            progressBar_BREMSE.Value = Convert.ToInt32(brems1);
-                            progressBar_RPM.Minimum = 0;
-                            progressBar_RPM.Maximum = Convert.ToInt32(rpm_max);
-                            progressBar_RPM.Value = Convert.ToInt32(rpm1);
-                            //progressBar_RPM.Refresh();
 
                             if (data.Drivetrain.Gear.ToString() == "-1")
                             {
-                                lbl_GANG.Text = "R";
-                            } else
-                            {
-                                lbl_GANG.Text = data.Drivetrain.Gear.ToString();
+                                picture_Gang.Image = Properties.Resources.gangr;
                             }
-
-
+                            if (data.Drivetrain.Gear.ToString() == "0")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang0;
+                            }
+                            if (data.Drivetrain.Gear.ToString() == "1")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang1;
+                            }
+                            if (data.Drivetrain.Gear.ToString() == "2")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang2;
+                            }
+                            if (data.Drivetrain.Gear.ToString() == "3")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang3;
+                            }
+                            if (data.Drivetrain.Gear.ToString() == "4")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang4;
+                            }
+                            if (data.Drivetrain.Gear.ToString() == "5")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang5;
+                            }
+                            if (data.Drivetrain.Gear.ToString() == "6")
+                            {
+                                picture_Gang.Image = Properties.Resources.gang6;
+                            }
 
                             if (data.Truck == "Extra_D" || data.Truck == "Superb")
                             {
@@ -600,6 +602,7 @@ namespace VTCManager_1._0._0
                                 this.depature_lb.Text = translation.depature_lb + data.Job.CitySource + " ( " + data.Job.CompanySource + " ) ";
                                 this.destination_lb.Text = translation.destination_lb + data.Job.CityDestination + " ( " + data.Job.CompanyDestination + " )";
                                 this.progressBar1.Visible = true;
+                                this.progressBar1.Value = 0;
                                 this.fuelatstart = data.Drivetrain.Fuel;
                                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                                 postParameters.Add("authcode", this.authCode);
@@ -839,17 +842,9 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.picture_Gang = new System.Windows.Forms.PictureBox();
             this.speed_Image = new System.Windows.Forms.PictureBox();
-            this.label_GAS = new System.Windows.Forms.Label();
-            this.progressBar_GAS = new System.Windows.Forms.ProgressBar();
-            this.lbl_KUPPLUNG = new System.Windows.Forms.Label();
-            this.progressBar_KUPPLUNG = new System.Windows.Forms.ProgressBar();
-            this.lbl_GANG = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lbl_BREMSE = new System.Windows.Forms.Label();
-            this.progressBar_BREMSE = new System.Windows.Forms.ProgressBar();
-            this.lbl_RPM = new System.Windows.Forms.Label();
-            this.progressBar_RPM = new System.Windows.Forms.ProgressBar();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -887,6 +882,7 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_Gang)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).BeginInit();
             this.contextTaskbar.SuspendLayout();
             this.groupStatistiken.SuspendLayout();
@@ -1121,17 +1117,9 @@ namespace VTCManager_1._0._0
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.picture_Gang);
             this.panel2.Controls.Add(this.speed_Image);
-            this.panel2.Controls.Add(this.label_GAS);
-            this.panel2.Controls.Add(this.progressBar_GAS);
-            this.panel2.Controls.Add(this.lbl_KUPPLUNG);
-            this.panel2.Controls.Add(this.progressBar_KUPPLUNG);
-            this.panel2.Controls.Add(this.lbl_GANG);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.lbl_BREMSE);
-            this.panel2.Controls.Add(this.progressBar_BREMSE);
-            this.panel2.Controls.Add(this.lbl_RPM);
-            this.panel2.Controls.Add(this.progressBar_RPM);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
             this.panel2.Controls.Add(this.progressBar1);
@@ -1145,6 +1133,16 @@ namespace VTCManager_1._0._0
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
             // 
+            // picture_Gang
+            // 
+            this.picture_Gang.Image = global::VTCManager_1._0._0.Properties.Resources.gang0;
+            this.picture_Gang.Location = new System.Drawing.Point(394, 399);
+            this.picture_Gang.Name = "picture_Gang";
+            this.picture_Gang.Size = new System.Drawing.Size(150, 150);
+            this.picture_Gang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picture_Gang.TabIndex = 19;
+            this.picture_Gang.TabStop = false;
+            // 
             // speed_Image
             // 
             this.speed_Image.Image = global::VTCManager_1._0._0.Properties.Resources._00;
@@ -1155,52 +1153,6 @@ namespace VTCManager_1._0._0
             this.speed_Image.TabIndex = 18;
             this.speed_Image.TabStop = false;
             // 
-            // label_GAS
-            // 
-            this.label_GAS.AutoSize = true;
-            this.label_GAS.Location = new System.Drawing.Point(26, 419);
-            this.label_GAS.Name = "label_GAS";
-            this.label_GAS.Size = new System.Drawing.Size(26, 13);
-            this.label_GAS.TabIndex = 13;
-            this.label_GAS.Text = "Gas";
-            // 
-            // progressBar_GAS
-            // 
-            this.progressBar_GAS.ForeColor = System.Drawing.Color.DarkRed;
-            this.progressBar_GAS.Location = new System.Drawing.Point(55, 414);
-            this.progressBar_GAS.Name = "progressBar_GAS";
-            this.progressBar_GAS.Size = new System.Drawing.Size(493, 23);
-            this.progressBar_GAS.Step = 1;
-            this.progressBar_GAS.TabIndex = 10;
-            // 
-            // lbl_KUPPLUNG
-            // 
-            this.lbl_KUPPLUNG.AutoSize = true;
-            this.lbl_KUPPLUNG.Location = new System.Drawing.Point(1, 448);
-            this.lbl_KUPPLUNG.Name = "lbl_KUPPLUNG";
-            this.lbl_KUPPLUNG.Size = new System.Drawing.Size(52, 13);
-            this.lbl_KUPPLUNG.TabIndex = 17;
-            this.lbl_KUPPLUNG.Text = "Kupplung";
-            // 
-            // progressBar_KUPPLUNG
-            // 
-            this.progressBar_KUPPLUNG.Location = new System.Drawing.Point(55, 443);
-            this.progressBar_KUPPLUNG.Name = "progressBar_KUPPLUNG";
-            this.progressBar_KUPPLUNG.Size = new System.Drawing.Size(493, 23);
-            this.progressBar_KUPPLUNG.Step = 1;
-            this.progressBar_KUPPLUNG.TabIndex = 16;
-            // 
-            // lbl_GANG
-            // 
-            this.lbl_GANG.AutoSize = true;
-            this.lbl_GANG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbl_GANG.Font = new System.Drawing.Font("Verdana", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_GANG.Location = new System.Drawing.Point(429, 295);
-            this.lbl_GANG.Name = "lbl_GANG";
-            this.lbl_GANG.Size = new System.Drawing.Size(120, 118);
-            this.lbl_GANG.TabIndex = 15;
-            this.lbl_GANG.Text = "1";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -1209,39 +1161,6 @@ namespace VTCManager_1._0._0
             this.label6.Size = new System.Drawing.Size(82, 13);
             this.label6.TabIndex = 14;
             this.label6.Text = "Streckenverlauf";
-            // 
-            // lbl_BREMSE
-            // 
-            this.lbl_BREMSE.AutoSize = true;
-            this.lbl_BREMSE.Location = new System.Drawing.Point(11, 480);
-            this.lbl_BREMSE.Name = "lbl_BREMSE";
-            this.lbl_BREMSE.Size = new System.Drawing.Size(42, 13);
-            this.lbl_BREMSE.TabIndex = 12;
-            this.lbl_BREMSE.Text = "Bremse";
-            // 
-            // progressBar_BREMSE
-            // 
-            this.progressBar_BREMSE.Location = new System.Drawing.Point(55, 475);
-            this.progressBar_BREMSE.Name = "progressBar_BREMSE";
-            this.progressBar_BREMSE.Size = new System.Drawing.Size(493, 23);
-            this.progressBar_BREMSE.TabIndex = 11;
-            // 
-            // lbl_RPM
-            // 
-            this.lbl_RPM.AutoSize = true;
-            this.lbl_RPM.Location = new System.Drawing.Point(22, 512);
-            this.lbl_RPM.Name = "lbl_RPM";
-            this.lbl_RPM.Size = new System.Drawing.Size(31, 13);
-            this.lbl_RPM.TabIndex = 9;
-            this.lbl_RPM.Text = "RPM";
-            // 
-            // progressBar_RPM
-            // 
-            this.progressBar_RPM.Location = new System.Drawing.Point(55, 507);
-            this.progressBar_RPM.Maximum = 10000;
-            this.progressBar_RPM.Name = "progressBar_RPM";
-            this.progressBar_RPM.Size = new System.Drawing.Size(493, 23);
-            this.progressBar_RPM.TabIndex = 8;
             // 
             // status_jb_canc_lb
             // 
@@ -1614,6 +1533,7 @@ namespace VTCManager_1._0._0
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_Gang)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).EndInit();
             this.contextTaskbar.ResumeLayout(false);
             this.groupStatistiken.ResumeLayout(false);
@@ -1665,56 +1585,8 @@ namespace VTCManager_1._0._0
 
         private void ChildFormClosing(object sender, FormClosingEventArgs e)
         {
-            Utilities regi = new Utilities();
-            // Progresses und Labels aktualisieren auf FORM1
-            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1")
-            {
-                progressBar_GAS.Visible = true;
-                label_GAS.Visible = true;
-            }
-            else
-            {
-                label_GAS.Visible = false;
-                progressBar_GAS.Visible = false;
-            }
-            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1")
-            {
-                lbl_BREMSE.Visible = true;
-                progressBar_BREMSE.Visible = true;
-            }
-            else
-            {
-                lbl_BREMSE.Visible = false;
-                progressBar_BREMSE.Visible = false;
-            }
-            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1")
-            {
-                lbl_KUPPLUNG.Visible = true;
-                progressBar_KUPPLUNG.Visible = true;
-            }
-            else
-            {
-                lbl_KUPPLUNG.Visible = false;
-                progressBar_KUPPLUNG.Visible = false;
-            }
-            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE") == "1")
-            {
-                lbl_RPM.Visible = true;
-                progressBar_RPM.Visible = true;
-            }
-            else
-            {
-                lbl_RPM.Visible = false;
-                progressBar_RPM.Visible = false;
-            }
-            if (regi.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1")
-            {
-                lbl_GANG.Visible = true;
-            }
-            else
-            {
-                lbl_GANG.Visible = false;
-            }
+
+
         }
 
         private void MenuAbmeldenButton_Click(object sender, EventArgs e)
@@ -1733,21 +1605,24 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
-            // TEST 
+            // Check auf REGISTR
+                Utilities util34 = new Utilities();
+            util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
-            Utilities util3 = new Utilities();
+        
 
-
-            lbl_Revision.Text = "1203";
+            lbl_Revision.Text = "1206";
             labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und aTS Pfade angegeben sind. Wenn nicht -> Dialog
 
-
+            Utilities util3 = new Utilities();
             if (util3.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
             {
                 ETS2_Pfad_Window win = new ETS2_Pfad_Window();
                 win.Show();
+                win.Focus();
+                this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             } else
             {
                 ets2_button.Visible = true;
@@ -1755,11 +1630,7 @@ namespace VTCManager_1._0._0
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
             }
 
-            if (util3.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") == "")
-            {
-                ETS2_Pfad_Window win = new ETS2_Pfad_Window();
-                win.Show();
-            } else
+            if (util3.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") != "")
             {
                 ats_button.Visible = true;
                 ToolTip tt = new ToolTip();
@@ -1787,23 +1658,21 @@ namespace VTCManager_1._0._0
 
 
             // Back Test
-
-
-
             string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
-
             if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; this.speed_Image.Location = new Point(70, 220); }
             else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; this.speed_Image.Location = new Point(163, 318); }
             else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; this.speed_Image.Location = new Point(320, 340); }
             else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; this.speed_Image.Location = new Point(250, 310); }
             else { this.BackgroundImage = null; }
-     
-           
-            reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
-            if (reload == 0)
+
+            try
+            {
+                reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+            } catch
             {
                 util3.Reg_Schreiben("Reload_Traffic_Sekunden", "7");
             }
+           
 
             lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
 
@@ -1820,31 +1689,6 @@ namespace VTCManager_1._0._0
             Utilities util = new Utilities();
             // TMP Button anzeigen wenn Pfad in den Settings
             truckersMP_Button.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
-
-            // GAS_PROGRESS_AUSBLENDEN WENN 0
-            progressBar_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1" ? true : false);
-            label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1" ? true : false);
-            // BREMSE AUSBLENDEN WENN 0
-            progressBar_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1" ? true : false);
-            lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1" ? true : false);
-            // KUPPLUNG AUSBLENDEN WENN 0
-            progressBar_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1" ? true : false);
-            lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1" ? true : false);
-            // RPM AUSBLENDEN WENN 0
-            progressBar_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE") == "1" ? true : false);
-            lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE") == "1" ? true : false);
-            // GANG AUSBLENDEN WENN 0
-            lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1" ? true : false);
-
-
-            // Autostart von TruckersMP 
-            if (util.Reg_Lesen("TruckersMP_Autorun", "autorun") == "1")
-            {
-                Process.Start(truckersMP_Link);
-            }
-
-
-
 
         }
 
@@ -1950,19 +1794,6 @@ namespace VTCManager_1._0._0
                 menuStrip1.ForeColor = System.Drawing.Color.Gray;
                 BackColor = System.Drawing.Color.FromArgb(46, 46, 46);
                 ForeColor = System.Drawing.Color.LightGray;
-                Utilities util = new Utilities();
-                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
-                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
-                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
-                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
-                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
-
-                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
-                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
-                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
-                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
-                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
-
             } else
             {
                 Is_DarkMode_On = 0;
@@ -1979,18 +1810,6 @@ namespace VTCManager_1._0._0
                 menuStrip1.ForeColor = System.Drawing.Color.Gray;
                 BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
                 ForeColor = System.Drawing.Color.Black;
-                Utilities util = new Utilities();
-                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
-                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
-                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
-                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
-                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
-
-                lbl_RPM.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_RPM_Anzeige") == "1") ? true : false;
-                label_GAS.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GAS") == "1") ? true : false;
-                lbl_BREMSE.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE") == "1") ? true : false;
-                lbl_GANG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_GANG") == "1") ? true : false;
-                lbl_KUPPLUNG.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG") == "1") ? true : false;
             }
         }
 

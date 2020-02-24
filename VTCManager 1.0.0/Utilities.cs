@@ -187,11 +187,11 @@ namespace VTCManager_1._0._0
             {
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VTCManager\" + ordner);
                 return key.GetValue(value).ToString();
-            } catch {
-                return null;
+            } catch (Exception ex) {
+                this.Reg_Schreiben(ordner, value);
+                return "";
+                
             }
-
-
         }
 
 

@@ -20,24 +20,15 @@ namespace VTCManager_1._0._0
         private GroupBox groupBox1;
         private GroupBox btn_TruckersMP_suchen;
         private Label label3;
-        private CheckBox truckers_autorun;
         private GroupBox group_Overlay;
         private ComboBox combo_Bildschirme;
         private Label label6;
         private NumericUpDown num_Overlay_Transparenz;
         private Label label5;
-        private GroupBox groupBox4;
-        private CheckBox chk_GANG;
-        private CheckBox chk_KUPPLUNG;
-        private CheckBox chk_BREMSE;
-        private CheckBox chk_GAS;
-        private CheckBox chk_RPM_ANZEIGE;
         private Button button1;
         private string selected_server_tm;
         private System.Windows.Forms.OpenFileDialog tmp_Trucker;
         private TextBox truckersMP_Pfad_TextBox;
-        private Label label4;
-        private NumericUpDown traffic_Update_Intervall;
         private GroupBox groupBox_AntiAFK;
         private TextBox txt_Anti_AFK_Text;
         private CheckBox chk_antiafk_on_off;
@@ -73,31 +64,20 @@ namespace VTCManager_1._0._0
             this.btn_TruckersMP_suchen = new System.Windows.Forms.GroupBox();
             this.truckersMP_Pfad_TextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.truckers_autorun = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.group_Overlay = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.num_Overlay_Transparenz = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.traffic_Update_Intervall = new System.Windows.Forms.NumericUpDown();
-            this.chk_RPM_ANZEIGE = new System.Windows.Forms.CheckBox();
-            this.chk_GANG = new System.Windows.Forms.CheckBox();
-            this.chk_KUPPLUNG = new System.Windows.Forms.CheckBox();
-            this.chk_BREMSE = new System.Windows.Forms.CheckBox();
-            this.chk_GAS = new System.Windows.Forms.CheckBox();
             this.tmp_Trucker = new System.Windows.Forms.OpenFileDialog();
             this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
-            this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
+            this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.traffic_Update_Intervall)).BeginInit();
             this.groupBox_AntiAFK.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -161,11 +141,10 @@ namespace VTCManager_1._0._0
             // 
             this.btn_TruckersMP_suchen.Controls.Add(this.truckersMP_Pfad_TextBox);
             this.btn_TruckersMP_suchen.Controls.Add(this.button1);
-            this.btn_TruckersMP_suchen.Controls.Add(this.truckers_autorun);
             this.btn_TruckersMP_suchen.Controls.Add(this.label3);
             this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(12, 134);
             this.btn_TruckersMP_suchen.Name = "btn_TruckersMP_suchen";
-            this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 143);
+            this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 84);
             this.btn_TruckersMP_suchen.TabIndex = 6;
             this.btn_TruckersMP_suchen.TabStop = false;
             this.btn_TruckersMP_suchen.Text = "TruckersMP Einstellungen";
@@ -186,17 +165,6 @@ namespace VTCManager_1._0._0
             this.button1.Text = "...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // truckers_autorun
-            // 
-            this.truckers_autorun.AutoSize = true;
-            this.truckers_autorun.Location = new System.Drawing.Point(6, 63);
-            this.truckers_autorun.Name = "truckers_autorun";
-            this.truckers_autorun.Size = new System.Drawing.Size(129, 17);
-            this.truckers_autorun.TabIndex = 4;
-            this.truckers_autorun.Text = "TruckersMP Autostart";
-            this.truckers_autorun.UseVisualStyleBackColor = true;
-            this.truckers_autorun.CheckedChanged += new System.EventHandler(this.truckers_autorun_CheckedChanged);
             // 
             // label3
             // 
@@ -259,111 +227,6 @@ namespace VTCManager_1._0._0
             this.combo_Bildschirme.Size = new System.Drawing.Size(195, 21);
             this.combo_Bildschirme.TabIndex = 0;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.traffic_Update_Intervall);
-            this.groupBox4.Controls.Add(this.chk_RPM_ANZEIGE);
-            this.groupBox4.Controls.Add(this.chk_GANG);
-            this.groupBox4.Controls.Add(this.chk_KUPPLUNG);
-            this.groupBox4.Controls.Add(this.chk_BREMSE);
-            this.groupBox4.Controls.Add(this.chk_GAS);
-            this.groupBox4.Location = new System.Drawing.Point(289, 134);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(321, 143);
-            this.groupBox4.TabIndex = 8;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Anzeige-Einstellungen";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 107);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(163, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Reload Verkehr nach Sekunden:";
-            // 
-            // traffic_Update_Intervall
-            // 
-            this.traffic_Update_Intervall.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.traffic_Update_Intervall.Location = new System.Drawing.Point(186, 100);
-            this.traffic_Update_Intervall.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.traffic_Update_Intervall.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.traffic_Update_Intervall.Name = "traffic_Update_Intervall";
-            this.traffic_Update_Intervall.Size = new System.Drawing.Size(65, 26);
-            this.traffic_Update_Intervall.TabIndex = 5;
-            this.traffic_Update_Intervall.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.traffic_Update_Intervall.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.traffic_Update_Intervall.ValueChanged += new System.EventHandler(this.traffic_Update_Intervall_ValueChanged);
-            // 
-            // chk_RPM_ANZEIGE
-            // 
-            this.chk_RPM_ANZEIGE.AutoSize = true;
-            this.chk_RPM_ANZEIGE.Location = new System.Drawing.Point(158, 44);
-            this.chk_RPM_ANZEIGE.Name = "chk_RPM_ANZEIGE";
-            this.chk_RPM_ANZEIGE.Size = new System.Drawing.Size(96, 17);
-            this.chk_RPM_ANZEIGE.TabIndex = 4;
-            this.chk_RPM_ANZEIGE.Text = "R/PM Anzeige";
-            this.chk_RPM_ANZEIGE.UseVisualStyleBackColor = true;
-            this.chk_RPM_ANZEIGE.CheckedChanged += new System.EventHandler(this.chk_RPM_ANZEIGE_CheckedChanged);
-            // 
-            // chk_GANG
-            // 
-            this.chk_GANG.AutoSize = true;
-            this.chk_GANG.Location = new System.Drawing.Point(158, 23);
-            this.chk_GANG.Name = "chk_GANG";
-            this.chk_GANG.Size = new System.Drawing.Size(93, 17);
-            this.chk_GANG.TabIndex = 3;
-            this.chk_GANG.Text = "Gang-Anzeige";
-            this.chk_GANG.UseVisualStyleBackColor = true;
-            this.chk_GANG.CheckedChanged += new System.EventHandler(this.chk_GANG_CheckedChanged);
-            // 
-            // chk_KUPPLUNG
-            // 
-            this.chk_KUPPLUNG.AutoSize = true;
-            this.chk_KUPPLUNG.Location = new System.Drawing.Point(22, 69);
-            this.chk_KUPPLUNG.Name = "chk_KUPPLUNG";
-            this.chk_KUPPLUNG.Size = new System.Drawing.Size(102, 17);
-            this.chk_KUPPLUNG.TabIndex = 2;
-            this.chk_KUPPLUNG.Text = "Kupplungspedal";
-            this.chk_KUPPLUNG.UseVisualStyleBackColor = true;
-            this.chk_KUPPLUNG.CheckedChanged += new System.EventHandler(this.chk_KUPPLUNG_CheckedChanged);
-            // 
-            // chk_BREMSE
-            // 
-            this.chk_BREMSE.AutoSize = true;
-            this.chk_BREMSE.Location = new System.Drawing.Point(22, 46);
-            this.chk_BREMSE.Name = "chk_BREMSE";
-            this.chk_BREMSE.Size = new System.Drawing.Size(81, 17);
-            this.chk_BREMSE.TabIndex = 1;
-            this.chk_BREMSE.Text = "Bremspedal";
-            this.chk_BREMSE.UseVisualStyleBackColor = true;
-            this.chk_BREMSE.CheckedChanged += new System.EventHandler(this.chk_BREMSE_CheckedChanged);
-            // 
-            // chk_GAS
-            // 
-            this.chk_GAS.AutoSize = true;
-            this.chk_GAS.Location = new System.Drawing.Point(22, 23);
-            this.chk_GAS.Name = "chk_GAS";
-            this.chk_GAS.Size = new System.Drawing.Size(71, 17);
-            this.chk_GAS.TabIndex = 0;
-            this.chk_GAS.Text = "Gaspedal";
-            this.chk_GAS.UseVisualStyleBackColor = true;
-            this.chk_GAS.CheckedChanged += new System.EventHandler(this.chk_GAS_CheckedChanged);
-            // 
             // tmp_Trucker
             // 
             this.tmp_Trucker.FileName = "T";
@@ -372,19 +235,12 @@ namespace VTCManager_1._0._0
             // 
             this.groupBox_AntiAFK.Controls.Add(this.chk_antiafk_on_off);
             this.groupBox_AntiAFK.Controls.Add(this.txt_Anti_AFK_Text);
-            this.groupBox_AntiAFK.Location = new System.Drawing.Point(12, 284);
+            this.groupBox_AntiAFK.Location = new System.Drawing.Point(289, 134);
             this.groupBox_AntiAFK.Name = "groupBox_AntiAFK";
-            this.groupBox_AntiAFK.Size = new System.Drawing.Size(598, 79);
+            this.groupBox_AntiAFK.Size = new System.Drawing.Size(321, 84);
             this.groupBox_AntiAFK.TabIndex = 9;
             this.groupBox_AntiAFK.TabStop = false;
             this.groupBox_AntiAFK.Text = "Anti - AFK";
-            // 
-            // txt_Anti_AFK_Text
-            // 
-            this.txt_Anti_AFK_Text.Location = new System.Drawing.Point(10, 20);
-            this.txt_Anti_AFK_Text.Name = "txt_Anti_AFK_Text";
-            this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(578, 20);
-            this.txt_Anti_AFK_Text.TabIndex = 0;
             // 
             // chk_antiafk_on_off
             // 
@@ -396,11 +252,17 @@ namespace VTCManager_1._0._0
             this.chk_antiafk_on_off.Text = "Anti AFK An/Aus";
             this.chk_antiafk_on_off.UseVisualStyleBackColor = true;
             // 
+            // txt_Anti_AFK_Text
+            // 
+            this.txt_Anti_AFK_Text.Location = new System.Drawing.Point(10, 20);
+            this.txt_Anti_AFK_Text.Name = "txt_Anti_AFK_Text";
+            this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
+            this.txt_Anti_AFK_Text.TabIndex = 0;
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
             this.Controls.Add(this.groupBox_AntiAFK);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
             this.Controls.Add(this.groupBox1);
@@ -418,9 +280,6 @@ namespace VTCManager_1._0._0
             this.group_Overlay.ResumeLayout(false);
             this.group_Overlay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.traffic_Update_Intervall)).EndInit();
             this.groupBox_AntiAFK.ResumeLayout(false);
             this.groupBox_AntiAFK.PerformLayout();
             this.ResumeLayout(false);
@@ -504,101 +363,34 @@ namespace VTCManager_1._0._0
             group_Overlay.Visible = false;
 
             Utilities util2 = new Utilities();
+            var test = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            if (test == "") {
+                MessageBox.Show("Es fehlt der Pfad zu TruckersMP" + Environment.NewLine + "Bitte Korrigiere die Angabe dem folgenden Fenster!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } 
 
-            string wert99 = util2.Reg_Lesen("TruckersMP_Autorun", "autorun");
-            string wert22 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GAS");
-            string wert23 = util2.Reg_Lesen("TruckersMP_Autorun", "show_BREMSE");
-            string wert24 = util2.Reg_Lesen("TruckersMP_Autorun", "show_KUPPLUNG");
-            string wert25 = util2.Reg_Lesen("TruckersMP_Autorun", "show_GANG");
-            string wert26 = util2.Reg_Lesen("TruckersMP_Autorun", "show_RPM_ANZEIGE");
             string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
             string wert28 = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
-            string wert29 = util2.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
             string wert30 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
             string wert31 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
 
 
-            if (wert22 == null)
-            {
-                wert22 = "1";
-            }
-            if (wert23 == null)
-            {
-                wert23 = "1";
-            }
-            if (wert24 == null)
-            {
-                wert24 = "1";
-            }
-            if (wert25 == null)
-            {
-                wert25 = "1";
-            }
-            if (wert26 == null)
-            {
-                wert26 = "1";
-            }
-
-
-
-            if (wert29 == null)
-            {
-                traffic_Update_Intervall.Value = 5;
-            } else
-            {
-                traffic_Update_Intervall.Value = Convert.ToDecimal(wert29);
-            }
-
-
-            
-
-
-            if (wert28.ToString() != null)
+            if (wert28 != null)
             {
                 truckersMP_Pfad_TextBox.Text = wert28;
+                truckersMP_Pfad_TextBox.Enabled = false;
             } else
             {
                 truckersMP_Pfad_TextBox.Text = "";
             }
 
-            if (wert99 == "1")
-            {
-                truckers_autorun.CheckState = CheckState.Checked;
-            } else
-            {
-                truckers_autorun.CheckState = CheckState.Unchecked;
-            }
-
             // Server COMBO vorauswahl
-            if(wert27 == "") { wert27 = "Simulation 1"; }
+            if(wert27 == null) { comboBox1.Text = "Simulation 1"; util2.Reg_Schreiben("verkehr_SERVER", "sim1"); }
             if (wert27 == "sim1") { comboBox1.Text = "Simulation 1"; }
             if (wert27 == "sim2") { comboBox1.Text = "Simulation 2"; }
             if (wert27 == "arc1") { comboBox1.Text = "Arcade 1"; }
             if (wert27 == "eupromods1") { comboBox1.Text = "EU Promods 1"; }
             if (wert27 == "eupromods2") { comboBox1.Text = "EU Promods 2"; }
 
-
-
-            // CHECKBOXEN FÜLLEN FÜR PROGRESS BARS
-            if (wert22 == "1") { 
-                chk_GAS.CheckState = CheckState.Checked; } else { 
-                chk_GAS.CheckState = CheckState.Unchecked;  }
-            if (wert23 == "1") {
-                chk_BREMSE.CheckState = CheckState.Checked; } else {
-                chk_BREMSE.CheckState = CheckState.Unchecked;
-            }
-            if (wert24 == "1") {
-                chk_KUPPLUNG.CheckState = CheckState.Checked; } else {
-                chk_KUPPLUNG.CheckState = CheckState.Unchecked;
-            }
-            if (wert25 == "1") {
-                chk_GANG.CheckState = CheckState.Checked; } else {
-                chk_GANG.CheckState = CheckState.Unchecked;
-            }
-            if (wert26 == "1") { 
-                chk_RPM_ANZEIGE.CheckState = CheckState.Checked; } else {
-                chk_RPM_ANZEIGE.CheckState = CheckState.Unchecked;
-            }
 
             // ANTI_AFK
             chk_antiafk_on_off.CheckState = (wert30 == "1") ? CheckState.Checked : CheckState.Unchecked;
@@ -627,19 +419,6 @@ namespace VTCManager_1._0._0
 
         }
 
-        private void truckers_autorun_CheckedChanged(object sender, EventArgs e)
-        {
-            if(truckers_autorun.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("autorun", "1");
-            } else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("autorun", "0");
-            }
-        }
-
 
         private void num_Overlay_Transparenz_ValueChanged(object sender, EventArgs e)
         {
@@ -650,75 +429,8 @@ namespace VTCManager_1._0._0
             Console.WriteLine(anz/100);
         }
 
-        private void chk_GAS_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_GAS.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_GAS", "1");
-            }
-            else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_GAS", "0");
-            }
-        }
 
-        private void chk_BREMSE_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_BREMSE.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_BREMSE", "1");
-            }
-            else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_BREMSE", "0");
-            }
-        }
 
-        private void chk_KUPPLUNG_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_KUPPLUNG.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_KUPPLUNG", "1");
-            }
-            else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_KUPPLUNG", "0");
-            }
-        }
-
-        private void chk_GANG_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_GANG.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_GANG", "1");
-            }
-            else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_GANG", "0");
-            }
-        }
-
-        private void chk_RPM_ANZEIGE_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_RPM_ANZEIGE.CheckState == CheckState.Checked)
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_RPM_ANZEIGE", "1");
-            }
-            else
-            {
-                Utilities util = new Utilities();
-                util.Reg_Schreiben("show_RPM_ANZEIGE", "0");
-            }
-        }
 
         private void SettingsWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -739,12 +451,6 @@ namespace VTCManager_1._0._0
                 
         }
 
-        private void traffic_Update_Intervall_ValueChanged(object sender, EventArgs e)
-        {
-            Utilities util = new Utilities();
-            util.Reg_Schreiben("Reload_Traffic_Sekunden", traffic_Update_Intervall.Value.ToString());
-            
-        }
 
     }
 }

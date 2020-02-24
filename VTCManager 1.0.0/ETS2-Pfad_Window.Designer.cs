@@ -39,8 +39,13 @@
             this.button_ok = new System.Windows.Forms.Button();
             this.folderBrowserDialog_ETS = new System.Windows.Forms.FolderBrowserDialog();
             this.folderBrowserDialog_ATS = new System.Windows.Forms.FolderBrowserDialog();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -118,12 +123,11 @@
             // button_ok
             // 
             this.button_ok.BackColor = System.Drawing.Color.ForestGreen;
-            this.button_ok.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_ok.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button_ok.Location = new System.Drawing.Point(498, 306);
+            this.button_ok.Location = new System.Drawing.Point(282, 372);
             this.button_ok.Name = "button_ok";
-            this.button_ok.Size = new System.Drawing.Size(140, 32);
+            this.button_ok.Size = new System.Drawing.Size(161, 32);
             this.button_ok.TabIndex = 7;
             this.button_ok.Text = "Alles Klar !";
             this.button_ok.UseVisualStyleBackColor = false;
@@ -137,13 +141,51 @@
             // 
             this.folderBrowserDialog_ATS.RootFolder = System.Environment.SpecialFolder.ProgramFilesX86;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox3.Image = global::VTCManager_1._0._0.Properties.Resources.test11;
+            this.pictureBox3.Location = new System.Drawing.Point(646, 41);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(286, 322);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 8;
+            this.pictureBox3.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(642, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(437, 25);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Unbedingt den Pfad bis \"win_x64\" angeben !";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.Image = global::VTCManager_1._0._0.Properties.Resources.test21;
+            this.pictureBox4.Location = new System.Drawing.Point(866, 71);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(246, 343);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 10;
+            this.pictureBox4.TabStop = false;
+            // 
             // ETS2_Pfad_Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(650, 350);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1124, 426);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.button_ok);
             this.Controls.Add(this.btn_Suche_ATS);
             this.Controls.Add(this.ats_pfad);
@@ -152,16 +194,20 @@
             this.Controls.Add(this.ets_pfad);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MinimizeBox = false;
             this.Name = "ETS2_Pfad_Window";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pfad angeben....";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ETS2_Pfad_Window_FormClosing);
             this.Load += new System.EventHandler(this.ETS2_Pfad_Window_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,5 +225,8 @@
         private System.Windows.Forms.Button button_ok;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog_ETS;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog_ATS;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }

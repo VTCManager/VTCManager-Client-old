@@ -34,10 +34,12 @@
     <PublisherName>NorthWestGameStudio</PublisherName>
     <SuiteName>VTC-Manager</SuiteName>
     <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>31</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -121,6 +123,7 @@
     <Compile Include="Overlay_1.Designer.cs">
       <DependentUpon>Overlay_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,6 +172,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
@@ -192,6 +197,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
@@ -307,6 +313,18 @@
     <Content Include="Resources\ets2-telemetry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\test1.jpg" />
+    <None Include="Resources\test2.jpg" />
+    <None Include="Resources\test21.jpg" />
+    <None Include="Resources\test11.jpg" />
+    <None Include="Resources\gang0.png" />
+    <None Include="Resources\gang1.png" />
+    <None Include="Resources\gang2.png" />
+    <None Include="Resources\gang3.png" />
+    <None Include="Resources\gang4.png" />
+    <None Include="Resources\gang5.png" />
+    <None Include="Resources\gangr.png" />
+    <None Include="Resources\gang6.png" />
     <Content Include="Ressources\AutopilotEnd_fx.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
