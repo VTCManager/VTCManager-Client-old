@@ -70,7 +70,7 @@ namespace VTCManager_1._0._0
                                     }
                                     return _cachedRunningFlag;
                                 }
-                                if ((process.MainWindowTitle.StartsWith("American Truck Simulator") || (process.ProcessName == "amtrucks.exe")))
+                                if ((process.MainWindowTitle.StartsWith("American Truck Simulator") || (process.ProcessName == "amtrucks")))
                                 {
                                     _cachedRunningFlag = true;
                                     if (process.ProcessName == "amtrucks")

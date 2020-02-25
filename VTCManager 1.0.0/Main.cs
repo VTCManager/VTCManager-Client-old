@@ -60,7 +60,6 @@ namespace VTCManager_1._0._0
         private System.Windows.Forms.Label cargo_lb;
         private System.Windows.Forms.Label depature_lb;
         private System.Windows.Forms.Label destination_lb;
-        public System.Windows.Forms.ProgressBar progressBar1;
         private ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.Label truck_lb;
         private Label label1;
@@ -120,7 +119,6 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem lbl_Overlay;
         public static int truckersMP_autorun;
         public static int overlay_ist_offen = 0;
-        private Label label6;
         private ToolStripMenuItem darkToolStripMenuItem;
         public static int overlay_Opacity;
         public Timer updateTraffic;
@@ -397,7 +395,7 @@ namespace VTCManager_1._0._0
                     {
           
                         // Rest km
-                        this.progressBar1.Style = ProgressBarStyle.Continuous;
+             
                         if ((double)data.Job.NavigationDistanceLeft != 0.0)
                             this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
                         if (data.Truck != "")
@@ -531,7 +529,7 @@ namespace VTCManager_1._0._0
                                 this.cargo_lb.Text = translation.no_cargo_lb;
                                 this.depature_lb.Text = "";
                                 this.destination_lb.Text = "";
-                                this.progressBar1.Visible = false;
+                     
                             }
                             if (this.discordRPCalreadrunning == false)
                             {
@@ -541,7 +539,7 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                            this.progressBar1.Style = ProgressBarStyle.Marquee;
+              
                             this.truck_lb.Visible = false;
                             this.destination_lb.Visible = false;
                             this.depature_lb.Visible = false;
@@ -569,7 +567,7 @@ namespace VTCManager_1._0._0
                     }
                     else
                     {
-                        this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+                    
                         this.truck_lb.Visible = false;
                         this.destination_lb.Visible = false;
                         this.depature_lb.Visible = false;
@@ -596,8 +594,8 @@ namespace VTCManager_1._0._0
                                 this.cargo_lb.Text = translation.freight_lb + data.Job.Cargo + " (" + ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString() + "t)";
                                 this.depature_lb.Text = translation.depature_lb + data.Job.CitySource + " ( " + data.Job.CompanySource + " ) ";
                                 this.destination_lb.Text = translation.destination_lb + data.Job.CityDestination + " ( " + data.Job.CompanyDestination + " )";
-                                this.progressBar1.Visible = true;
-                                this.progressBar1.Value = 0;
+   
+                                //this.progressBar1.Value = 100 * this.invertedDistance / this.totalDistance;
                                 this.fuelatstart = data.Drivetrain.Fuel;
                                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                                 postParameters.Add("authcode", this.authCode);
@@ -652,9 +650,9 @@ namespace VTCManager_1._0._0
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
                                         this.totalDistance = (int)data.Job.NavigationDistanceLeft;
 
-                                    this.progressBar1.Minimum = 0;
+                                
                                     this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
-                                    this.progressBar1.Value = this.currentPercentage;
+                             
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
 
@@ -748,7 +746,7 @@ namespace VTCManager_1._0._0
                     }
                     catch { }
 
-                    this.progressBar1.Value = this.currentPercentage;
+           
                 }
             }
             catch (Exception ex)
@@ -839,10 +837,8 @@ namespace VTCManager_1._0._0
             this.panel2 = new System.Windows.Forms.Panel();
             this.picture_Gang = new System.Windows.Forms.PictureBox();
             this.speed_Image = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.destination_lb = new System.Windows.Forms.Label();
             this.depature_lb = new System.Windows.Forms.Label();
             this.cargo_lb = new System.Windows.Forms.Label();
@@ -1114,10 +1110,8 @@ namespace VTCManager_1._0._0
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.picture_Gang);
             this.panel2.Controls.Add(this.speed_Image);
-            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
-            this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.destination_lb);
             this.panel2.Controls.Add(this.depature_lb);
             this.panel2.Controls.Add(this.cargo_lb);
@@ -1131,10 +1125,10 @@ namespace VTCManager_1._0._0
             // picture_Gang
             // 
             this.picture_Gang.Image = global::VTCManager_1._0._0.Properties.Resources.gang0;
-            this.picture_Gang.Location = new System.Drawing.Point(394, 399);
+            this.picture_Gang.Location = new System.Drawing.Point(3, 454);
             this.picture_Gang.Name = "picture_Gang";
-            this.picture_Gang.Size = new System.Drawing.Size(150, 150);
-            this.picture_Gang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picture_Gang.Size = new System.Drawing.Size(99, 96);
+            this.picture_Gang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picture_Gang.TabIndex = 19;
             this.picture_Gang.TabStop = false;
             // 
@@ -1147,15 +1141,6 @@ namespace VTCManager_1._0._0
             this.speed_Image.Size = new System.Drawing.Size(100, 100);
             this.speed_Image.TabIndex = 18;
             this.speed_Image.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(217, 540);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Streckenverlauf";
             // 
             // status_jb_canc_lb
             // 
@@ -1175,16 +1160,6 @@ namespace VTCManager_1._0._0
             this.truck_lb.Size = new System.Drawing.Size(48, 19);
             this.truck_lb.TabIndex = 5;
             this.truck_lb.Text = "Truck: ";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.progressBar1.Location = new System.Drawing.Point(3, 556);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(545, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 4;
-            this.progressBar1.UseWaitCursor = true;
             // 
             // destination_lb
             // 
@@ -1603,10 +1578,10 @@ namespace VTCManager_1._0._0
             // Check auf REGISTR
                 Utilities util34 = new Utilities();
             util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
-
+            
         
 
-            lbl_Revision.Text = "1206";
+            lbl_Revision.Text = "1207";
             labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
@@ -1635,13 +1610,13 @@ namespace VTCManager_1._0._0
 
             if (Utilities.IsDiscordRunning == true)
                 {
-
+                    
                     client = new DiscordRpcClient("678939831879073792");
                     client.Initialize();
                     client.SetPresence(new RichPresence()
                     {
-                        Details = "Das ist Verwaltung!",
-                        State = "vtc.northwestvideo.de",
+                        Details = "---",
+                        State = "---",
                         Assets = new Assets()
                         {
                             LargeImageKey = "rpc1_1",

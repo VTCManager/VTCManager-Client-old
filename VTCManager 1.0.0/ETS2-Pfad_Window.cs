@@ -78,7 +78,6 @@ namespace VTCManager_1._0._0
                 {
                     File.Copy(Application.StartupPath + @"\Resources\ets2-telemetry.dll", dest_Path + @"ets2-telemetry.dll");
                 } catch { }
-                
 
             }
         }
