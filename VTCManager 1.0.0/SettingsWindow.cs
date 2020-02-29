@@ -20,19 +20,11 @@ namespace VTCManager_1._0._0
         private GroupBox groupBox1;
         private GroupBox btn_TruckersMP_suchen;
         private Label label3;
-        private GroupBox group_Overlay;
-        private ComboBox combo_Bildschirme;
-        private Label label6;
-        private NumericUpDown num_Overlay_Transparenz;
-        private Label label5;
         private Button button1;
         private string selected_server_tm;
         private System.Windows.Forms.OpenFileDialog tmp_Trucker;
         private TextBox truckersMP_Pfad_TextBox;
-        private GroupBox groupBox_AntiAFK;
-        private TextBox txt_Anti_AFK_Text;
-        private CheckBox chk_antiafk_on_off;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        //private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
             this.data = new SettingsManager();
@@ -65,20 +57,9 @@ namespace VTCManager_1._0._0
             this.truckersMP_Pfad_TextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.group_Overlay = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.num_Overlay_Transparenz = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
             this.tmp_Trucker = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
-            this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
-            this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
-            this.group_Overlay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
-            this.groupBox_AntiAFK.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -175,95 +156,13 @@ namespace VTCManager_1._0._0
             this.label3.TabIndex = 0;
             this.label3.Text = "Pfad zu TruckersMP:";
             // 
-            // group_Overlay
-            // 
-            this.group_Overlay.Controls.Add(this.label6);
-            this.group_Overlay.Controls.Add(this.num_Overlay_Transparenz);
-            this.group_Overlay.Controls.Add(this.label5);
-            this.group_Overlay.Controls.Add(this.combo_Bildschirme);
-            this.group_Overlay.Location = new System.Drawing.Point(289, 12);
-            this.group_Overlay.Name = "group_Overlay";
-            this.group_Overlay.Size = new System.Drawing.Size(321, 111);
-            this.group_Overlay.TabIndex = 7;
-            this.group_Overlay.TabStop = false;
-            this.group_Overlay.Text = "Overlay Einstellungen";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 58);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Transparenz:";
-            // 
-            // num_Overlay_Transparenz
-            // 
-            this.num_Overlay_Transparenz.Location = new System.Drawing.Point(116, 56);
-            this.num_Overlay_Transparenz.Name = "num_Overlay_Transparenz";
-            this.num_Overlay_Transparenz.Size = new System.Drawing.Size(59, 20);
-            this.num_Overlay_Transparenz.TabIndex = 2;
-            this.num_Overlay_Transparenz.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Gaming-Monitor:";
-            // 
-            // combo_Bildschirme
-            // 
-            this.combo_Bildschirme.FormattingEnabled = true;
-            this.combo_Bildschirme.Location = new System.Drawing.Point(116, 28);
-            this.combo_Bildschirme.Name = "combo_Bildschirme";
-            this.combo_Bildschirme.Size = new System.Drawing.Size(195, 21);
-            this.combo_Bildschirme.TabIndex = 0;
-            // 
             // tmp_Trucker
             // 
             this.tmp_Trucker.FileName = "T";
             // 
-            // groupBox_AntiAFK
-            // 
-            this.groupBox_AntiAFK.Controls.Add(this.chk_antiafk_on_off);
-            this.groupBox_AntiAFK.Controls.Add(this.txt_Anti_AFK_Text);
-            this.groupBox_AntiAFK.Location = new System.Drawing.Point(289, 134);
-            this.groupBox_AntiAFK.Name = "groupBox_AntiAFK";
-            this.groupBox_AntiAFK.Size = new System.Drawing.Size(321, 84);
-            this.groupBox_AntiAFK.TabIndex = 9;
-            this.groupBox_AntiAFK.TabStop = false;
-            this.groupBox_AntiAFK.Text = "Anti - AFK";
-            // 
-            // chk_antiafk_on_off
-            // 
-            this.chk_antiafk_on_off.AutoSize = true;
-            this.chk_antiafk_on_off.Location = new System.Drawing.Point(10, 47);
-            this.chk_antiafk_on_off.Name = "chk_antiafk_on_off";
-            this.chk_antiafk_on_off.Size = new System.Drawing.Size(106, 17);
-            this.chk_antiafk_on_off.TabIndex = 1;
-            this.chk_antiafk_on_off.Text = "Anti AFK An/Aus";
-            this.chk_antiafk_on_off.UseVisualStyleBackColor = true;
-            // 
-            // txt_Anti_AFK_Text
-            // 
-            this.txt_Anti_AFK_Text.Location = new System.Drawing.Point(10, 20);
-            this.txt_Anti_AFK_Text.Name = "txt_Anti_AFK_Text";
-            this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
-            this.txt_Anti_AFK_Text.TabIndex = 0;
-            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
-            this.Controls.Add(this.groupBox_AntiAFK);
-            this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save_button);
@@ -277,11 +176,6 @@ namespace VTCManager_1._0._0
             this.groupBox1.PerformLayout();
             this.btn_TruckersMP_suchen.ResumeLayout(false);
             this.btn_TruckersMP_suchen.PerformLayout();
-            this.group_Overlay.ResumeLayout(false);
-            this.group_Overlay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
-            this.groupBox_AntiAFK.ResumeLayout(false);
-            this.groupBox_AntiAFK.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -335,33 +229,17 @@ namespace VTCManager_1._0._0
                 util.Reg_Schreiben("speed_MODE", "kmh");
             }
 
-            // ANTI_AFK
-            util.Reg_Schreiben("ANTI_AFK", txt_Anti_AFK_Text.Text);
-           if(chk_antiafk_on_off.CheckState == CheckState.Checked)
-            {
-                if(txt_Anti_AFK_Text.Text == "")
-                {
-                    util.Reg_Schreiben("ANTI_AFK", "Der neue VTC-Manager wünscht Gute und Sichere Fahrt !");
-                }
-                util.Reg_Schreiben("ANTI_AFK_AN", "1");
-            } else
-            {
-                util.Reg_Schreiben("ANTI_AFK_AN","0");
-            }
 
 
             this.data.SaveJobID();
 
             //MessageBox.Show(translation.save_info);
-
-            // Edit by Thommy
             this.Close();
         }
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
-            group_Overlay.Visible = false;
-
+      
             Utilities util2 = new Utilities();
             var test = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             if (test == "") {
@@ -370,9 +248,6 @@ namespace VTCManager_1._0._0
 
             string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
             string wert28 = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
-            string wert30 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
-            string wert31 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
-
 
             if (wert28 != null)
             {
@@ -390,29 +265,6 @@ namespace VTCManager_1._0._0
             if (wert27 == "arc1") { comboBox1.Text = "Arcade 1"; }
             if (wert27 == "eupromods1") { comboBox1.Text = "EU Promods 1"; }
             if (wert27 == "eupromods2") { comboBox1.Text = "EU Promods 2"; }
-
-
-            // ANTI_AFK
-            chk_antiafk_on_off.CheckState = (wert30 == "1") ? CheckState.Checked : CheckState.Unchecked;
-            txt_Anti_AFK_Text.Text = (wert31 != null) ? wert31.ToString() : "";
-
-            // Listbox mit Bildschirmen füllen
-
-            combo_Bildschirme.Items.Clear();
-            combo_Bildschirme.Items.Add(Screen.AllScreens.GetUpperBound(0));
-            combo_Bildschirme.Items.Add(Screen.AllScreens[0].DeviceName);
-            if (Screen.AllScreens.GetUpperBound(0) == 1)
-            {
-                combo_Bildschirme.Items.Add(Screen.AllScreens[1].DeviceName);
-            }
-            if (Screen.AllScreens.GetUpperBound(0) == 2)
-            {
-                combo_Bildschirme.Items.Add(Screen.AllScreens[2].DeviceName);
-            }
-            if (Screen.AllScreens.GetUpperBound(0) == 3)
-            {
-                combo_Bildschirme.Items.Add(Screen.AllScreens[3].DeviceName);
-            }
 
             // Variablen abrufen von Main
             var link = Main.truckersMP_Link;
@@ -442,6 +294,9 @@ namespace VTCManager_1._0._0
                 
         }
 
-
+        private void checkBoxShowOverlay_CheckedChanged(object sender, EventArgs e)
+        {
+   
+        }
     }
 }

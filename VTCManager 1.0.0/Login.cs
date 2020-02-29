@@ -43,8 +43,8 @@ namespace VTCManager_1._0._0
         private String first_start;
         // Edit by Thommy
         // Auf Öffentlichkeit prüfen || true = Öffentlich || false = keine Prüfung
-        private bool oeffentlich = false;
-
+        //private bool oeffentlich = false;
+        public string authCode2;
 
         public Login() {
             
@@ -224,6 +224,8 @@ namespace VTCManager_1._0._0
                 this.driven_tours = Convert.ToInt32(strArray[4]);
                 this.bank_balance = Convert.ToInt32(strArray[5]);
                 this.Hide();
+
+                authCode2 = this.authCode;
 
                 Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany);
                 Mainwindow.ShowDialog();

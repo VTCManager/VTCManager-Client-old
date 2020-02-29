@@ -27,7 +27,6 @@ namespace VTCManager_1._0._0
             this.login_path = "login.php";
             //this.api_server = "https://vtc.northwestvideo.de/api/app/";
             this.api_server = "https://vtc.northwestvideo.de/api/app_beta/";
-            //this.api_server = "https://www.zwpc.de/api/";
             this.trucky_api_server = "https://api.truckyapp.com/v2/";
             this.load_data_path = "load_data.php";
             this.canceltourpath = "cancel_tour.php";
@@ -103,7 +102,8 @@ namespace VTCManager_1._0._0
                     }
                     catch
                     {
-                        MessageBox.Show("An error occurred while connecting to the server");
+                        MessageBox.Show("Fehler beim Verbinden zum Server!" + Environment.NewLine + Environment.NewLine + "Meldung: " + Environment.NewLine + exception.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
                     }
                 }
                 return null;
