@@ -28,7 +28,7 @@ namespace VTCManager_1._0._0
 
         public SettingsWindow() {
             this.data = new SettingsManager();
-            this.data.LoadJobID();
+            //this.data.LoadJobID();
             CultureInfo ci = CultureInfo.InstalledUICulture;
             this.translation = new Translation(ci.DisplayName);
 

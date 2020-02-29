@@ -114,7 +114,7 @@ namespace VTCManager_1._0._0
                 writer.Close();
             }
         }
-        public void LoadJobID()
+        /*public void LoadJobID()
         {
             if (File.Exists(Path.Combine(this.settingsDirectory, this.settingsFile)))
             {
@@ -123,7 +123,7 @@ namespace VTCManager_1._0._0
                 this.m_oConfigJob = (CacheDataObject)obj2;
                 textReader.Close();
             }
-        }
+        }*/
 
         // Properties
         public SettingsDataObject Config
