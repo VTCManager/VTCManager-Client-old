@@ -429,12 +429,6 @@ namespace VTCManager_1._0._0
                             }
                             else
                             {
-
-                                this.truck_lb.Visible = false;
-                                this.destination_lb.Visible = false;
-                                this.depature_lb.Visible = false;
-                                this.cargo_lb.Visible = false;
-                                this.speed_lb.Text = translation.wait_ets2_is_ready;
                             }
                             bool flag;
                             using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
