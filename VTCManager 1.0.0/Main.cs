@@ -127,6 +127,8 @@ namespace VTCManager_1._0._0
         public static string labelRevision;
         public string Abfahrtsort;
         public string Zielort;
+        private string truck_name_discord;
+
         public DiscordRpcClient Client { get; private set; }
 
 
@@ -372,6 +374,7 @@ namespace VTCManager_1._0._0
                             else
                             {
                                 this.truck_lb.Text = translation.truck_lb + data.Manufacturer + " " + data.Truck;
+                                this.truck_name_discord = data.Manufacturer + " " + data.Truck;
                             }
                             this.truck_lb.Visible = true;
                             this.destination_lb.Visible = true;
@@ -1204,8 +1207,8 @@ namespace VTCManager_1._0._0
             Client.Initialize();
             Client.SetPresence(new RichPresence()
             {
-                Details = "VCT-Connect",
-                State = "testtext",
+                Details = "VTConnect",
+                State = "Driving in "+ truck_name_discord,
                 Assets = new Assets()
                 {
                     LargeImageKey = "rpc1",
