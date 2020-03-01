@@ -1214,6 +1214,7 @@ namespace VTCManager_1._0._0
 
                 }
             });
+            
         }
 
         private void send_speedo_Tick(object sender, EventArgs e)
@@ -1276,7 +1277,7 @@ namespace VTCManager_1._0._0
                 Utilities util34 = new Utilities();
             util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
-            lbl_Revision.Text = "0102";
+            lbl_Revision.Text = "0103";
             labelRevision = lbl_Revision.Text;
 
 
