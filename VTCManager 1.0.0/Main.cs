@@ -513,7 +513,7 @@ namespace VTCManager_1._0._0
                                     //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
                                     this.CitySource = data.Job.CitySource;
                                     this.CityDestination = data.Job.CityDestination;
-                                    this.send_tour_status.Enabled = true;
+                                    this.send_tour_status.Start();
                                     this.jobStarted = false;
                                 }
                             }
@@ -571,7 +571,7 @@ namespace VTCManager_1._0._0
 
                                         Console.WriteLine(this.lastNotZeroDistance);
                                         notification_sound_tour_end.Play();
-                                        this.send_tour_status.Enabled = false;
+                                        this.send_tour_status.Stop();
                                         this.jobRunning = false;
                                         this.fuelatend = data.Drivetrain.Fuel;
                                         this.fuelconsumption = this.fuelatstart - this.fuelatend;
@@ -608,7 +608,7 @@ namespace VTCManager_1._0._0
                                     }
                                     else
                                     {
-                                        this.send_tour_status.Enabled = false;
+                                        this.send_tour_status.Stop();
                                         this.jobRunning = false;
                                         this.CancelTour();
                                         this.lastJobDictionary.Clear();
@@ -743,9 +743,10 @@ namespace VTCManager_1._0._0
             // 
             // send_tour_status
             // 
-            this.send_tour_status.Enabled = false;
+            this.send_tour_status.Enabled = true;
             this.send_tour_status.Interval = 15000;
             this.send_tour_status.Tick += new System.EventHandler(this.send_tour_status_Tick);
+            this.send_tour_status.Stop();
             // 
             // send_location
             // 
