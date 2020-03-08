@@ -43,8 +43,8 @@ namespace VTCManager_1._0._0
         private String first_start;
         // Edit by Thommy
         // Auf Öffentlichkeit prüfen || true = Öffentlich || false = keine Prüfung
-        //private bool oeffentlich = false;
-        public string authCode2;
+        private bool oeffentlich = false;
+
 
         public Login() {
             
@@ -61,7 +61,7 @@ namespace VTCManager_1._0._0
         {
             this.settings = new SettingsManager();
             this.settings.CreateCache();
-            //this.settings.LoadJobID();
+            this.settings.LoadJobID();
             if (this.settings.Cache.first_start == "true" || string.IsNullOrEmpty(this.settings.Cache.first_start) == true) {
                 this.first_start = "false";
                 this.settings.Cache.first_start = "false";
@@ -225,8 +225,6 @@ namespace VTCManager_1._0._0
                 this.bank_balance = Convert.ToInt32(strArray[5]);
                 this.Hide();
 
-                authCode2 = this.authCode;
-
                 Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany);
                 Mainwindow.ShowDialog();
             }
@@ -250,7 +248,6 @@ namespace VTCManager_1._0._0
 
         private void Main_Load(object sender, EventArgs e)
         {
-            /*
             this.version_text.Text = "Version: 1.1.1";
             version_int = 111;
             string fileName = this.api.HTTPSRequestPost("https://vtc.northwestvideo.de/api/app/download.php", new Dictionary<string, string>()
@@ -294,14 +291,11 @@ namespace VTCManager_1._0._0
                     }
                 }
             }
-            */
-
-            //this.preferences.CreateConfig();
+            this.preferences.CreateConfig();
             this.preferences.LoadConfig();
             if (!(this.preferences.Config.SaveLoginData == "yes"))
                 return;
             this.login(this.preferences.Config.Account, this.preferences.Config.Password);
-            
         }
         private void Main_Resize(object sender, EventArgs e)
         {
