@@ -248,7 +248,6 @@ namespace VTCManager_1._0._0
 
         private void Main_Load(object sender, EventArgs e)
         {
-            /*
             this.version_text.Text = "Version: 1.1.1";
             version_int = 111;
             string fileName = this.api.HTTPSRequestPost("https://vtc.northwestvideo.de/api/app/download.php", new Dictionary<string, string>()
@@ -292,14 +291,11 @@ namespace VTCManager_1._0._0
                     }
                 }
             }
-            */
-
-            //this.preferences.CreateConfig();
+            this.preferences.CreateConfig();
             this.preferences.LoadConfig();
             if (!(this.preferences.Config.SaveLoginData == "yes"))
                 return;
             this.login(this.preferences.Config.Account, this.preferences.Config.Password);
-            
         }
         private void Main_Resize(object sender, EventArgs e)
         {

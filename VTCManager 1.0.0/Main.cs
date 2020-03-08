@@ -1516,7 +1516,6 @@ namespace VTCManager_1._0._0
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1608,10 +1607,14 @@ namespace VTCManager_1._0._0
         
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             lbl_Revision.Text = "1208";
 =======
             lbl_Revision.Text = "1206";
 >>>>>>> parent of 60f9f17... Streckenanzeige deaktiviert wegen BUG
+=======
+            lbl_Revision.Text = "1207";
+>>>>>>> parent of 95318ff... Update-Check entfernt
             labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
@@ -1741,7 +1744,6 @@ namespace VTCManager_1._0._0
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/expand.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
                 this.BackgroundImage = null;
-                this.Is_DarkMode_On = 0;
             }
             else
             {
