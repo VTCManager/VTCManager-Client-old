@@ -407,7 +407,7 @@ namespace VTCManager_1._0._0
                         // Rest km
                         this.progressBar1.Style = ProgressBarStyle.Continuous;
                  
-                        if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount >= 1)
+                        if (data.TruckValues.ConstantsValues.Brand != "")
                         {
                             if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 0)
                             {
