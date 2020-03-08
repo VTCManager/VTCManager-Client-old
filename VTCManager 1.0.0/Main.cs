@@ -115,7 +115,6 @@ namespace VTCManager_1._0._0
         public static int overlay_Opacity;
         public Timer updateTraffic;
         private Label lbl_Reload_Time;
-        public Timer discord_tick;
         public int Is_DarkMode_On;
         public Label lbl_Revision;
         private StatusStrip statusStrip1;
@@ -684,7 +683,6 @@ namespace VTCManager_1._0._0
                 postParameters.Add("authcode", this.authCode);
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
             }
-       
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -702,7 +700,6 @@ namespace VTCManager_1._0._0
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.send_tour_status = new System.Timers.Timer();
             this.send_location = new System.Windows.Forms.Timer(this.components);
-            this.discord_tick = new System.Windows.Forms.Timer(this.components);
             this.send_speedo = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -763,13 +760,6 @@ namespace VTCManager_1._0._0
             this.send_location.Enabled = true;
             this.send_location.Interval = 15000;
             this.send_location.Tick += new System.EventHandler(this.send_location_Tick);
-
-            // 
-            // discord_tick
-            // 
-            this.discord_tick.Enabled = true;
-            this.discord_tick.Interval = 5000;
-            this.discord_tick.Tick += new System.EventHandler(this.send_discord_Tick);
             // 
             // send_speedo
             // 
@@ -1197,37 +1187,6 @@ namespace VTCManager_1._0._0
 
         }
 
-        private void send_discord_Tick(object sender, EventArgs e)
-        {
-            Console.WriteLine("Discord Function Tick");
-            // RPCCLIENT ANFANG
-            Client = new DiscordRpcClient("678939831879073792");  //Creates the client
-            Client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-            //Subscribe to events
-            Client.OnReady += (sender2, e2) =>
-            {
-                Console.WriteLine("Received Ready from user {0}", e2.User.Username);
-            };
-
-            Client.OnPresenceUpdate += (sender2, e2) =>
-            {
-                Console.WriteLine("Received Update! {0}", e2.Presence);
-            };
-            Client.Initialize();
-            Client.SetPresence(new RichPresence()
-            {
-                Details = "VCT-Connect",
-                State = "testtext",
-                Assets = new Assets()
-                {
-                    LargeImageKey = "rpc1",
-                    LargeImageText = "Test",
-                    SmallImageKey = "None"
-
-                }
-            });
-        }
-
         private void send_speedo_Tick(object sender, EventArgs e)
         {
 
@@ -1347,6 +1306,21 @@ namespace VTCManager_1._0._0
             this.load_traffic();
 
 
+            // RPCCLIENT ANFANG
+            Client = new DiscordRpcClient("678939831879073792");  //Creates the client
+            Client.Initialize();
+            Client.SetPresence(new RichPresence()
+            {
+                Details = "VCT-Connect",
+                State = "testtext",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "rpc1",
+                    LargeImageText = "Test",
+                    SmallImageKey = "None"
+
+                }
+            });
 
 
 
