@@ -61,7 +61,7 @@ namespace VTCManager_1._0._0
         {
             this.settings = new SettingsManager();
             this.settings.CreateCache();
-            //this.settings.LoadJobID();
+            this.settings.LoadJobID();
             if (this.settings.Cache.first_start == "true" || string.IsNullOrEmpty(this.settings.Cache.first_start) == true) {
                 this.first_start = "false";
                 this.settings.Cache.first_start = "false";

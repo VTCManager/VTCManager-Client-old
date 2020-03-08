@@ -77,7 +77,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -89,6 +89,9 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="VTCManager_TemporaryKey.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.cs">
@@ -264,7 +267,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-film-noir-50.png" />
-    <Content Include="Ets2SdkClient.dll" />
     <Content Include="iconfinder_bulled-green_1930264.png" />
     <Content Include="iconfinder_bullet-red_84435.png" />
     <None Include="Resources\iconfinder_bullet-red_84435.png" />

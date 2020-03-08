@@ -178,7 +178,7 @@ namespace VTCManager_1._0._0
             }
             this.settings = new SettingsManager();
             this.settings.CreateCache();
-            //this.settings.LoadJobID();
+            this.settings.LoadJobID();
             if (string.IsNullOrEmpty(this.settings.Cache.speed_mode) == true)
             {
                 this.settings.Cache.speed_mode = "kmh";
