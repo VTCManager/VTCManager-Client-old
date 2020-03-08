@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AEFF0226-FE54-457F-8B94-C75136E3DDB3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>VTCManager_1._0._0</RootNamespace>
     <AssemblyName>VTCManager 1.0.0</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -18,10 +18,10 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\edvbl\Desktop\VCT_VERSION_1\</PublishUrl>
+    <PublishUrl>ftp://northwestvideo.de/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -35,7 +35,8 @@
     <SuiteName>VTC-Manager</SuiteName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>44</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -102,12 +103,6 @@
     </Compile>
     <Compile Include="API.cs" />
     <Compile Include="CacheDataObject.cs" />
-    <Compile Include="Diagnostic.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Diagnostic.Designer.cs">
-      <DependentUpon>Diagnostic.cs</DependentUpon>
-    </Compile>
     <Compile Include="ETS2-Pfad_Window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,7 +140,6 @@
       <DependentUpon>Ueber.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities.cs" />
-    <Compile Include="WebSend.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.147.0, Culture=neutral, processorArchitecture=MSIL">
@@ -243,9 +237,6 @@
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Diagnostic.resx">
-      <DependentUpon>Diagnostic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ETS2-Pfad_Window.resx">
       <DependentUpon>ETS2-Pfad_Window.cs</DependentUpon>
