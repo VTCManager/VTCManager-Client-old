@@ -472,7 +472,6 @@ namespace VTCManager_1._0._0
                             {
                                 if ((double)data.Job.NavigationDistanceLeft != 0.0 && data.Job.CityDestination != "")
                                 {
-                                    this.lastJobDictionary.Clear();
                                     notification_sound_tour_start.Play();
                                     this.totalDistance = (int)data.Job.NavigationDistanceLeft;
                                     num2 = (double)data.Job.Income * 0.15;
@@ -573,7 +572,6 @@ namespace VTCManager_1._0._0
                                         Console.WriteLine(this.lastNotZeroDistance);
                                         notification_sound_tour_end.Play();
                                         this.send_tour_status.Enabled = false;
-                                        this.send_tour_status.Stop();
                                         this.jobRunning = false;
                                         this.fuelatend = data.Drivetrain.Fuel;
                                         this.fuelconsumption = this.fuelatstart - this.fuelatend;
@@ -611,7 +609,6 @@ namespace VTCManager_1._0._0
                                     else
                                     {
                                         this.send_tour_status.Enabled = false;
-                                        this.send_tour_status.Stop();
                                         this.jobRunning = false;
                                         this.CancelTour();
                                         this.lastJobDictionary.Clear();
@@ -1211,7 +1208,7 @@ namespace VTCManager_1._0._0
             Client.SetPresence(new RichPresence()
             {
                 Details = "VTConnect",
-                State = "Driving in "+ this.truck_name_discord,
+                State = "Driving in "+ truck_name_discord,
                 Assets = new Assets()
                 {
                     LargeImageKey = "rpc1",
