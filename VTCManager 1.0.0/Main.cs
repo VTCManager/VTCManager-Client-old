@@ -1,6 +1,6 @@
 ﻿using DiscordRPC;
 using DiscordRPC.Logging;
-using Ets2SdkClient;
+using SCSSdkClient.Object;
 using RJCP.IO.Ports;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
-
+using SCSSdkClient;
 
 namespace VTCManager_1._0._0
 {
@@ -29,7 +29,7 @@ namespace VTCManager_1._0._0
         private SettingsManager settings;
         public string authCode = "false";
         public Dictionary<string, string> lastJobDictionary = new Dictionary<string, string>();
-        public Ets2SdkTelemetry Telemetry;
+        public SCSSdkTelemetry Telemetry;
         public bool jobStarted;
         public bool jobRunning;
         private float fuelatend;
@@ -217,10 +217,18 @@ namespace VTCManager_1._0._0
                 MessageBox.Show("Exception: Getting traffic data from TruckyAPI");
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
-            this.Telemetry = new Ets2SdkTelemetry();
-            this.Telemetry.Data += new TelemetryData(this.Telemetry_Data);
-            this.Telemetry.JobFinished += new EventHandler(this.TelemetryOnJobFinished);
-            this.Telemetry.JobStarted += new EventHandler(this.TelemetryOnJobStarted);
+
+            this.Telemetry = new SCSSdkTelemetry();
+            Telemetry.Data += Telemetry_Data;
+            Telemetry.JobStarted += TelemetryOnJobStarted;
+
+            Telemetry.JobCancelled += TelemetryJobCancelled;
+            Telemetry.JobDelivered += TelemetryJobDelivered;
+            Telemetry.Fined += TelemetryFined;
+            Telemetry.Tollgate += TelemetryTollgate;
+            Telemetry.Ferry += TelemetryFerry;
+            Telemetry.Train += TelemetryTrain;
+            Telemetry.Refuel += TelemetryRefuel;
             if (this.Telemetry.Error == null)
                 return;
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
@@ -380,116 +388,79 @@ namespace VTCManager_1._0._0
             this.jobStarted = true;
         }
 
-        public void Telemetry_Data(Ets2Telemetry data, bool updated)
+        private void Telemetry_Data(SCSTelemetry data, bool updated)
         {
             try
             {
-
-                if (this.InvokeRequired)
+                if (InvokeRequired)
                 {
-                    this.Invoke((Delegate)new TelemetryData(this.Telemetry_Data), (object)data, (object)updated);
+                    Invoke(new TelemetryData(Telemetry_Data), data, updated);
+                    return;
                 }
                 else
                 {
-                    int time = (int)data.Time;
+                    int time = Telemetry.UpdateInterval;
                     float num1;
                     if (Utilities.IsGameRunning)
                     {
           
                         // Rest km
                         this.progressBar1.Style = ProgressBarStyle.Continuous;
-                        if ((double)data.Job.NavigationDistanceLeft != 0.0)
-                            this.lastNotZeroDistance = (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
-                        if (data.Truck != "")
+                 
+                        if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount >= 1)
                         {
-
-                            if (data.Drivetrain.Gear.ToString() == "-1")
-                            {
-                                picture_Gang.Image = Properties.Resources.gangr;
-                            }
-                            if (data.Drivetrain.Gear.ToString() == "0")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 0)
                             {
                                 picture_Gang.Image = Properties.Resources.gang0;
                             }
-                            if (data.Drivetrain.Gear.ToString() == "1")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 1)
                             {
                                 picture_Gang.Image = Properties.Resources.gang1;
                             }
-                            if (data.Drivetrain.Gear.ToString() == "2")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 2)
                             {
                                 picture_Gang.Image = Properties.Resources.gang2;
                             }
-                            if (data.Drivetrain.Gear.ToString() == "3")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 3)
                             {
                                 picture_Gang.Image = Properties.Resources.gang3;
                             }
-                            if (data.Drivetrain.Gear.ToString() == "4")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 4)
                             {
                                 picture_Gang.Image = Properties.Resources.gang4;
                             }
-                            if (data.Drivetrain.Gear.ToString() == "5")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 5)
                             {
                                 picture_Gang.Image = Properties.Resources.gang5;
                             }
-                            if (data.Drivetrain.Gear.ToString() == "6")
+                            if (data.TruckValues.ConstantsValues.MotorValues.ForwardGearCount == 6)
                             {
                                 picture_Gang.Image = Properties.Resources.gang6;
                             }
 
-                            if (data.Truck == "Extra_D" || data.Truck == "Superb")
-                            {
-                                this.truck_lb.Text = translation.car_lb + "Škoda" + " Superb";
-                            }
-                            else
-                            {
-                                this.truck_lb.Text = translation.truck_lb + data.Manufacturer + " " + data.Truck;
-                            }
+
+                            this.truck_lb.Text = data.TruckValues.ConstantsValues.Brand + " " + data.TruckValues.ConstantsValues.Name;
+
+
                             this.truck_lb.Visible = true;
                             this.destination_lb.Visible = true;
                             this.depature_lb.Visible = true;
                             this.cargo_lb.Visible = true;
                             if (this.settings.Cache.speed_mode == "mph")
                             {
-                                this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedMph).ToString().Replace("-", "") + " mph";
+                                this.speed_lb.Text = data.TruckValues.CurrentValues.DashboardValues.Speed + " mph";
                             }
                             else
                             {
-                                if (Convert.ToInt32(data.Job.SpeedLimit) <= 5) { speed_Image.Image = Properties.Resources._00; }
-                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 9 && Convert.ToInt32(data.Job.SpeedLimit) <= 12) { speed_Image.Image = Properties.Resources._30; }
-                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 13 && Convert.ToInt32(data.Job.SpeedLimit) <= 15) { speed_Image.Image = Properties.Resources._50; }
-                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 19 && Convert.ToInt32(data.Job.SpeedLimit) <= 22) { speed_Image.Image = Properties.Resources._70; }
-                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 22 && Convert.ToInt32(data.Job.SpeedLimit) <= 23) { speed_Image.Image = Properties.Resources._80; }
-                                if (Convert.ToInt32(data.Job.SpeedLimit) >= 24 && Convert.ToInt32(data.Job.SpeedLimit) <= 26) { speed_Image.Image = Properties.Resources._90; }
-
-                          
-
-                                this.speed_lb.Text = Math.Round((double)data.Drivetrain.SpeedKmh).ToString().Replace("-", "") + " km/h";
+                                this.speed_lb.Text = data.TruckValues.CurrentValues.DashboardValues.Speed + " KM/H";
                             }
                             if (this.serial_start == false)
                             {
                                 this.serial_start = true;
                             }
-                            this.speed = data.Drivetrain.SpeedKmh;
-                            this.rpm = (int)data.Drivetrain.EngineRpm;
-                            if (data.Lights.BlinkerLeftActive == true && data.Lights.BlinkerRightActive == true)
-                            {
-                                this.blinker_int = 3;
-                            }
-                            else
-                            {
-                                if (data.Lights.BlinkerLeftActive)
-                                {
-                                    this.blinker_int = 1;
-                                }
-                                else if (data.Lights.BlinkerRightActive)
-                                {
-                                    this.blinker_int = 2;
-                                }
-                                else
-                                {
-                                    this.blinker_int = 0;
-                                }
-                            }
+                            this.speed = Convert.ToInt32(data.TruckValues.CurrentValues.DashboardValues.Speed);
+                            this.rpm = (int)data.TruckValues.CurrentValues.DashboardValues.RPM;
+
 
                             /*this.s.Write("0"); //ABS
                             this.s.Write("0"); //Handbrake
@@ -523,10 +494,10 @@ namespace VTCManager_1._0._0
                             {
 
                             }
-                            this.CoordinateX = (double)data.Physics.CoordinateX;
-                            this.CoordinateZ = (double)data.Physics.CoordinateZ;
-                            this.rotation = (double)data.Physics.RotationX * Math.PI * 2.0;
-                            if (data.Job.Cargo == "")
+                            //this.CoordinateX = data.TruckValues.Positioning.Head.X;
+                            //this.CoordinateZ = data.TruckValues.Positioning.Head.Y;
+                            //this.rotation = (double)data.TruckValues.Positioning * Math.PI * 2.0;
+                            if (!data.JobValues.CargoLoaded)
                             {
                                 this.cargo_lb.Text = translation.no_cargo_lb;
                                 this.depature_lb.Text = "";
@@ -551,21 +522,7 @@ namespace VTCManager_1._0._0
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
                             flag = !enumerator.MoveNext();
-                        if (!flag)
-                        {
-                            if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
-                            {
-                                string lastJob = this.lastJobDictionary["weight"];
-                                num1 = data.Job.Mass;
-                                string str = num1.ToString();
-                                if (lastJob == str)
-                                {
-                                    this.stillTheSameJob = true;
-                                    goto label_25;
-                                }
-                            }
-                            this.stillTheSameJob = false;
-                        }
+                       
                     }
                     else
                     {
@@ -588,28 +545,28 @@ namespace VTCManager_1._0._0
                             flag = !enumerator.MoveNext();
                         if (flag)
                         {
-                            if ((double)data.Job.NavigationDistanceLeft != 0.0 && data.Job.CityDestination != "")
+                            if ((double)data.NavigationValues.NavigationDistance != 0.0)
                             {
                                 notification_sound_tour_start.Play();
-                                this.totalDistance = (int)data.Job.NavigationDistanceLeft;
-                                num2 = (double)data.Job.Income * 0.15;
-                                this.cargo_lb.Text = translation.freight_lb + data.Job.Cargo + " (" + ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString() + "t)";
-                                this.depature_lb.Text = translation.depature_lb + data.Job.CitySource + " ( " + data.Job.CompanySource + " ) ";
-                                this.destination_lb.Text = translation.destination_lb + data.Job.CityDestination + " ( " + data.Job.CompanyDestination + " )";
+                                this.totalDistance = (int)data.NavigationValues.NavigationDistance;
+                                num2 = (double)data.JobValues.Income * 0.15;
+                                this.cargo_lb.Text = translation.freight_lb + data.JobValues.CargoValues.Name + " (" + ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString() + "t)";
+                                this.depature_lb.Text = translation.depature_lb + data.JobValues.CitySource + " ( " + data.JobValues.CompanySource + " ) ";
+                                this.destination_lb.Text = translation.destination_lb + data.JobValues.CityDestination + " ( " + data.JobValues.CompanyDestination + " )";
                                 this.progressBar1.Visible = true;
                                 this.progressBar1.Value = 0;
-                                this.fuelatstart = data.Drivetrain.Fuel;
+                                this.fuelatstart = data.TruckValues.ConstantsValues.CapacityValues.Fuel;
                                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                                 postParameters.Add("authcode", this.authCode);
-                                postParameters.Add("cargo", data.Job.Cargo);
-                                postParameters.Add("weight", ((int)Math.Round((double)data.Job.Mass, 0) / 1000).ToString());
-                                postParameters.Add("depature", data.Job.CitySource);
-                                postParameters.Add("depature_company", data.Job.CompanySource);
-                                postParameters.Add("destination_company", data.Job.CompanyDestination);
-                                postParameters.Add("destination", data.Job.CityDestination);
-                                postParameters.Add("truck_manufacturer", data.Manufacturer);
-                                postParameters.Add("truck_model", data.Truck);
-                                postParameters.Add("distance", this.totalDistance.ToString());
+                                postParameters.Add("cargo", data.JobValues.CargoValues.Name);
+                                postParameters.Add("weight", ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
+                                postParameters.Add("depature", data.JobValues.CitySource);
+                                postParameters.Add("depature_company", data.JobValues.CompanySource);
+                                postParameters.Add("destination_company", data.JobValues.CompanyDestination);
+                                postParameters.Add("destination", data.JobValues.CityDestination);
+                                postParameters.Add("truck_manufacturer", data.TruckValues.ConstantsValues.Brand);
+                                postParameters.Add("truck_model", data.TruckValues.ConstantsValues.Name);
+                                postParameters.Add("distance", data.JobValues.PlannedDistanceKm.ToString());
                                 this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
 
                                 Utilities util = new Utilities();
@@ -617,19 +574,19 @@ namespace VTCManager_1._0._0
 
                                 this.settings.Cache.SaveJobID = this.jobID;
                                 this.settings.SaveJobID();
-                                this.lastJobDictionary.Add("cargo", data.Job.Cargo);
-                                this.lastJobDictionary.Add("source", data.Job.CitySource);
-                                this.lastJobDictionary.Add("destination", data.Job.CityDestination);
-                                this.lastJobDictionary.Add("income", Convert.ToString(data.Job.Income));
+                                this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
+                                this.lastJobDictionary.Add("source", data.JobValues.CitySource);
+                                this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
+                                this.lastJobDictionary.Add("income", Convert.ToString(data.JobValues.Income));
                                 Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
-                                num1 = data.Job.Mass;
+                                num1 = data.JobValues.CargoValues.Mass;
                                 string str2 = num1.ToString();
                                 lastJobDictionary.Add("weight", str2);
 
 
                                 //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
-                                this.CitySource = data.Job.CitySource;
-                                this.CityDestination = data.Job.CityDestination;
+                                this.CitySource = data.JobValues.CitySource;
+                                this.CityDestination = data.JobValues.CityDestination;
                                 this.InitializeDiscord(1);
                                 this.send_tour_status.Enabled = true;
                                 this.send_tour_status.Start();
@@ -642,7 +599,7 @@ namespace VTCManager_1._0._0
                     {
                        // Console.WriteLine("JOB-ID: " + this.jobID.ToString());
 
-                        if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
+                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
                             if (Utilities.IsGameRunning)
                             {
@@ -650,7 +607,7 @@ namespace VTCManager_1._0._0
                                 if (this.currentPercentage > 0)
                                 {
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
-                                        this.totalDistance = (int)data.Job.NavigationDistanceLeft;
+                                        this.totalDistance = (int)data.JobValues.PlannedDistanceKm;
 
                                     this.progressBar1.Minimum = 0;
                                     this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
@@ -681,10 +638,10 @@ namespace VTCManager_1._0._0
                     }
                     if (this.jobFinished)
                     {
-                        if (this.lastJobDictionary["cargo"] == data.Job.Cargo && this.lastJobDictionary["source"] == data.Job.CitySource && this.lastJobDictionary["destination"] == data.Job.CityDestination)
+                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
                             string lastJob = this.lastJobDictionary["weight"];
-                            num1 = data.Job.Mass;
+                            num1 = data.JobValues.CargoValues.Mass;
                             string str1 = num1.ToString();
                             if (lastJob == str1)
                             {
@@ -695,18 +652,18 @@ namespace VTCManager_1._0._0
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
                                     this.jobRunning = false;
-                                    this.fuelatend = data.Drivetrain.Fuel;
+                                    this.fuelatend = (float)data.TruckValues.ConstantsValues.CapacityValues.Fuel;
                                     this.fuelconsumption = this.fuelatstart - this.fuelatend;
                                     Console.WriteLine(this.fuelconsumption);
                                     Dictionary<string, string> postParameters = new Dictionary<string, string>();
                                     postParameters.Add("authcode", this.authCode);
                                     postParameters.Add("job_id", this.jobID);
                                     Dictionary<string, string> dictionary2 = postParameters;
-                                    num2 = Math.Floor((double)data.Damage.WearTrailer * 100.0 / 1.0);
+                                    num2 = Math.Floor((double)data.TruckValues.CurrentValues.DamageValues.Transmission * 100.0 / 1.0);
                                     string str3 = num2.ToString();
                                     dictionary2.Add("trailer_damage", str3);
-                                    postParameters.Add("income", data.Job.Income.ToString());
-                                    if (this.fuelconsumption > data.Drivetrain.FuelMax)
+                                    postParameters.Add("income", data.JobValues.Income.ToString());
+                                    if (this.fuelconsumption > data.TruckValues.ConstantsValues.CapacityValues.Fuel)
                                     {
                                         postParameters.Add("refueled", "true");
                                     }
@@ -741,7 +698,7 @@ namespace VTCManager_1._0._0
                         Console.WriteLine(this.s.ToString());
                         this.jobFinished = false;
                     }
-                    this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.Job.NavigationDistanceLeft, 0);
+                    this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
                     try
                     {
                         this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
@@ -1606,23 +1563,8 @@ namespace VTCManager_1._0._0
 
         
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            lbl_Revision.Text = "1208";
-=======
-            lbl_Revision.Text = "1206";
->>>>>>> parent of 60f9f17... Streckenanzeige deaktiviert wegen BUG
-=======
-            lbl_Revision.Text = "1207";
->>>>>>> parent of 95318ff... Update-Check entfernt
-=======
-            lbl_Revision.Text = "1207";
->>>>>>> parent of 95318ff... Update-Check entfernt
-=======
-            lbl_Revision.Text = "1207";
->>>>>>> parent of 95318ff... Update-Check entfernt
+            lbl_Revision.Text = "1202";
+
             labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
@@ -1920,6 +1862,22 @@ namespace VTCManager_1._0._0
             Utilities util = new Utilities();
             Process.Start(util.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + "amtrucks.exe");
         }
+
+
+        private void TelemetryJobCancelled(object sender, EventArgs e) =>
+            MessageBox.Show("Job Cancelled");
+        private void TelemetryJobDelivered(object sender, EventArgs e) =>
+           MessageBox.Show("Job Delivered");
+        private void TelemetryFined(object sender, EventArgs e) =>
+            MessageBox.Show("Fined");
+        private void TelemetryTollgate(object sender, EventArgs e) =>
+            MessageBox.Show("Tollgate");
+        private void TelemetryFerry(object sender, EventArgs e) =>
+        MessageBox.Show("Ferry");
+
+        private void TelemetryTrain(object sender, EventArgs e) =>
+            MessageBox.Show("Train");
+        private void TelemetryRefuel(object sender, EventArgs e) { }
     }
 
 
