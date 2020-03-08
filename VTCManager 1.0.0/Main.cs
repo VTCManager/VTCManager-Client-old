@@ -45,11 +45,11 @@ namespace VTCManager_1._0._0
         public int fuelValue;
         public bool ownTrailerAttached;
         public bool stillTheSameJob;
-        public IContainer components;
-        public Timer send_tour_status;
-        public Panel panel2;
-        public Timer send_location;
-        public Timer send_speedo;
+        private IContainer components;
+        private System.Timers.Timer send_tour_status;
+        private Panel panel2;
+        private Timer send_location;
+        private Timer send_speedo;
         public MenuStrip menuStrip1;
         private ToolStripMenuItem einstellungenToolStripMenuItem;
         private ToolStripMenuItem beendenToolStripMenuItem;
@@ -694,7 +694,7 @@ namespace VTCManager_1._0._0
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.send_tour_status = new System.Windows.Forms.Timer(this.components);
+            this.send_tour_status = new System.Timers.Timer();
             this.send_location = new System.Windows.Forms.Timer(this.components);
             this.discord_tick = new System.Windows.Forms.Timer(this.components);
             this.send_speedo = new System.Windows.Forms.Timer(this.components);
@@ -736,6 +736,7 @@ namespace VTCManager_1._0._0
             this.WebServer_Status_label = new System.Windows.Forms.ToolStripStatusLabel();
             this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
             this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.contextTaskbar.SuspendLayout();
@@ -746,9 +747,10 @@ namespace VTCManager_1._0._0
             // 
             // send_tour_status
             // 
-            this.send_tour_status.Enabled = false;
-            this.send_tour_status.Interval = 15000;
-            this.send_tour_status.Tick += new System.EventHandler(this.send_tour_status_Tick);
+            this.send_tour_status.Enabled = true;
+            this.send_tour_status.Interval = 15000D;
+            this.send_tour_status.SynchronizingObject = this;
+            this.send_tour_status.Elapsed += new System.Timers.ElapsedEventHandler(this.send_tour_status_Tick);
             // 
             // send_location
             // 
@@ -1172,6 +1174,7 @@ namespace VTCManager_1._0._0
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing_1);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
