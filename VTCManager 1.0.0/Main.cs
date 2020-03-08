@@ -1609,10 +1609,14 @@ namespace VTCManager_1._0._0
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             lbl_Revision.Text = "1208";
 =======
             lbl_Revision.Text = "1206";
 >>>>>>> parent of 60f9f17... Streckenanzeige deaktiviert wegen BUG
+=======
+            lbl_Revision.Text = "1207";
+>>>>>>> parent of 95318ff... Update-Check entfernt
 =======
             lbl_Revision.Text = "1207";
 >>>>>>> parent of 95318ff... Update-Check entfernt
