@@ -427,6 +427,9 @@ namespace VTCManager_1._0._0
 
 
                             }
+                            else
+                            {
+                            }
                             bool flag;
                             using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
                                 flag = !enumerator.MoveNext();
@@ -525,6 +528,8 @@ namespace VTCManager_1._0._0
                                 if (Utilities.IsGameRunning)
                                 {
                                     this.jobRunning = false;
+                                    if (this.currentPercentage > 0)
+                                    {
                                         if (this.totalDistance == 0 || this.totalDistance < 0)
                                             this.totalDistance = (int)data.Job.NavigationDistanceLeft;
 
@@ -550,6 +555,7 @@ namespace VTCManager_1._0._0
                         }
                   }, false).ToString();
 
+                                    }
                                 }
                             }
                             this.jobRunning = false;
