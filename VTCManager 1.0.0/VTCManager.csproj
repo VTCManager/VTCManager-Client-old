@@ -106,7 +106,7 @@
       <DependentUpon>ETS2-Pfad_Window.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
-    <Compile Include="JobKlasse.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

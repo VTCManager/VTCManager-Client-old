@@ -144,11 +144,10 @@ namespace VTCManager_1._0._0
                         {
                             _chachedGame = "ets2";
                         }
-                        if (process.MainWindowTitle.StartsWith("American Truck Simulator") && (process.ProcessName == "amtrucks"))
+                        else if (process.MainWindowTitle.StartsWith("American Truck Simulator") && (process.ProcessName == "amtrucks"))
                         {
                             _chachedGame = "ats";
-                        }
-
+                        } 
                     }
                     catch
                     {

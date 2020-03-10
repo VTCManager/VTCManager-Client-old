@@ -284,6 +284,8 @@ namespace VTCManager_1._0._0
 
         private void load_traffic()
         {
+            
+
             string server;
             Utilities utils = new Utilities();
 
@@ -401,12 +403,6 @@ namespace VTCManager_1._0._0
 
 
 
-        class JobKlasse
-        {
-
-
-
-        }
         private void Telemetry_Data(SCSTelemetry data, bool updated)
         {
 
@@ -430,8 +426,7 @@ namespace VTCManager_1._0._0
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
 
-                        // Rest km
-                        
+                    
 
                         if (data.Paused == false)
                         {
@@ -451,8 +446,6 @@ namespace VTCManager_1._0._0
                                 cargo_lb.Text = "Leerfahrt";
                                 destination_lb.Visible = false;
                                 depature_lb.Text = "";
-                       
-
                             }
                                 
                             /*
@@ -462,11 +455,6 @@ namespace VTCManager_1._0._0
                             }
                             */
 
-
-                            if (!File.Exists("test"))
-                            {
-
-                            }
                             //this.CoordinateX = data.TruckValues.Positioning.Head.X;
                             //this.CoordinateZ = data.TruckValues.Positioning.Head.Y;
                             //this.rotation = (double)data.TruckValues.Positioning * Math.PI * 2.0;
@@ -479,7 +467,6 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                          
                             this.truck_lb.Visible = false;
                             this.destination_lb.Visible = false;
                             this.depature_lb.Visible = false;
@@ -514,9 +501,6 @@ namespace VTCManager_1._0._0
                         {
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
-                               
-                           
-
                                 Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
                                 notification_sound_tour_start.Play();
                                 this.totalDistance = (int)data.NavigationValues.NavigationDistance;
@@ -568,7 +552,7 @@ namespace VTCManager_1._0._0
 
                     if (this.jobRunning)
                     {
-                       // Console.WriteLine("JOB-ID: " + this.lastJobDictionary["cargo"]);
+                       
 
                         if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
