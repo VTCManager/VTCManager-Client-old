@@ -156,6 +156,7 @@ namespace VTCManager_1._0._0
         public static string labelRevision;
         private string meins;
         public bool Tollgate;
+        public string Tollgate_Payment;
         public bool Ferry;
         public bool Train;
 
@@ -427,8 +428,10 @@ namespace VTCManager_1._0._0
                     if (data.SdkActive)
                     {
 
+
                         // Rest km
                         this.progressBar1.Style = ProgressBarStyle.Continuous;
+                        Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount.ToString();
 
                         if (data.TruckValues.ConstantsValues.Brand != "")
                         {
@@ -1737,7 +1740,7 @@ namespace VTCManager_1._0._0
             // Webserver-Check
             try
             {
-                WebServer_Status_label.Text = "";
+                WebServer_Status_label.Text = "←Webserver";
                 WebServer_Status_label.Image = (sc.WS_Check() == true) ? green : red;
             } catch (Exception Fehler_Server)
             {
@@ -1746,7 +1749,7 @@ namespace VTCManager_1._0._0
             // DB-Check
             try
             {
-                Label_DB_Server.Text = "";
+                Label_DB_Server.Text = "←Datenbank";
                 Label_DB_Server.Image = (sc.DB_Check() == true) ? green : red;
             }
             catch (Exception Fehler_Server)
@@ -1836,8 +1839,11 @@ namespace VTCManager_1._0._0
 
         private void TelemetryFined(object sender, EventArgs e) =>
             MessageBox.Show("Fined");
-        private void TelemetryTollgate(object sender, EventArgs e) =>
-           this.Tollgate = true;
+        private void TelemetryTollgate(object sender, EventArgs e)
+        {
+            Thommy th = new Thommy();
+            th.Sende_TollGate(api.api_server2, this.userID, Tollgate_Payment);
+        }
 
         private void TelemetryFerry(object sender, EventArgs e) =>
        this.Ferry = true;
