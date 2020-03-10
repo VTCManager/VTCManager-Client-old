@@ -61,7 +61,6 @@ namespace VTCManager_1._0._0
         private System.Windows.Forms.Label cargo_lb;
         private System.Windows.Forms.Label depature_lb;
         private System.Windows.Forms.Label destination_lb;
-        public System.Windows.Forms.ProgressBar progressBar1;
         private ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.Label truck_lb;
         private Label label1;
@@ -128,7 +127,6 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem lbl_Overlay;
         public static int truckersMP_autorun;
         public static int overlay_ist_offen = 0;
-        private Label label6;
         private ToolStripMenuItem darkToolStripMenuItem;
         public static int overlay_Opacity;
         public Timer updateTraffic;
@@ -140,7 +138,6 @@ namespace VTCManager_1._0._0
         private ToolStripStatusLabel WebServer_Status_label;
         private ToolStripStatusLabel Label_DB_Server;
         public int reload;
-        private PictureBox speed_Image;
         public Timer anti_AFK_TIMER;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem oldCar1ToolStripMenuItem;
@@ -152,13 +149,13 @@ namespace VTCManager_1._0._0
         private Label label3;
         private PictureBox ets2_button;
         private PictureBox ats_button;
-        private PictureBox picture_Gang;
         public static string labelRevision;
         private string meins;
         public bool Tollgate;
-        public string Tollgate_Payment;
+        public long Tollgate_Payment;
         public bool Ferry;
         public bool Train;
+        public string GameRuns;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -399,6 +396,7 @@ namespace VTCManager_1._0._0
 
         private void TelemetryOnJobStarted(object sender, EventArgs e)
         {
+            this.jobStarted = true;
         }
 
 
@@ -428,31 +426,41 @@ namespace VTCManager_1._0._0
                     if (data.SdkActive)
                     {
 
+                        GameRuns = data.Game.ToString();
+                        CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
+                        CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
 
                         // Rest km
-                        this.progressBar1.Style = ProgressBarStyle.Continuous;
-                        Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount.ToString();
+                        
 
-                        if (data.TruckValues.ConstantsValues.Brand != "")
+                        if (data.Paused == false)
                         {
 
                             speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " KM/H";
 
-
                             this.truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
 
-
+                            
                             this.truck_lb.Visible = true;
                             this.destination_lb.Visible = true;
                             this.depature_lb.Visible = true;
                             this.cargo_lb.Visible = true;
 
+                            if (data.JobValues.CargoLoaded == false)
+                            {
+                                cargo_lb.Text = "Leerfahrt";
+                                destination_lb.Visible = false;
+                                depature_lb.Text = "";
+                       
 
-
+                            }
+                                
+                            /*
                             if (this.serial_start == false)
                             {
                                 this.serial_start = true;
                             }
+                            */
 
 
                             if (!File.Exists("test"))
@@ -471,12 +479,12 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                            this.progressBar1.Style = ProgressBarStyle.Marquee;
+                          
                             this.truck_lb.Visible = false;
                             this.destination_lb.Visible = false;
                             this.depature_lb.Visible = false;
                             this.cargo_lb.Visible = false;
-                            this.speed_lb.Text = translation.wait_ets2_is_ready;
+                            this.speed_lb.Text = "Warte auf ETS2...";
                         }
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
@@ -485,7 +493,7 @@ namespace VTCManager_1._0._0
                     }
                     else
                     {
-                        this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+                        //this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
                         this.truck_lb.Visible = false;
                         this.destination_lb.Visible = false;
                         this.depature_lb.Visible = false;
@@ -504,15 +512,18 @@ namespace VTCManager_1._0._0
                             flag = !enumerator.MoveNext();
                         if (flag)
                         {
-                            if ((double)data.NavigationValues.NavigationDistance >= 0.0)
+                            if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
+                               
+                           
+
+                                Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
                                 notification_sound_tour_start.Play();
                                 this.totalDistance = (int)data.NavigationValues.NavigationDistance;
                                 num2 = (double)data.JobValues.Income * 0.15;
                                 this.cargo_lb.Text = "Deine Fracht: " + ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString() + " Tonnen " + data.JobValues.CargoValues.Name;
                                 this.depature_lb.Text = "Von: " + data.JobValues.CitySource + " ( " + data.JobValues.CompanySource + " ) nach: " + data.JobValues.CityDestination + " ( " + data.JobValues.CompanyDestination + " )";
-                                this.progressBar1.Visible = true;
-                                this.progressBar1.Value = 0;
+          
                                 this.fuelatstart = data.TruckValues.ConstantsValues.CapacityValues.Fuel;
                                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                                 postParameters.Add("authcode", this.authCode);
@@ -530,8 +541,8 @@ namespace VTCManager_1._0._0
                                 Utilities util = new Utilities();
                                 util.Reg_Schreiben("jobID", this.jobID);
 
-                                this.settings.Cache.SaveJobID = this.jobID;
-                                this.settings.SaveJobID();
+                                //this.settings.Cache.SaveJobID = this.jobID;
+                                //this.settings.SaveJobID();
                                 this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
                                 this.lastJobDictionary.Add("source", data.JobValues.CitySource);
                                 this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
@@ -557,11 +568,11 @@ namespace VTCManager_1._0._0
 
                     if (this.jobRunning)
                     {
-                        // Console.WriteLine("JOB-ID: " + this.jobID.ToString());
+                       // Console.WriteLine("JOB-ID: " + this.lastJobDictionary["cargo"]);
 
                         if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
-                            if (Utilities.IsGameRunning)
+                            if (GameRuns == "Ets2")
                             {
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
@@ -569,9 +580,9 @@ namespace VTCManager_1._0._0
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
                                         this.totalDistance = (int)data.JobValues.PlannedDistanceKm;
 
-                                    this.progressBar1.Minimum = 0;
-                                    this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
-                                    this.progressBar1.Value = this.currentPercentage;
+
+
+               
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
 
@@ -664,11 +675,11 @@ namespace VTCManager_1._0._0
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
                     try
                     {
-                        this.currentPercentage = 100 * this.invertedDistance / this.totalDistance;
-                    }
+                        this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
+                     }
                     catch { }
 
-                    this.progressBar1.Value = this.currentPercentage;
+           
                 }
             }
             catch (Exception ex)
@@ -697,16 +708,17 @@ namespace VTCManager_1._0._0
 
         private void locationupdate()
         {
-            if (Utilities.WhichGameIsRunning == "ets2" && ((double)this.CoordinateX != 0.0 || (double)this.CoordinateZ != 0.0))
+         
+            if (GameRuns == "Ets2")
             {
                 double num3 = this.rotation;
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 Dictionary<string, string> dictionary1 = postParameters;
-                num1 = this.CoordinateX;
+                num1 = CoordinateX;
                 string str1 = num1.ToString();
                 dictionary1.Add("coordinate_x", str1);
                 Dictionary<string, string> dictionary2 = postParameters;
-                num1 = this.CoordinateZ;
+                num1 = CoordinateZ;
                 string str2 = num1.ToString();
                 dictionary2.Add("coordinate_y", str2);
                 Dictionary<string, string> dictionary3 = postParameters;
@@ -757,12 +769,8 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.picture_Gang = new System.Windows.Forms.PictureBox();
-            this.speed_Image = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.destination_lb = new System.Windows.Forms.Label();
             this.depature_lb = new System.Windows.Forms.Label();
             this.cargo_lb = new System.Windows.Forms.Label();
@@ -797,8 +805,6 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_Gang)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).BeginInit();
             this.contextTaskbar.SuspendLayout();
             this.groupStatistiken.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ats_button)).BeginInit();
@@ -1032,12 +1038,8 @@ namespace VTCManager_1._0._0
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.picture_Gang);
-            this.panel2.Controls.Add(this.speed_Image);
-            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
-            this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.destination_lb);
             this.panel2.Controls.Add(this.depature_lb);
             this.panel2.Controls.Add(this.cargo_lb);
@@ -1047,35 +1049,6 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
-            // 
-            // picture_Gang
-            // 
-            this.picture_Gang.Image = global::VTCManager_1._0._0.Properties.Resources.gang0;
-            this.picture_Gang.Location = new System.Drawing.Point(394, 399);
-            this.picture_Gang.Name = "picture_Gang";
-            this.picture_Gang.Size = new System.Drawing.Size(150, 150);
-            this.picture_Gang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.picture_Gang.TabIndex = 19;
-            this.picture_Gang.TabStop = false;
-            // 
-            // speed_Image
-            // 
-            this.speed_Image.Image = global::VTCManager_1._0._0.Properties.Resources._00;
-            this.speed_Image.InitialImage = null;
-            this.speed_Image.Location = new System.Drawing.Point(210, 313);
-            this.speed_Image.Name = "speed_Image";
-            this.speed_Image.Size = new System.Drawing.Size(100, 100);
-            this.speed_Image.TabIndex = 18;
-            this.speed_Image.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(217, 540);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Streckenverlauf";
             // 
             // status_jb_canc_lb
             // 
@@ -1095,16 +1068,6 @@ namespace VTCManager_1._0._0
             this.truck_lb.Size = new System.Drawing.Size(48, 19);
             this.truck_lb.TabIndex = 5;
             this.truck_lb.Text = "Truck: ";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.progressBar1.Location = new System.Drawing.Point(3, 556);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(545, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 4;
-            this.progressBar1.UseWaitCursor = true;
             // 
             // destination_lb
             // 
@@ -1446,8 +1409,6 @@ namespace VTCManager_1._0._0
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_Gang)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speed_Image)).EndInit();
             this.contextTaskbar.ResumeLayout(false);
             this.groupStatistiken.ResumeLayout(false);
             this.groupStatistiken.PerformLayout();
@@ -1526,7 +1487,7 @@ namespace VTCManager_1._0._0
 
 
 
-            lbl_Revision.Text = "1202";
+            lbl_Revision.Text = "1203";
 
             labelRevision = lbl_Revision.Text;
 
@@ -1575,10 +1536,10 @@ namespace VTCManager_1._0._0
 
             // Back Test
             string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
-            if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; this.speed_Image.Location = new Point(70, 220); }
-            else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; this.speed_Image.Location = new Point(163, 318); }
-            else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; this.speed_Image.Location = new Point(320, 340); }
-            else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; this.speed_Image.Location = new Point(250, 310); }
+            if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
+            else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
+            else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
+            else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
             else { this.BackgroundImage = null; }
 
             try
@@ -1655,7 +1616,6 @@ namespace VTCManager_1._0._0
                 this.groupStatistiken.Visible = false;
                 this.groupVerkehr.Visible = false;
                 this.Size = new Size(581, 661);
-                this.speed_Image.Location = new Point(220, 300);
                 this.panel2.Location = new Point(5, 28);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/expand.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
@@ -1668,7 +1628,6 @@ namespace VTCManager_1._0._0
                 this.groupVerkehr.Visible = true;
                 this.Size = new Size(1404, 681);
                 this.panel2.Location = new Point(540, 28);
-                this.speed_Image.Location = new Point(210, 313);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/komprimieren.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
 
@@ -1776,7 +1735,7 @@ namespace VTCManager_1._0._0
             this.BackgroundImage = Properties.Resources.oldcar1;
             Utilities util = new Utilities();
             util.Reg_Schreiben("Background", "oldcar1");
-            this.speed_Image.Location = new Point(70, 220);
+
 
 
         }
@@ -1786,7 +1745,7 @@ namespace VTCManager_1._0._0
             this.BackgroundImage = Properties.Resources.oldcar2;
             Utilities util = new Utilities();
             util.Reg_Schreiben("Background", "oldcar2");
-            this.speed_Image.Location = new Point(163, 318);
+
         }
 
         private void oldCar3ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1794,7 +1753,6 @@ namespace VTCManager_1._0._0
             this.BackgroundImage = Properties.Resources.oldcar3;
             Utilities util = new Utilities();
             util.Reg_Schreiben("Background", "oldcar3");
-            this.speed_Image.Location = new Point(320, 340);
         }
 
         private void oldCar4ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1802,7 +1760,7 @@ namespace VTCManager_1._0._0
             this.BackgroundImage = Properties.Resources.oldcar4;
             Utilities util = new Utilities();
             util.Reg_Schreiben("Background", "oldcar4");
-            this.speed_Image.Location = new Point(250, 310);
+
         }
 
         private void keinsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1831,8 +1789,14 @@ namespace VTCManager_1._0._0
         }
 
 
-        private void TelemetryJobCancelled(object sender, EventArgs e) =>
-            MessageBox.Show("Job Cancelled");
+        private void TelemetryJobCancelled(object sender, EventArgs e)
+        {
+            this.jobStarted = false;
+            this.jobRunning = false;
+            this.jobFinished = true;
+        }
+
+        
 
         private void TelemetryJobDelivered(object sender, EventArgs e) =>
             this.jobFinished = true;

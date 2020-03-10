@@ -116,13 +116,20 @@ namespace VTCManager_1._0._0
         }
         public void LoadJobID()
         {
+
             if (File.Exists(Path.Combine(this.settingsDirectory, this.settingsFile)))
-            {
-                StreamReader textReader = File.OpenText(Path.Combine(this.settingsDirectory, this.cacheFile));
-                object obj2 = new XmlSerializer(this.m_oConfigJob.GetType()).Deserialize(textReader);
-                this.m_oConfigJob = (CacheDataObject)obj2;
-                textReader.Close();
+            { 
+                try
+                {
+
+                    StreamReader textReader = File.OpenText(Path.Combine(this.settingsDirectory, this.cacheFile));
+                    object obj2 = new XmlSerializer(this.m_oConfigJob.GetType()).Deserialize(textReader);
+                    this.m_oConfigJob = (CacheDataObject)obj2;
+                    textReader.Close();
+                }
+                catch { }
             }
+           
         }
 
         // Properties
