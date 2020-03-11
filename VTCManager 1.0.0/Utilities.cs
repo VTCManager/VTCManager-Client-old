@@ -15,7 +15,6 @@ namespace VTCManager_1._0._0
         private static long _lastCheckTime;
         private static bool _cachedRunningFlag;
         private static string _chachedGame;
-        private static string _max;
         private static bool _DiscordRunningFlag;
 
         //Properties

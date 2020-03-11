@@ -80,11 +80,8 @@ namespace VTCManager_1._0._0
         /// </summary>
 
 
-        private string speed;
-        private int rpm;
         private double CoordinateX;
         private double CoordinateZ;
-        private double rotation;
         private double num1;
         private double num2;
         public string userCompany;
@@ -143,12 +140,13 @@ namespace VTCManager_1._0._0
         private PictureBox ets2_button;
         private PictureBox ats_button;
         public static string labelRevision;
-        private string meins;
         public bool Tollgate;
         public long Tollgate_Payment;
         public bool Ferry;
         public bool Train;
         public string GameRuns;
+        public bool setEvents = false;
+        public bool debug = false;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -221,21 +219,6 @@ namespace VTCManager_1._0._0
                 MessageBox.Show("Exception: Getting traffic data from TruckyAPI");
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
-
-            this.Telemetry = new SCSSdkTelemetry();
-            this.Telemetry.Data += this.Telemetry_Data;
-            this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
-
-            this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
-            this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
-            this.Telemetry.Fined += this.TelemetryFined;
-            this.Telemetry.Tollgate += this.TelemetryTollgate;
-            this.Telemetry.Ferry += this.TelemetryFerry;
-            this.Telemetry.Train += this.TelemetryTrain;
-            this.Telemetry.Refuel += this.TelemetryRefuel;
-            if (this.Telemetry.Error == null)
-                return;
-            int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
         }
 
         private void InitializeDiscord(int mode)
@@ -412,9 +395,25 @@ namespace VTCManager_1._0._0
 
                     int time = Telemetry.UpdateInterval;
                     float num1;
-                    if (data.SdkActive)
+                    if (Utilities.IsGameRunning)
                     {
+                        if (!setEvents) {
+                            this.setEvents = true;
+                            this.Telemetry = new SCSSdkTelemetry();
+                            this.Telemetry.Data += this.Telemetry_Data;
+                            this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
 
+                            this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
+                            this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
+                            this.Telemetry.Fined += this.TelemetryFined;
+                            this.Telemetry.Tollgate += this.TelemetryTollgate;
+                            this.Telemetry.Ferry += this.TelemetryFerry;
+                            this.Telemetry.Train += this.TelemetryTrain;
+                            this.Telemetry.Refuel += this.TelemetryRefuel;
+                            if (this.Telemetry.Error == null)
+                                return;
+                            int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
+                        }
                         GameRuns = data.Game.ToString();
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
@@ -687,7 +686,6 @@ namespace VTCManager_1._0._0
          
             if (GameRuns == "Ets2")
             {
-                double num3 = this.rotation;
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 Dictionary<string, string> dictionary1 = postParameters;
                 num1 = CoordinateX;
@@ -698,9 +696,6 @@ namespace VTCManager_1._0._0
                 string str2 = num1.ToString();
                 dictionary2.Add("coordinate_y", str2);
                 Dictionary<string, string> dictionary3 = postParameters;
-                num2 = -(num3 * 180.0 / Math.PI);
-                string str3 = num2.ToString();
-                dictionary3.Add("rotation", str3);
                 postParameters.Add("authcode", this.authCode);
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
             }
@@ -1448,13 +1443,23 @@ namespace VTCManager_1._0._0
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
 
             Utilities util3 = new Utilities();
-            if (util3.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
+            if (!debug)
             {
-                ETS2_Pfad_Window win = new ETS2_Pfad_Window();
-                win.Show();
-                win.Focus();
-                this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            } else
+                if (util3.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
+                {
+                    ETS2_Pfad_Window win = new ETS2_Pfad_Window();
+                    win.Show();
+                    win.Focus();
+                    this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+                }
+                else
+                {
+                    ets2_button.Visible = true;
+                    ToolTip tt = new ToolTip();
+                    tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
+                }
+            }
+            else
             {
                 ets2_button.Visible = true;
                 ToolTip tt = new ToolTip();
