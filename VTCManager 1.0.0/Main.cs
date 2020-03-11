@@ -1,7 +1,5 @@
 ﻿using DiscordRPC;
-using DiscordRPC.Logging;
 using SCSSdkClient.Object;
-using RJCP.IO.Ports;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +9,6 @@ using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Net;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Windows.Forms;
@@ -99,9 +96,6 @@ namespace VTCManager_1._0._0
         public bool discordRPCalreadrunning;
         public string CityDestination;
         public string CitySource;
-        private SerialPortStream s;
-        private bool serial_start = false;
-        //private bool first_run_speedo;
         private NotifyIcon TaskBar_Icon;
         private ContextMenuStrip contextTaskbar;
         private ToolStripMenuItem öffnenToolStripMenuItem;
@@ -111,7 +105,6 @@ namespace VTCManager_1._0._0
         private ToolStripMenuItem beendenToolStripMenuItem1;
         private LinkLabel linkLabel1;
         private ToolStripMenuItem GUI_SIZE_BUTTON;
-        private int blinker_int;
         private GroupBox groupStatistiken;
         private Label user_company_lb;
         private Label statistic_panel_topic;
@@ -653,7 +646,6 @@ namespace VTCManager_1._0._0
                                 }
                             }
                         }
-                        Console.WriteLine(this.s.ToString());
                         this.jobFinished = false;
                     }
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
@@ -809,12 +801,6 @@ namespace VTCManager_1._0._0
             this.send_location.Enabled = true;
             this.send_location.Interval = 15000;
             this.send_location.Tick += new System.EventHandler(this.send_location_Tick);
-            // 
-            // send_speedo
-            // 
-            this.send_speedo.Enabled = true;
-            this.send_speedo.Interval = 30;
-            this.send_speedo.Tick += new System.EventHandler(this.send_speedo_Tick);
             // 
             // menuStrip1
             // 
@@ -1405,22 +1391,6 @@ namespace VTCManager_1._0._0
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-
-        private void send_speedo_Tick(object sender, EventArgs e)
-        {
-
-            /*if (first_run_speedo == false)
-            {
-                this.s = new SerialPortStream("COM3", 9600, 8, Parity.None, StopBits.One);
-                this.s.Open();
-                Console.WriteLine("Verbindung");
-                System.Threading.Thread.Sleep(10000);
-                first_run_speedo = true;
-            }
-            //this.s.WriteLine(((int)this.speed).ToString());
-            //this.s.WriteLine(this.blinker_int.ToString());
-            this.s.WriteLine(this.rpm.ToString());*/
         }
 
         private void topMenuWebsiteClick(object sender, EventArgs e)
