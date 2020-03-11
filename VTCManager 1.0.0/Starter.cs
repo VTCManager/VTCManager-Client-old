@@ -8,7 +8,7 @@ namespace VTCManager_1._0._0
     {
         [STAThread]
 
-        private static void Main()
+        private static void Main(string[] args)
         {
             System.Threading.Thread.Sleep(1000);
             bool createdNew;
@@ -17,7 +17,21 @@ namespace VTCManager_1._0._0
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run((Form)new Login());
+                if (args.Length == 1)
+                {
+                    if (args[0] == "DEBUG")
+                    {
+                        Application.Run((Form)new Login(true));
+                    }
+                    else
+                    {
+                        Application.Run((Form)new Login(false));
+                    }
+                }
+                else
+                {
+                    Application.Run((Form)new Login(false));
+                }
                 
             }
             else

@@ -161,10 +161,10 @@ namespace VTCManager_1._0._0
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
 
-        public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
+        public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company, bool debug)
         {
             // Revision
-
+            this.debug = debug;
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\insight.wav"))
             {
                 this.notification_sound_success = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\insight.wav");

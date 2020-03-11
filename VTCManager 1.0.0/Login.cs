@@ -41,13 +41,14 @@ namespace VTCManager_1._0._0
         private Translation translation;
         private SettingsManager settings;
         private String first_start;
+        public bool debug = false;
         // Edit by Thommy
         // Auf Öffentlichkeit prüfen || true = Öffentlich || false = keine Prüfung
         private bool oeffentlich = false;
 
 
-        public Login() {
-            
+        public Login(bool debug) {
+            this.debug = debug;
             CultureInfo ci = CultureInfo.InstalledUICulture;
             this.translation = new Translation(ci.DisplayName);
             this.InitializeComponent();
@@ -225,7 +226,7 @@ namespace VTCManager_1._0._0
                 this.bank_balance = Convert.ToInt32(strArray[5]);
                 this.Hide();
 
-                Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany);
+                Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany, this.debug);
                 Mainwindow.ShowDialog();
             }
         }
