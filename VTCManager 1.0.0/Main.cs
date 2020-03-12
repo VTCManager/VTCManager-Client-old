@@ -150,7 +150,6 @@ namespace VTCManager_1._0._0
         public bool Train;
         private Label label_prozent;
         private Label label_gefahren;
-        private Label label_prozenz_2;
         public string GameRuns;
 
         public DiscordRpcClient Client { get; private set; }
@@ -427,33 +426,28 @@ namespace VTCManager_1._0._0
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
 
-
-                        // PROZENTBERECHNUNG ANFANG
-                        label_prozent.Text = "Geplant: " + data.JobValues.PlannedDistanceKm.ToString();
-                        double total = Convert.ToDouble(data.JobValues.PlannedDistanceKm.ToString());
-
-                        label_gefahren.Text = "Gefahren: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000);
-                        double gef = Convert.ToDouble(data.NavigationValues.NavigationDistance);
-
-                        double eins = total / 100;
-
-                        label_prozenz_2.Text = "Prozent: " + (gef / total);
-                        // PROZENTBERECHNUNG ENDE
-
+                        // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
+                        label_gefahren.Visible = (data.Paused) ? false : true;
+                        label_prozent.Visible = (data.Paused) ? false : true;
+                        truck_lb.Visible = (data.Paused) ? false : true;
+                        destination_lb.Visible = (data.Paused) ? false : true;
+                        depature_lb.Visible = (data.Paused) ? false : true;
+                        cargo_lb.Visible = (data.Paused) ? false : true;
+        
 
 
                         if (data.Paused == false)
                         {
+                            // PROZENTBERECHNUNG ANFANG
+                            label_prozent.Text = "Gesamt: " + data.JobValues.PlannedDistanceKm.ToString() + " KM";
+                            label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
+                            // PROZENTBERECHNUNG ENDE
 
+
+
+                            // SPEED LABEL - TRUCK LABEL
                             speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " KM/H";
-
-                            this.truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
-
-                            
-                            this.truck_lb.Visible = true;
-                            this.destination_lb.Visible = true;
-                            this.depature_lb.Visible = true;
-                            this.cargo_lb.Visible = true;
+                            truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
 
                             if (data.JobValues.CargoLoaded == false)
                             {
@@ -462,17 +456,6 @@ namespace VTCManager_1._0._0
                                 depature_lb.Text = "";
                             }
                                 
-                            /*
-                            if (this.serial_start == false)
-                            {
-                                this.serial_start = true;
-                            }
-                            */
-
-                            //this.CoordinateX = data.TruckValues.Positioning.Head.X;
-                            //this.CoordinateZ = data.TruckValues.Positioning.Head.Y;
-                            //this.rotation = (double)data.TruckValues.Positioning * Math.PI * 2.0;
-
                             if (this.discordRPCalreadrunning == false)
                             {
                                 this.InitializeDiscord(0); //ot working uff cant update RPC
@@ -481,28 +464,14 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                            this.truck_lb.Visible = false;
-                            this.destination_lb.Visible = false;
-                            this.depature_lb.Visible = false;
-                            this.cargo_lb.Visible = false;
-                            this.speed_lb.Text = "Warte auf ETS2...";
+                            this.speed_lb.Text = translation.waiting_for_ets; ;
                         }
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
                             flag = !enumerator.MoveNext();
 
                     }
-                    else
-                    {
-                        //this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-                        this.truck_lb.Visible = false;
-                        this.destination_lb.Visible = false;
-                        this.depature_lb.Visible = false;
-                        this.cargo_lb.Visible = false;
-                        this.speed_lb.Text = translation.waiting_for_ets;
-
-
-                    }
+  
                 label_25:
                     double num2;
                     if (this.jobStarted)
@@ -807,7 +776,6 @@ namespace VTCManager_1._0._0
             this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
             this.anti_AFK_TIMER = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.label_prozenz_2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1038,7 +1006,6 @@ namespace VTCManager_1._0._0
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.label_prozenz_2);
             this.panel2.Controls.Add(this.label_gefahren);
             this.panel2.Controls.Add(this.label_prozent);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
@@ -1404,16 +1371,6 @@ namespace VTCManager_1._0._0
             this.label3.Text = "Revision:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label_prozenz_2
-            // 
-            this.label_prozenz_2.AutoSize = true;
-            this.label_prozenz_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_prozenz_2.Location = new System.Drawing.Point(59, 301);
-            this.label_prozenz_2.Name = "label_prozenz_2";
-            this.label_prozenz_2.Size = new System.Drawing.Size(51, 20);
-            this.label_prozenz_2.TabIndex = 9;
-            this.label_prozenz_2.Text = "label4";
-            // 
             // Main
             // 
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -1502,11 +1459,8 @@ namespace VTCManager_1._0._0
             Utilities util34 = new Utilities();
             util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
-#if debug
 
-#endif
-
-            lbl_Revision.Text = "1204";
+            lbl_Revision.Text = "1205";
 
             labelRevision = lbl_Revision.Text;
 

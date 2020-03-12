@@ -228,7 +228,7 @@ namespace VTCManager_1._0._0
                     this.bank_balance = Convert.ToInt32(strArray[5]);
                     this.Hide();
 
-                Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany, this.debug);
+                Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany);
                 Mainwindow.ShowDialog();
             }
         }
