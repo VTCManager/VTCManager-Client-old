@@ -641,17 +641,7 @@ namespace VTCManager_1._0._0
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
                     try
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("///////////////////////////");
-                        Console.WriteLine("CALCULATING TOUR PERCENTAGE");
-                        Console.WriteLine("NavigationDistance: "+data.NavigationValues.NavigationDistance);
-                        Console.WriteLine("PlannedDistance: "+ data.JobValues.PlannedDistanceKm);
-                        Console.WriteLine("NavigationDistance(conv): " + (int)data.NavigationValues.NavigationDistance);
-                        Console.WriteLine("PlannedDistance(conv): " + (int)data.JobValues.PlannedDistanceKm);
-                        Console.WriteLine("CALC1: " + (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1);
-                        this.currentPercentage = (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1;
-                        Console.WriteLine("CALC-FINAL: " + this.currentPercentage);
-
+                        this.currentPercentage = (int)((((data.NavigationValues.NavigationDistance / 1000) / data.JobValues.PlannedDistanceKm) * 100 - 100) * -1);
                     }
                     catch { }
 
