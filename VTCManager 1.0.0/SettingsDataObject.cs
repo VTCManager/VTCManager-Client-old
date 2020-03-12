@@ -13,7 +13,6 @@ namespace VTCManager_1._0._0
         private string m_oSaveLoginData;
         private string m_oAccount;
         private string m_oPassword;
-        private string m_olast_job_id;
 
         // Properties
         public string SaveLoginData

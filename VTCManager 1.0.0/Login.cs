@@ -41,13 +41,14 @@ namespace VTCManager_1._0._0
         private Translation translation;
         private SettingsManager settings;
         private String first_start;
+        public bool debug = false;
         // Edit by Thommy
         // Auf Öffentlichkeit prüfen || true = Öffentlich || false = keine Prüfung
         private bool oeffentlich = false;
 
 
-        public Login() {
-            
+        public Login(bool debug) {
+            this.debug = debug;
             CultureInfo ci = CultureInfo.InstalledUICulture;
             this.translation = new Translation(ci.DisplayName);
             this.InitializeComponent();
@@ -62,6 +63,8 @@ namespace VTCManager_1._0._0
             this.settings = new SettingsManager();
             this.settings.CreateCache();
             this.settings.LoadJobID();
+
+            /* DISBLED WEGEN NEUEM UPDATE WINDOW
             if (this.settings.Cache.first_start == "true" || string.IsNullOrEmpty(this.settings.Cache.first_start) == true) {
                 this.first_start = "false";
                 this.settings.Cache.first_start = "false";
@@ -70,6 +73,8 @@ namespace VTCManager_1._0._0
                 DialogResult result;
                 result = MessageBox.Show(translation.update_message, translation.update_caption, buttons);
             }
+            */
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(Main));
             this.login_panel = new Panel();
@@ -163,21 +168,17 @@ namespace VTCManager_1._0._0
         {
             API api = new API();
             return api.HTTPSRequestPost(api.api_server + api.login_path, new Dictionary<string, string>()
-      {
-        {
-          "username",
-          email
-        },
-        {
-          "password",
-          password
+              {
+                { "username", email },
+                { "password", password }
+              }, true).ToString();
         }
-      }, true).ToString();
-        }
+
         private void submit_login_Click(object sender, EventArgs e)
         {
             this.login(this.email_input.Text, Utilities.Sha256(this.password_input.Text));
         }
+
         private void password_input_KeyPress(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Return)
@@ -185,6 +186,7 @@ namespace VTCManager_1._0._0
             this.login(this.email_input.Text, Utilities.Sha256(this.password_input.Text));
             e.Handled = true;
         }
+
         private void login(string theEmail, string thePassword)
         {
             this.authCode = Authenticate(theEmail, thePassword);
@@ -201,12 +203,13 @@ namespace VTCManager_1._0._0
                 this.preferences.SaveConfig();
                 this.login_panel.Visible = false;
                 string[] strArray = this.api.HTTPSRequestPost(this.api.api_server + this.api.load_data_path, new Dictionary<string, string>()
-            {
-          {
-            "authcode",
-            this.authCode
-          }
-        }, true).ToString().Split(',');
+                {
+                  {
+                    "authcode",
+                    this.authCode
+                  }
+                }, true).ToString().Split(',');
+                
                 if (this.authCode.Equals("Error: PIN_Invalid") || this.authCode.Equals("Error: User_Invalid") || this.authCode.Equals("Error: Serverside"))
                 {
                     this.login_panel.Visible = true;
@@ -217,86 +220,31 @@ namespace VTCManager_1._0._0
                     Application.Exit();
                 }
 
-                this.userID = strArray[0];
-                this.userCompany = strArray[1];
-                this.username = strArray[2];
-                this.profile_picture = strArray[3];
-                this.driven_tours = Convert.ToInt32(strArray[4]);
-                this.bank_balance = Convert.ToInt32(strArray[5]);
-                this.Hide();
+                    this.userID = strArray[0];
+                    this.userCompany = strArray[1];
+                    this.username = strArray[2];
+                    this.profile_picture = strArray[3];
+                    this.driven_tours = Convert.ToInt32(strArray[4]);
+                    this.bank_balance = Convert.ToInt32(strArray[5]);
+                    this.Hide();
 
-                Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany);
+                Main Mainwindow = new Main(this.authCode, this.username, this.driven_tours, this.bank_balance, false, this.userCompany, this.debug);
                 Mainwindow.ShowDialog();
             }
         }
-        void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            this.BeginInvoke((MethodInvoker)delegate {
-                double bytesIn = double.Parse(e.BytesReceived.ToString());
-                double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
-                double percentage = bytesIn / totalBytes * 100;
-                label2.Text = "Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive;
-                progressBardownload.Value = int.Parse(Math.Truncate(percentage).ToString());
-            });
-        }
-        void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            this.BeginInvoke((MethodInvoker)delegate {
-                label2.Text = "Completed";
-            });
-        }
+
+
 
         private void Main_Load(object sender, EventArgs e)
         {
-            this.version_text.Text = "Version: 1.1.1";
-            version_int = 111;
-            string fileName = this.api.HTTPSRequestPost("https://vtc.northwestvideo.de/api/app/download.php", new Dictionary<string, string>()
-      {
-        {
-          "version",
-          "1.1.1"
-        }
-      }, true);
-            if (string.IsNullOrEmpty(fileName))
-            {
-                Application.Exit();
-            }
-            conv_fileName = fileName.Replace(".", string.Empty);
-            fileName_int = System.Convert.ToInt32(conv_fileName);
-
-            // Prüfen ob es eine Öffentliche Version ist:
-            if (oeffentlich == true)
-            {
-                if (fileName_int != version_int)
-                {
-                    switch (MessageBox.Show(translation.update_part1 + fileName + translation.update_part2, translation.update_avail_window, MessageBoxButtons.YesNo))
-                    {
-                        case DialogResult.Yes:
-                            this.first_start = "false";
-                            this.settings.Cache.first_start = this.first_start;
-                            this.settings.SaveJobID();
-                            this.userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                            this.downloaddirectory = Path.Combine(userFolder, ".vtcmanager");
-                            WebClient webClient = new WebClient();
-                            webClient.DownloadFile("http://vtc.northwestvideo.de/api/app/VTCMInstaller-latest.exe", this.downloaddirectory + "/VTCMInstaller-latest.exe");
-                            Process ExternalProcess = new Process();
-                            ExternalProcess.StartInfo.FileName = this.downloaddirectory + "/VTCMInstaller-latest.exe";
-                            ExternalProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                            ExternalProcess.Start();
-                            Application.Exit();
-                            break;
-                        case DialogResult.No:
-                            Application.Exit();
-                            break;
-                    }
-                }
-            }
             this.preferences.CreateConfig();
             this.preferences.LoadConfig();
             if (!(this.preferences.Config.SaveLoginData == "yes"))
                 return;
             this.login(this.preferences.Config.Account, this.preferences.Config.Password);
         }
+
+
         private void Main_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)

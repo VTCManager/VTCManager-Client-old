@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AEFF0226-FE54-457F-8B94-C75136E3DDB3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>VTCManager_1._0._0</RootNamespace>
     <AssemblyName>VTCManager 1.0.0</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -106,6 +106,7 @@
       <DependentUpon>ETS2-Pfad_Window.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="GameChecks.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -136,6 +137,12 @@
     <Compile Include="Ueber.Designer.cs">
       <DependentUpon>Ueber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Updates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Updates.Designer.cs">
+      <DependentUpon>Updates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,8 +160,9 @@
     <Reference Include="RJCP.SerialPortStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=5f5e7b70c6a74deb, processorArchitecture=MSIL">
       <HintPath>..\packages\SerialPortStream.2.2.0\lib\net45\RJCP.SerialPortStream.dll</HintPath>
     </Reference>
-    <Reference Include="SCSSdkClient">
-      <HintPath>..\..\..\RenCloud\scs-sdk-plugin\scs-client\C#\SCSSdkClient\bin\Debug\SCSSdkClient.dll</HintPath>
+    <Reference Include="SCSSdkClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\C# Repositorys\SCSSdkClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Specialized, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -244,12 +252,16 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsWindow.resx">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ueber.resx">
       <DependentUpon>Ueber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Updates.resx">
+      <DependentUpon>Updates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +309,6 @@
     <None Include="Resources\ats2l.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Resources\ets2-telemetry.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\test1.jpg" />
     <None Include="Resources\test2.jpg" />
     <None Include="Resources\test21.jpg" />
@@ -312,6 +321,11 @@
     <None Include="Resources\gang5.png" />
     <None Include="Resources\gangr.png" />
     <None Include="Resources\gang6.png" />
+    <None Include="Resources\favicon.png" />
+    <Content Include="Resources\scs-telemetry.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\upd1.png" />
     <Content Include="Ressources\AutopilotEnd_fx.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

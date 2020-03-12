@@ -127,11 +127,8 @@
   <data name="_70" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\70.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ets2_telemetry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ets2-telemetry.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="gang3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gang3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gang5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gang5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iconfinder_bulled_green_1930264" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconfinder_bulled-green_1930264.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,8 +136,8 @@
   <data name="oldcar4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\oldcar4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gang5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gang5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gang6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gang6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="oldcar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\oldcar1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,26 +148,20 @@
   <data name="280px-Ets2_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\280px-Ets2_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="test1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\test1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test_bg_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test_bg_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_120" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\120.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="favicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\favicon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gang0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gang0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="test21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\test21.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="test11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\test11.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gang4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gang4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,8 +175,8 @@
   <data name="oldcar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\oldcar3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gang3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gang3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="00" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,10 +196,10 @@
   <data name="rpc1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rpc1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="test2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\test2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_120" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\120.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gang6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gang6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="upd1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\upd1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

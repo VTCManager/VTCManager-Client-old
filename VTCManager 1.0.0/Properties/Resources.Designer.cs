@@ -151,12 +151,12 @@ namespace VTCManager_1._0._0.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] ets2_telemetry {
+        public static System.Drawing.Bitmap favicon {
             get {
-                object obj = ResourceManager.GetObject("ets2_telemetry", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("favicon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -333,39 +333,9 @@ namespace VTCManager_1._0._0.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap test1 {
+        public static System.Drawing.Bitmap upd1 {
             get {
-                object obj = ResourceManager.GetObject("test1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap test11 {
-            get {
-                object obj = ResourceManager.GetObject("test11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap test2 {
-            get {
-                object obj = ResourceManager.GetObject("test2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap test21 {
-            get {
-                object obj = ResourceManager.GetObject("test21", resourceCulture);
+                object obj = ResourceManager.GetObject("upd1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
