@@ -440,7 +440,7 @@ namespace VTCManager_1._0._0
                         {
                             // PROZENTBERECHNUNG ANFANG
                             label_prozent.Text = "Gesamt: " + data.JobValues.PlannedDistanceKm.ToString() + " KM";
-                            label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
+                            label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM (" + this.currentPercentage.ToString() + ")";
                             // PROZENTBERECHNUNG ENDE
 
 
