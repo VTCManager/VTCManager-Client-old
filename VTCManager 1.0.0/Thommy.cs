@@ -20,7 +20,7 @@ namespace VTCManager_1._0._0
 
 
 
-        public void Sende_TollGate(string url, string authcode, long payment)
+        public void Sende_TollGate(string authcode, long payment)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://vtc.zwpc.de/tollgate.php");
             var postData = "authcode=" + authcode;

@@ -11,6 +11,7 @@ namespace VTCManager_1._0._0
 {
     class SettingsWindow : Form
     {
+        private Utilities utils = new Utilities();
         private ComboBox comboBox1;
         private Label label1;
         private SettingsManager data;
@@ -32,6 +33,7 @@ namespace VTCManager_1._0._0
         private GroupBox groupBox_AntiAFK;
         private TextBox txt_Anti_AFK_Text;
         private CheckBox chk_antiafk_on_off;
+        private NumericUpDown Reload_Interval;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
@@ -74,11 +76,13 @@ namespace VTCManager_1._0._0
             this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
+            this.Reload_Interval = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.groupBox_AntiAFK.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Reload_Interval)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -208,7 +212,6 @@ namespace VTCManager_1._0._0
             0,
             0,
             0});
-
             // 
             // label5
             // 
@@ -259,9 +262,19 @@ namespace VTCManager_1._0._0
             this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
             this.txt_Anti_AFK_Text.TabIndex = 0;
             // 
+            // Reload_Interval
+            // 
+            this.Reload_Interval.Location = new System.Drawing.Point(217, 249);
+            this.Reload_Interval.Name = "Reload_Interval";
+            this.Reload_Interval.Size = new System.Drawing.Size(65, 20);
+            this.Reload_Interval.TabIndex = 10;
+            this.Reload_Interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Reload_Interval.ValueChanged += new System.EventHandler(this.Reload_Interval_ValueChanged);
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
+            this.Controls.Add(this.Reload_Interval);
             this.Controls.Add(this.groupBox_AntiAFK);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
@@ -282,6 +295,7 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
             this.groupBox_AntiAFK.ResumeLayout(false);
             this.groupBox_AntiAFK.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Reload_Interval)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -361,17 +375,17 @@ namespace VTCManager_1._0._0
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
             group_Overlay.Visible = false;
+            Reload_Interval.Value = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
 
-            Utilities util2 = new Utilities();
-            var test = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            var test = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             if (test == "") {
                 MessageBox.Show("Es fehlt der Pfad zu TruckersMP" + Environment.NewLine + "Bitte Korrigiere die Angabe dem folgenden Fenster!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
 
-            string wert27 = util2.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
-            string wert28 = util2.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
-            string wert30 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
-            string wert31 = util2.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
+            string wert27 = utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
+            string wert28 = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            string wert30 = utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
+            string wert31 = utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
 
 
             if (wert28 != null)
@@ -384,7 +398,7 @@ namespace VTCManager_1._0._0
             }
 
             // Server COMBO vorauswahl
-            if(wert27 == null) { comboBox1.Text = "Simulation 1"; util2.Reg_Schreiben("verkehr_SERVER", "sim1"); }
+            if(wert27 == null) { comboBox1.Text = "Simulation 1"; utils.Reg_Schreiben("verkehr_SERVER", "sim1"); }
             if (wert27 == "sim1") { comboBox1.Text = "Simulation 1"; }
             if (wert27 == "sim2") { comboBox1.Text = "Simulation 2"; }
             if (wert27 == "arc1") { comboBox1.Text = "Arcade 1"; }
@@ -442,6 +456,9 @@ namespace VTCManager_1._0._0
                 
         }
 
-
+        private void Reload_Interval_ValueChanged(object sender, EventArgs e)
+        {
+            utils.Reg_Schreiben("Reload_Traffic_Sekunden", Reload_Interval.Value.ToString());
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace VTCManager_1._0._0
         private CacheDataObject m_oConfigJob;
         public static string userFolder;
         private SettingsDataObject m_oConfig;
-
+        private Utilities utils = new Utilities();
 
         public SettingsManager()
         {
@@ -117,6 +117,9 @@ namespace VTCManager_1._0._0
         public void LoadJobID()
         {
 
+            utils.Reg_Lesen("TruckersMP_Autorun", "jobID");
+
+            /*
             if (File.Exists(Path.Combine(this.settingsDirectory, this.settingsFile)))
             { 
                 try
@@ -129,6 +132,7 @@ namespace VTCManager_1._0._0
                 }
                 catch { }
             }
+            */
            
         }
 
