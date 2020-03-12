@@ -1464,7 +1464,7 @@ namespace VTCManager_1._0._0
             util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
 
-            lbl_Revision.Text = "1205";
+            lbl_Revision.Text = "1206";
 
             labelRevision = lbl_Revision.Text;
 
