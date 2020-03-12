@@ -148,6 +148,9 @@ namespace VTCManager_1._0._0
         public long Tollgate_Payment;
         public bool Ferry;
         public bool Train;
+        private Label label_prozent;
+        private Label label_gefahren;
+        private Label label_prozenz_2;
         public string GameRuns;
 
         public DiscordRpcClient Client { get; private set; }
@@ -184,6 +187,8 @@ namespace VTCManager_1._0._0
                 this.notification_sound_tour_end = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav");
             }
 
+
+            
             this.username = username;
             this.driven_tours = driven_tours;
             this.act_bank_balance = act_bank_balance;
@@ -236,6 +241,9 @@ namespace VTCManager_1._0._0
             if (this.Telemetry.Error == null)
                 return;
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
+
+
+            
         }
 
         private void InitializeDiscord(int mode)
@@ -419,7 +427,20 @@ namespace VTCManager_1._0._0
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
 
-                    
+
+                        // PROZENTBERECHNUNG ANFANG
+                        label_prozent.Text = "Geplant: " + data.JobValues.PlannedDistanceKm.ToString();
+                        double total = Convert.ToDouble(data.JobValues.PlannedDistanceKm.ToString());
+
+                        label_gefahren.Text = "Gefahren: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000);
+                        double gef = Convert.ToDouble(data.NavigationValues.NavigationDistance);
+
+                        double eins = total / 100;
+
+                        label_prozenz_2.Text = "Prozent: " + (gef / total);
+                        // PROZENTBERECHNUNG ENDE
+
+
 
                         if (data.Paused == false)
                         {
@@ -559,7 +580,7 @@ namespace VTCManager_1._0._0
 
 
 
-               
+                                    this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
 
@@ -652,6 +673,7 @@ namespace VTCManager_1._0._0
                     try
                     {
                         this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
+                       
                      }
                     catch { }
 
@@ -690,6 +712,8 @@ namespace VTCManager_1._0._0
                 double num3 = this.rotation;
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 Dictionary<string, string> dictionary1 = postParameters;
+
+
                 num1 = CoordinateX;
                 string str1 = num1.ToString();
                 dictionary1.Add("coordinate_x", str1);
@@ -702,7 +726,10 @@ namespace VTCManager_1._0._0
                 string str3 = num2.ToString();
                 dictionary3.Add("rotation", str3);
                 postParameters.Add("authcode", this.authCode);
+                postParameters.Add("prozent", this.currentPercentage.ToString());
+
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
+
             }
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -745,6 +772,8 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label_gefahren = new System.Windows.Forms.Label();
+            this.label_prozent = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
             this.destination_lb = new System.Windows.Forms.Label();
@@ -778,6 +807,7 @@ namespace VTCManager_1._0._0
             this.Label_DB_Server = new System.Windows.Forms.ToolStripStatusLabel();
             this.anti_AFK_TIMER = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
+            this.label_prozenz_2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.send_tour_status)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1008,6 +1038,9 @@ namespace VTCManager_1._0._0
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.label_prozenz_2);
+            this.panel2.Controls.Add(this.label_gefahren);
+            this.panel2.Controls.Add(this.label_prozent);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
             this.panel2.Controls.Add(this.destination_lb);
@@ -1019,6 +1052,26 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
+            // 
+            // label_gefahren
+            // 
+            this.label_gefahren.AutoSize = true;
+            this.label_gefahren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_gefahren.Location = new System.Drawing.Point(59, 281);
+            this.label_gefahren.Name = "label_gefahren";
+            this.label_gefahren.Size = new System.Drawing.Size(51, 20);
+            this.label_gefahren.TabIndex = 8;
+            this.label_gefahren.Text = "label4";
+            // 
+            // label_prozent
+            // 
+            this.label_prozent.AutoSize = true;
+            this.label_prozent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_prozent.Location = new System.Drawing.Point(59, 261);
+            this.label_prozent.Name = "label_prozent";
+            this.label_prozent.Size = new System.Drawing.Size(51, 20);
+            this.label_prozent.TabIndex = 7;
+            this.label_prozent.Text = "label4";
             // 
             // status_jb_canc_lb
             // 
@@ -1351,6 +1404,16 @@ namespace VTCManager_1._0._0
             this.label3.Text = "Revision:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label_prozenz_2
+            // 
+            this.label_prozenz_2.AutoSize = true;
+            this.label_prozenz_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_prozenz_2.Location = new System.Drawing.Point(59, 301);
+            this.label_prozenz_2.Name = "label_prozenz_2";
+            this.label_prozenz_2.Size = new System.Drawing.Size(51, 20);
+            this.label_prozenz_2.TabIndex = 9;
+            this.label_prozenz_2.Text = "label4";
+            // 
             // Main
             // 
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -1439,7 +1502,9 @@ namespace VTCManager_1._0._0
             Utilities util34 = new Utilities();
             util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
+#if debug
 
+#endif
 
             lbl_Revision.Text = "1204";
 
@@ -1644,8 +1709,6 @@ namespace VTCManager_1._0._0
             lbl_Reload_Time.Text = "Reload-Interval: " + wert + " Sek.";
             this.load_traffic();
 
-
-
             // Serverstatus in Statusleiste anzeigen
             Servercheck sc = new Servercheck();
             var green = new Bitmap(Properties.Resources.iconfinder_bulled_green_1930264);
@@ -1760,7 +1823,10 @@ namespace VTCManager_1._0._0
         private void TelemetryTollgate(object sender, EventArgs e)
         {
             Thommy th = new Thommy();
-            th.Sende_TollGate(api.api_server2, this.userID, Tollgate_Payment);
+            Utilities utils2 = new Utilities();
+            int tournummer = Convert.ToInt32( utils2.Reg_Lesen("TruckersMP_Autostart", "jobID") );
+
+            th.Sende_TollGate(this.userID, Tollgate_Payment, tournummer);
         }
 
         private void TelemetryFerry(object sender, EventArgs e) =>
