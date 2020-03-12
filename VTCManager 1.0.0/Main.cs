@@ -151,6 +151,7 @@ namespace VTCManager_1._0._0
         private Label label_prozent;
         private Label label_gefahren;
         public string GameRuns;
+        private bool EventsSet = false;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -226,21 +227,7 @@ namespace VTCManager_1._0._0
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
 
-            this.Telemetry = new SCSSdkTelemetry();
-            this.Telemetry.Data += this.Telemetry_Data;
-            this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
-
-            this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
-            this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
-            this.Telemetry.Fined += this.TelemetryFined;
-            this.Telemetry.Tollgate += this.TelemetryTollgate;
-            this.Telemetry.Ferry += this.TelemetryFerry;
-            this.Telemetry.Train += this.TelemetryTrain;
-            this.Telemetry.Refuel += this.TelemetryRefuel;
-            if (this.Telemetry.Error == null)
-                return;
-            int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
-
+    
 
             
         }
@@ -419,9 +406,27 @@ namespace VTCManager_1._0._0
 
                     int time = Telemetry.UpdateInterval;
                     float num1;
-                    if (data.SdkActive)
+                    if (Utilities.IsGameRunning)
                     {
+                        if (!this.EventsSet)
+                        {
+                            this.EventsSet = true;
+                            this.Telemetry = new SCSSdkTelemetry();
+                            this.Telemetry.Data += this.Telemetry_Data;
+                            this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
 
+                            this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
+                            this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
+                            this.Telemetry.Fined += this.TelemetryFined;
+                            this.Telemetry.Tollgate += this.TelemetryTollgate;
+                            this.Telemetry.Ferry += this.TelemetryFerry;
+                            this.Telemetry.Train += this.TelemetryTrain;
+                            this.Telemetry.Refuel += this.TelemetryRefuel;
+                            if (this.Telemetry.Error == null)
+                                return;
+                            int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
+
+                        }
                         GameRuns = data.Game.ToString();
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
