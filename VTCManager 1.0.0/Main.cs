@@ -641,9 +641,9 @@ namespace VTCManager_1._0._0
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
                     try
                     {
-                        this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
-                       
-                     }
+                        this.currentPercentage = (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1;
+
+                    }
                     catch { }
 
            
@@ -695,7 +695,7 @@ namespace VTCManager_1._0._0
                 string str3 = num2.ToString();
                 dictionary3.Add("rotation", str3);
                 postParameters.Add("authcode", this.authCode);
-                postParameters.Add("prozent", this.currentPercentage.ToString());
+                postParameters.Add("percentage", this.currentPercentage.ToString());
 
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
 
