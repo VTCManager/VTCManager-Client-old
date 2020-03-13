@@ -642,7 +642,7 @@ namespace VTCManager_1._0._0
                     try
                     {
                         this.currentPercentage = (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1;
-
+                         
                     }
                     catch { }
 
