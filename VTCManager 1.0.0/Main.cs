@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 using SCSSdkClient;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace VTCManager_1._0._0
 {
@@ -151,6 +152,7 @@ namespace VTCManager_1._0._0
         private Label label_prozent;
         private Label label_gefahren;
         public string GameRuns;
+        public bool SendTollgate;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -242,7 +244,8 @@ namespace VTCManager_1._0._0
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
 
 
-            
+
+
         }
 
         private void InitializeDiscord(int mode)
@@ -422,6 +425,7 @@ namespace VTCManager_1._0._0
                     if (data.SdkActive)
                     {
 
+
                         GameRuns = data.Game.ToString();
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
@@ -541,19 +545,19 @@ namespace VTCManager_1._0._0
                         {
                             if (GameRuns == "Ets2")
                             {
+                                Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
                                 {
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
                                         this.totalDistance = (int)data.JobValues.PlannedDistanceKm;
 
-
-
                                     this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
                                     this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
 
                     {
+
 
                         {
                           "authcode",
@@ -581,6 +585,9 @@ namespace VTCManager_1._0._0
                     {
                         if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
+                            label_prozent.Text = "";
+                            label_gefahren.Text = "";
+
                             string lastJob = this.lastJobDictionary["weight"];
                             num1 = data.JobValues.CargoValues.Mass;
                             string str1 = num1.ToString();
@@ -646,6 +653,8 @@ namespace VTCManager_1._0._0
                     }
                     catch { }
 
+
+                    
            
                 }
             }
@@ -1453,16 +1462,18 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
+            
 
+
+            lbl_Revision.Text = "1205";
+            labelRevision = lbl_Revision.Text;
 
             // Check auf REGISTR
             Utilities util34 = new Utilities();
             util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
 
-            lbl_Revision.Text = "1205";
 
-            labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
 
@@ -1540,6 +1551,7 @@ namespace VTCManager_1._0._0
             // TMP Button anzeigen wenn Pfad in den Settings
             truckersMP_Button.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
 
+            
 
 
 
@@ -1776,12 +1788,10 @@ namespace VTCManager_1._0._0
             MessageBox.Show("Fined");
         private void TelemetryTollgate(object sender, EventArgs e)
         {
-            Thommy th = new Thommy();
-            Utilities utils2 = new Utilities();
-            int tournummer = 0;
-
-            th.Sende_TollGate(this.authCode, Tollgate_Payment, tournummer);
+            Thommy th3 = new Thommy(); 
+            th3.Sende_TollGate(this.authCode, this.Tollgate_Payment, 1);
         }
+            
 
         private void TelemetryFerry(object sender, EventArgs e) =>
        this.Ferry = true;
