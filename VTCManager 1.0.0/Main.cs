@@ -1778,9 +1778,9 @@ namespace VTCManager_1._0._0
         {
             Thommy th = new Thommy();
             Utilities utils2 = new Utilities();
-            int tournummer = Convert.ToInt32( utils2.Reg_Lesen("TruckersMP_Autostart", "jobID") );
+            int tournummer = 0;
 
-            th.Sende_TollGate(this.userID, Tollgate_Payment, tournummer);
+            th.Sende_TollGate(this.authCode, Tollgate_Payment, tournummer);
         }
 
         private void TelemetryFerry(object sender, EventArgs e) =>

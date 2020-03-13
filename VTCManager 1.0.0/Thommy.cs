@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace VTCManager_1._0._0
 {
@@ -23,7 +24,7 @@ namespace VTCManager_1._0._0
         public void Sende_TollGate(string authcode, long payment, int tournummer)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://vtc.zwpc.de/tollgate.php");
-            var postData = "authcode=" + authcode;
+            var postData = "authcode=" + authcode.ToString();
             postData += "&payment=" + payment;
             postData += "&tourid=" + tournummer;
 
@@ -37,6 +38,7 @@ namespace VTCManager_1._0._0
             }
             var response = (HttpWebResponse)request.GetResponse();
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+   
         }
 
     }
