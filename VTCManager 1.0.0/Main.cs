@@ -41,7 +41,7 @@ namespace VTCManager_1._0._0
         public int invertedDistance;
         public int lastNotZeroDistance;
         public float lastCargoDamage;
-        public int currentPercentage;
+        public double currentPercentage;
         public int updatedPercentage;
         public int fuelValue;
         public bool ownTrailerAttached;
@@ -453,7 +453,7 @@ namespace VTCManager_1._0._0
                             label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
                             // PROZENTBERECHNUNG ENDE
 
-                           this.currentPercentage = (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1;
+                           this.currentPercentage = ((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100) * -1;
 
                             // SPEED LABEL - TRUCK LABEL
                             if (data.Game.ToString() == "Ets2") { labelkmh = " KM/H";  } else { labelkmh = " mp/h"; }
@@ -495,15 +495,14 @@ namespace VTCManager_1._0._0
                         {
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
-                             
 
                                 notification_sound_tour_start.Play();
                                 this.totalDistance = (int)data.NavigationValues.NavigationDistance;
                                 num2 = (double)data.JobValues.Income * 0.15;
                                 this.cargo_lb.Text = "Deine Fracht: " + ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString() + " Tonnen " + data.JobValues.CargoValues.Name;
                                 this.depature_lb.Text = "Von: " + data.JobValues.CitySource + " ( " + data.JobValues.CompanySource + " ) nach: " + data.JobValues.CityDestination + " ( " + data.JobValues.CompanyDestination + " )";
-          
                                 this.fuelatstart = data.TruckValues.ConstantsValues.CapacityValues.Fuel;
+
                                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                                 postParameters.Add("authcode", this.authCode);
                                 postParameters.Add("cargo", data.JobValues.CargoValues.Name);
@@ -525,7 +524,8 @@ namespace VTCManager_1._0._0
                                 this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
                                 this.lastJobDictionary.Add("source", data.JobValues.CitySource);
                                 this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
-                                this.lastJobDictionary.Add("income", Convert.ToString(data.JobValues.Income));
+                                this.lastJobDictionary.Add("income", data.JobValues.Income.ToString());
+
                                 Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
                                 num1 = data.JobValues.CargoValues.Mass;
                                 string str2 = num1.ToString();
