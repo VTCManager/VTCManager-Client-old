@@ -576,18 +576,7 @@ namespace VTCManager_1._0._0
 
                     if (this.jobFinished)
                     {
-                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
-                        {
-                            label_prozent.Text = "";
-                            label_gefahren.Text = "";
 
-                            string lastJob = this.lastJobDictionary["weight"];
-                            num1 = data.JobValues.CargoValues.Mass;
-                            string str1 = num1.ToString();
-                            if (lastJob == str1)
-                            {
-                                if (this.lastNotZeroDistance <= 2000 && this.currentPercentage > 90)
-                                {
                                     Console.WriteLine(this.lastNotZeroDistance);
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
@@ -622,16 +611,6 @@ namespace VTCManager_1._0._0
                                     this.depature_lb.Text = "";
                                     //this.cargo_lb.Text = translation.no_cargo_lb;
                                     this.lastJobDictionary.Clear();
-                                }
-                                else
-                                {
-                                    this.send_tour_status.Enabled = false;
-                                    this.jobRunning = false;
-                                    this.CancelTour();
-                                    this.lastJobDictionary.Clear();
-                                }
-                            }
-                        }
                         this.jobFinished = false;
                     }
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
