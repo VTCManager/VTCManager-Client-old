@@ -417,7 +417,6 @@ namespace VTCManager_1._0._0
 
         private void Telemetry_Data(SCSTelemetry data, bool updated)
         {
-
             try
             {
                 if (InvokeRequired)
@@ -427,20 +426,17 @@ namespace VTCManager_1._0._0
                 }
                 else
                 {
-
-
                     int time = Telemetry.UpdateInterval;
                     float num1;
                     if (data.SdkActive)
                     {
-
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
                         Spiel = data.Game.ToString();
 
 
                         // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
-                        label_gefahren.Visible = (data.Paused) ? false : true;
+                            label_gefahren.Visible = (data.Paused) ? false : true;
                             label_prozent.Visible = (data.Paused) ? false : true;
                             truck_lb.Visible = (data.Paused) ? false : true;
                             destination_lb.Visible = (data.Paused) ? false : true;
@@ -457,14 +453,11 @@ namespace VTCManager_1._0._0
                             label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
                             // PROZENTBERECHNUNG ENDE
 
-                           
+                           this.currentPercentage = (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1;
 
                             // SPEED LABEL - TRUCK LABEL
-                            if(data.Game.ToString() == "Ets2") { labelkmh = " KM/H";  } else { labelkmh = " mp/h"; }
-
+                            if (data.Game.ToString() == "Ets2") { labelkmh = " KM/H";  } else { labelkmh = " mp/h"; }
                             speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
-
-
                             truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
 
                             if (data.JobValues.CargoLoaded == false)
@@ -554,44 +547,23 @@ namespace VTCManager_1._0._0
 
                     if (this.jobRunning)
                     {
-
-
-
-
-
                         if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
-                         
-                                
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
                                 {
                                     if (this.totalDistance == 0 || this.totalDistance < 0)
                                         this.totalDistance = (int)data.JobValues.PlannedDistanceKm;
 
-                                    this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
-                                    this.InitializeDiscord(1);
+                                
+                                this.InitializeDiscord(1);
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
-
-                    {
-
-
-                        {
-                          "authcode",
-                          this.authCode
-                        },
-                        {
-                          "job_id",
-                          this.jobID
-                        },
-                        {
-                          "percentage",
-                          this.currentPercentage.ToString()
-                        }
-                        }, false).ToString();
-
+                                    {
+                                        { "authcode", this.authCode },
+                                        { "job_id", this.jobID },
+                                        { "percentage", this.currentPercentage.ToString() }
+                                    }, false).ToString();
                                 }
-                            
                         }
                         this.jobRunning = false;
                     }
@@ -612,7 +584,6 @@ namespace VTCManager_1._0._0
                             {
                                 if (this.lastNotZeroDistance <= 2000 && this.currentPercentage > 90)
                                 {
-
                                     Console.WriteLine(this.lastNotZeroDistance);
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
@@ -635,9 +606,6 @@ namespace VTCManager_1._0._0
                                     postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
 
                                     this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString();
-
-                                    // Console.WriteLine(this.jobID.ToString());
-
                                     this.InitializeDiscord(0);
                                     this.totalDistance = 0;
                                     this.invertedDistance = 0;
@@ -665,20 +633,12 @@ namespace VTCManager_1._0._0
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
                     try
                     {
-                        this.currentPercentage = (((((int)data.NavigationValues.NavigationDistance / 1000) / (int)data.JobValues.PlannedDistanceKm) * 100) - 100) * -1;
-                         
+                       // this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
                     }
                     catch { }
-
-
-                    
-           
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show("Fehler: " + ex.Message + "\n" + ex.ToString());
-            }
+            catch { }
         }
 
         string get_unique_string(int string_length)
@@ -702,8 +662,7 @@ namespace VTCManager_1._0._0
 
         private void locationupdate()
         {
-         
-                
+
                 double num3 = this.rotation;
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 Dictionary<string, string> dictionary1 = postParameters;
