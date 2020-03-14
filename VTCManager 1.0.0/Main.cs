@@ -155,13 +155,12 @@ namespace VTCManager_1._0._0
         private Label label_gefahren;
         public int GameRuns;
         public string Spiel;
-        public string Refuel_Start;
-        public string Refuel_End;
         public string Refuel_Amount;
         public string Strafe;
         public string Faehre;
         public string FaehreKosten;
         public string labelkmh;
+        public bool refuel_beendet;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -248,6 +247,9 @@ namespace VTCManager_1._0._0
             this.Telemetry.Ferry += this.TelemetryFerry;
             this.Telemetry.Train += this.TelemetryTrain;
             this.Telemetry.Refuel += this.TelemetryRefuel;
+            //this.Telemetry.RefuelEnd += TelemetryRefuelEnd;
+            //this.Telemetry.RefuelPayed += TelemetryRefuelPayed;
+
 
             if (this.Telemetry.Error == null)
                 return;
@@ -256,6 +258,8 @@ namespace VTCManager_1._0._0
 
             
         }
+
+
 
         private void InitializeDiscord(int mode)
         {
@@ -1770,14 +1774,11 @@ namespace VTCManager_1._0._0
 
         private void TelemetryRefuel(object sender, EventArgs e) 
         {
-   
+                Thommy th3 = new Thommy();
+                th3.Sende_Refuel(this.authCode, this.Tollgate_Payment, this.jobID);
+
         }
 
-        private void TelemetryRefuelEnd(object sender, EventArgs e)
-        {
-            Thommy th3 = new Thommy();
-            th3.Sende_Refuel(this.authCode, this.Tollgate_Payment, this.jobID);
-     }
 
 
     }
