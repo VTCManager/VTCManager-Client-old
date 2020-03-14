@@ -1421,7 +1421,7 @@ namespace VTCManager_1._0._0
 
 
 
-            lbl_Revision.Text = "1206";
+            lbl_Revision.Text = "1207";
             labelRevision = lbl_Revision.Text;
 
             // Check auf REGISTR

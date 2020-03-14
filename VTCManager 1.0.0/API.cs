@@ -21,15 +21,15 @@ namespace VTCManager_1._0._0
         public string loc_update_path;
         public string get_traffic_path;
         public string job_update_path;
-        public string new_job_path;
         public string tollgate_path;
+        public string new_job_path;
         public string trucky_api_server;
         public API()
         {
             this.login_path = "login.php";
             //this.api_server = "https://vtc.northwestvideo.de/api/app/";
             this.api_server = "https://vtc.northwestvideo.de/api/app_beta/";
-            this.api_server2 = "https://www.zwpc.de/api/";
+            //this.api_server2 = "https://www.zwpc.de/api/";
             this.trucky_api_server = "https://api.truckyapp.com/v2/";
             this.load_data_path = "load_data.php";
             this.canceltourpath = "cancel_tour.php";

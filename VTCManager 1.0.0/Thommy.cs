@@ -12,6 +12,8 @@ namespace VTCManager_1._0._0
     class Thommy
     {
         public static string MeineVersion;
+        private API api = new API();
+
         public string Aktuelle_Version_lesen()
         {
             Utilities util = new Utilities();
@@ -23,7 +25,7 @@ namespace VTCManager_1._0._0
 
         public void Sende_TollGate(string authcode, float payment, int tournummer)
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://vtc.zwpc.de/tollgate.php");
+            var request = (HttpWebRequest)WebRequest.Create(this.api.api_server + this.api.tollgate_path);
             var postData = "authcode=" + authcode.ToString();
             postData += "&payment=" + payment;
             postData += "&tourid=" + tournummer;
