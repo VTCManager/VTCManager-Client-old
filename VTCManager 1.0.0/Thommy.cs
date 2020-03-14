@@ -14,19 +14,19 @@ namespace VTCManager_1._0._0
         public static string MeineVersion;
         public string Aktuelle_Version_lesen()
         {
-            Utilities util = new Utilities();;
+            Utilities util = new Utilities();
             MeineVersion = util.Reg_Lesen("TruckersMP_Autorun", "Version");
             return MeineVersion;
         }
 
 
 
-        public void Sende_TollGate(string authcode, long payment, int tournummer)
+        public void Sende_TollGate(string authcode, float payment, int tournummer)
         {
             var request = (HttpWebRequest)WebRequest.Create("http://vtc.zwpc.de/tollgate.php");
             var postData = "authcode=" + authcode.ToString();
-            postData += "payment=" + payment.ToString();
-            postData += "tourid=" + tournummer.ToString();
+            postData += "&payment=" + payment;
+            postData += "&tourid=" + tournummer;
 
             var data = Encoding.ASCII.GetBytes(postData);
             request.Method = "POST";
@@ -39,6 +39,15 @@ namespace VTCManager_1._0._0
             var response = (HttpWebResponse)request.GetResponse();
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
    
+        }
+
+        public void Sende_Refuel(string authcode, float payment, int tournummer)
+        {
+
+        }
+        public void Sende_Faehre(string authcode, float payment, int tournummer)
+        {
+
         }
 
     }

@@ -22,6 +22,7 @@ namespace VTCManager_1._0._0
     public class Main : Form
     {
         private API api = new API();
+        private Utilities utils = new Utilities();
         public string userID = "0";
         public string userCompanyID = "0";
         public string jobID = "0";
@@ -146,13 +147,19 @@ namespace VTCManager_1._0._0
         public static string labelRevision;
         private string meins;
         public bool Tollgate;
-        public long Tollgate_Payment;
+        public float Tollgate_Payment;
         public bool Ferry;
         public bool Train;
         private Label label_prozent;
         private Label label_gefahren;
         public string GameRuns;
-        public bool SendTollgate;
+        public string Refuel_Start;
+        public string Refuel_End;
+        public string Refuel_Amount;
+        public string Strafe;
+        public string Faehre;
+        public string FaehreKosten;
+
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -244,8 +251,7 @@ namespace VTCManager_1._0._0
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
 
 
-
-
+            
         }
 
         private void InitializeDiscord(int mode)
@@ -290,7 +296,7 @@ namespace VTCManager_1._0._0
             
 
             string server;
-            Utilities utils = new Utilities();
+          
 
             if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER")) == true)
             {
@@ -431,13 +437,14 @@ namespace VTCManager_1._0._0
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
 
                         // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
-                        label_gefahren.Visible = (data.Paused) ? false : true;
-                        label_prozent.Visible = (data.Paused) ? false : true;
-                        truck_lb.Visible = (data.Paused) ? false : true;
-                        destination_lb.Visible = (data.Paused) ? false : true;
-                        depature_lb.Visible = (data.Paused) ? false : true;
-                        cargo_lb.Visible = (data.Paused) ? false : true;
-        
+                            label_gefahren.Visible = (data.Paused) ? false : true;
+                            label_prozent.Visible = (data.Paused) ? false : true;
+                            truck_lb.Visible = (data.Paused) ? false : true;
+                            destination_lb.Visible = (data.Paused) ? false : true;
+                            depature_lb.Visible = (data.Paused) ? false : true;
+                            cargo_lb.Visible = (data.Paused) ? false : true;
+                            Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
+                        
 
 
                         if (data.Paused == false)
@@ -488,7 +495,7 @@ namespace VTCManager_1._0._0
                         {
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
-                                Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
+                             
                                 notification_sound_tour_start.Play();
                                 this.totalDistance = (int)data.NavigationValues.NavigationDistance;
                                 num2 = (double)data.JobValues.Income * 0.15;
@@ -509,8 +516,8 @@ namespace VTCManager_1._0._0
                                 postParameters.Add("distance", data.JobValues.PlannedDistanceKm.ToString());
                                 this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
 
-                                Utilities util = new Utilities();
-                                util.Reg_Schreiben("jobID", this.jobID);
+                              
+                                utils.Reg_Schreiben("jobID", this.jobID);
 
                                 //this.settings.Cache.SaveJobID = this.jobID;
                                 //this.settings.SaveJobID();
@@ -545,7 +552,7 @@ namespace VTCManager_1._0._0
                         {
                             if (GameRuns == "Ets2")
                             {
-                                Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
+                                
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
                                 {
@@ -1462,23 +1469,17 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         private void Main_Load(object sender, EventArgs e)
         {
-            
+
 
 
             lbl_Revision.Text = "1205";
             labelRevision = lbl_Revision.Text;
 
             // Check auf REGISTR
-            Utilities util34 = new Utilities();
-            util34.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
-
-
-
+            utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
-
-            Utilities util3 = new Utilities();
-            if (util3.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
+            if (utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
             {
                 ETS2_Pfad_Window win = new ETS2_Pfad_Window();
                 win.Show();
@@ -1491,7 +1492,7 @@ namespace VTCManager_1._0._0
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
             }
 
-            if (util3.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") != "")
+            if (utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") != "")
             {
                 ats_button.Visible = true;
                 ToolTip tt = new ToolTip();
@@ -1519,7 +1520,7 @@ namespace VTCManager_1._0._0
 
 
             // Back Test
-            string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
+            string hintergrund = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
             if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
             else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
             else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
@@ -1528,16 +1529,16 @@ namespace VTCManager_1._0._0
 
             try
             {
-                reload = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+                reload = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
             } catch
             {
-                util3.Reg_Schreiben("Reload_Traffic_Sekunden", "7");
+                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "7");
             }
 
 
             lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
 
-            if (util3.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "")
+            if (utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "")
             {
                 truckersMP_Button.Visible = true;
             }
@@ -1546,12 +1547,28 @@ namespace VTCManager_1._0._0
                 truckersMP_Button.Visible = false;
             }
 
-
-            Utilities util = new Utilities();
             // TMP Button anzeigen wenn Pfad in den Settings
-            truckersMP_Button.Visible = (util.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
+            truckersMP_Button.Visible = (utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
 
-            
+            if(Utilities.IsGameRunning == false)
+            {
+                speed_lb.Text = "Warte auf ETS2...";
+                label_gefahren.Visible = false;
+                label_prozent.Visible = false;
+                truck_lb.Visible = false;
+                destination_lb.Visible = false;
+                depature_lb.Visible = false;
+                cargo_lb.Visible = false;
+            } else
+            {
+                
+                label_gefahren.Visible = true;
+                label_prozent.Visible = true;
+                truck_lb.Visible = true;
+                destination_lb.Visible = true;
+                depature_lb.Visible = true;
+                cargo_lb.Visible = true;
+            }
 
 
 
@@ -1560,8 +1577,7 @@ namespace VTCManager_1._0._0
 
         private void truckersMP_Button_Click(object sender, EventArgs e)
         {
-            Utilities utils4 = new Utilities();
-            truckersMP_Link = utils4.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            truckersMP_Link = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             if (truckersMP_Link != null)
             {
                 Process.Start(truckersMP_Link);
@@ -1615,9 +1631,7 @@ namespace VTCManager_1._0._0
                 this.panel2.Location = new Point(540, 28);
                 GUI_SIZE_BUTTON.Image = GetImageFromURL("https://zwpc.de/icons/komprimieren.png");
                 // COMMIT - eventuell die beiden Bilder über Ressourcen laden
-
-                Utilities util3 = new Utilities();
-                string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
+                string hintergrund = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
                 if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
                 else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
                 else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
@@ -1651,9 +1665,7 @@ namespace VTCManager_1._0._0
             } else
             {
                 Is_DarkMode_On = 0;
-
-                Utilities util3 = new Utilities();
-                string hintergrund = util3.Reg_Lesen("TruckersMP_Autorun", "Background");
+                string hintergrund = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
                 if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
                 else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
                 else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
@@ -1669,8 +1681,7 @@ namespace VTCManager_1._0._0
 
         private void updateTraffic_Tick(object sender, EventArgs e)
         {
-            Utilities util3 = new Utilities();
-            int wert = Convert.ToInt32(util3.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+            int wert = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
             updateTraffic.Interval = wert * 1000;
             lbl_Reload_Time.Text = "Reload-Interval: " + wert + " Sek.";
             this.load_traffic();
@@ -1716,60 +1727,44 @@ namespace VTCManager_1._0._0
         private void oldCar1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.BackgroundImage = Properties.Resources.oldcar1;
-            Utilities util = new Utilities();
-            util.Reg_Schreiben("Background", "oldcar1");
-
-
-
+            utils.Reg_Schreiben("Background", "oldcar1");
         }
 
         private void oldCar2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.BackgroundImage = Properties.Resources.oldcar2;
-            Utilities util = new Utilities();
-            util.Reg_Schreiben("Background", "oldcar2");
-
+            utils.Reg_Schreiben("Background", "oldcar2");
         }
 
         private void oldCar3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.BackgroundImage = Properties.Resources.oldcar3;
-            Utilities util = new Utilities();
-            util.Reg_Schreiben("Background", "oldcar3");
+            utils.Reg_Schreiben("Background", "oldcar3");
         }
 
         private void oldCar4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.BackgroundImage = Properties.Resources.oldcar4;
-            Utilities util = new Utilities();
-            util.Reg_Schreiben("Background", "oldcar4");
-
+            utils.Reg_Schreiben("Background", "oldcar4");
         }
 
         private void keinsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.BackgroundImage = null;
-            Utilities util = new Utilities();
-            util.Reg_Schreiben("Background", "");
+            utils.Reg_Schreiben("Background", "");
         }
 
-        private void Main_FormClosed(object sender, FormClosedEventArgs e)
-        {
+        private void Main_FormClosed(object sender, FormClosedEventArgs e) =>
             TaskBar_Icon.Dispose();
+       
 
-        }
+        private void ets2_button_Click(object sender, EventArgs e) =>
+            Process.Start(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") +  @"\bin\win_X64\eurotrucks2.exe");
+       
 
-        private void ets2_button_Click(object sender, EventArgs e)
-        {
-            Utilities util = new Utilities();
-            Process.Start(util.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + "eurotrucks2.exe");
-        }
-
-        private void ats_button_Click(object sender, EventArgs e)
-        {
-            Utilities util = new Utilities();
-            Process.Start(util.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + "amtrucks.exe");
-        }
+        private void ats_button_Click(object sender, EventArgs e) =>
+            Process.Start(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + @"\bin\win_X64\amtrucks.exe");
+       
 
 
         private void TelemetryJobCancelled(object sender, EventArgs e)
@@ -1795,13 +1790,19 @@ namespace VTCManager_1._0._0
         }
             
 
-        private void TelemetryFerry(object sender, EventArgs e) =>
-       this.Ferry = true;
+        private void TelemetryFerry(object sender, EventArgs e)
+        {
+            this.Ferry = true;
+        }
+
 
         private void TelemetryTrain(object sender, EventArgs e) =>
         this.Train = true;
 
-        private void TelemetryRefuel(object sender, EventArgs e) { }
+        private void TelemetryRefuel(object sender, EventArgs e) 
+        {
+ 
+        }
     }
 
 
