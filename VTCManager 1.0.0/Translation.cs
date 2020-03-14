@@ -47,11 +47,13 @@ namespace VTCManager_1._0._0
         public string progress;
         public string speed_setup_box;
         public string settings_window;
+        public string speeding;
 
         public Translation(String language)
         {
             version = "Version: 1.1.0";
             if (language == "Deutsch (Deutschland)") {
+                speeding = " KM/H";
                 waiting_for_ets = "Warte auf ETS2...";
                 logout = "Abmelden";
                 login = "Anmelden";
@@ -96,6 +98,7 @@ namespace VTCManager_1._0._0
                 settings_window = "Einstellungen";
             } else
             {
+                speeding = " mp/h";
                 waiting_for_ets = "Waiting for ETS2...";
                 logout = "Logout";
                 login = "Login";

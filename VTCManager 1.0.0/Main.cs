@@ -16,6 +16,7 @@ using Timer = System.Windows.Forms.Timer;
 using SCSSdkClient;
 using Newtonsoft.Json;
 using System.Text;
+using System.Collections;
 
 namespace VTCManager_1._0._0
 {
@@ -152,14 +153,15 @@ namespace VTCManager_1._0._0
         public bool Train;
         private Label label_prozent;
         private Label label_gefahren;
-        public string GameRuns;
+        public int GameRuns;
+        public string Spiel;
         public string Refuel_Start;
         public string Refuel_End;
         public string Refuel_Amount;
         public string Strafe;
         public string Faehre;
         public string FaehreKosten;
-
+        public string labelkmh;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -246,6 +248,7 @@ namespace VTCManager_1._0._0
             this.Telemetry.Ferry += this.TelemetryFerry;
             this.Telemetry.Train += this.TelemetryTrain;
             this.Telemetry.Refuel += this.TelemetryRefuel;
+
             if (this.Telemetry.Error == null)
                 return;
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
@@ -431,20 +434,20 @@ namespace VTCManager_1._0._0
                     if (data.SdkActive)
                     {
 
-
-                        GameRuns = data.Game.ToString();
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
                         CoordinateZ = data.TruckValues.CurrentValues.PositionValue.Position.Y;
+                        Spiel = data.Game.ToString();
+
 
                         // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
-                            label_gefahren.Visible = (data.Paused) ? false : true;
+                        label_gefahren.Visible = (data.Paused) ? false : true;
                             label_prozent.Visible = (data.Paused) ? false : true;
                             truck_lb.Visible = (data.Paused) ? false : true;
                             destination_lb.Visible = (data.Paused) ? false : true;
                             depature_lb.Visible = (data.Paused) ? false : true;
                             cargo_lb.Visible = (data.Paused) ? false : true;
                             Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
-                        
+
 
 
                         if (data.Paused == false)
@@ -454,10 +457,14 @@ namespace VTCManager_1._0._0
                             label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
                             // PROZENTBERECHNUNG ENDE
 
-
+                           
 
                             // SPEED LABEL - TRUCK LABEL
-                            speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " KM/H";
+                            if(data.Game.ToString() == "Ets2") { labelkmh = " KM/H";  } else { labelkmh = " mp/h"; }
+
+                            speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
+
+
                             truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
 
                             if (data.JobValues.CargoLoaded == false)
@@ -496,6 +503,7 @@ namespace VTCManager_1._0._0
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
                              
+
                                 notification_sound_tour_start.Play();
                                 this.totalDistance = (int)data.NavigationValues.NavigationDistance;
                                 num2 = (double)data.JobValues.Income * 0.15;
@@ -546,11 +554,14 @@ namespace VTCManager_1._0._0
 
                     if (this.jobRunning)
                     {
-                       
+
+
+
+
+
                         if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
-                            if (GameRuns == "Ets2")
-                            {
+                         
                                 
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
@@ -580,7 +591,7 @@ namespace VTCManager_1._0._0
                         }, false).ToString();
 
                                 }
-                            }
+                            
                         }
                         this.jobRunning = false;
                     }
@@ -686,13 +697,13 @@ namespace VTCManager_1._0._0
         {
             this.jobRunning = true;
             this.locationupdate();
+            
         }
 
         private void locationupdate()
         {
          
-            if (GameRuns == "Ets2")
-            {
+                
                 double num3 = this.rotation;
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 Dictionary<string, string> dictionary1 = postParameters;
@@ -711,10 +722,11 @@ namespace VTCManager_1._0._0
                 dictionary3.Add("rotation", str3);
                 postParameters.Add("authcode", this.authCode);
                 postParameters.Add("percentage", this.currentPercentage.ToString());
-   
+                postParameters.Add("game", this.Spiel);
+
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
 
-            }
+           
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1800,9 +1812,16 @@ namespace VTCManager_1._0._0
 
         private void TelemetryRefuel(object sender, EventArgs e) 
         {
+   
+        }
+
+        private void TelemetryRefuelEnd(object sender, EventArgs e)
+        {
             Thommy th3 = new Thommy();
             th3.Sende_Refuel(this.authCode, this.Tollgate_Payment, this.jobID);
+            MessageBox.Show("Fuel Value: " + this.fuelValue.ToString() + Environment.NewLine + "Fuel Comp: " + this.fuelconsumption);
         }
+
 
     }
 
