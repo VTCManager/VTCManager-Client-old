@@ -576,18 +576,7 @@ namespace VTCManager_1._0._0
 
                     if (this.jobFinished)
                     {
-                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
-                        {
-                            label_prozent.Text = "";
-                            label_gefahren.Text = "";
 
-                            string lastJob = this.lastJobDictionary["weight"];
-                            num1 = data.JobValues.CargoValues.Mass;
-                            string str1 = num1.ToString();
-                            if (lastJob == str1)
-                            {
-                                if (this.lastNotZeroDistance <= 2000 && this.currentPercentage > 90)
-                                {
                                     Console.WriteLine(this.lastNotZeroDistance);
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
@@ -613,7 +602,7 @@ namespace VTCManager_1._0._0
                                     this.InitializeDiscord(0);
                                     this.totalDistance = 0;
                                     this.invertedDistance = 0;
-                                    this.currentPercentage = 0.00;
+                                    this.currentPercentage = 0;
                                     this.lastNotZeroDistance = 0;
                                     this.lastCargoDamage = 0.0f;
                                     this.jobID = "0";
@@ -622,18 +611,6 @@ namespace VTCManager_1._0._0
                                     this.depature_lb.Text = "";
                                     //this.cargo_lb.Text = translation.no_cargo_lb;
                                     this.lastJobDictionary.Clear();
-                                    Console.WriteLine(str3);
-
-                                }
-                                else
-                                {
-                                    this.send_tour_status.Enabled = false;
-                                    this.jobRunning = false;
-                                    this.CancelTour();
-                                    this.lastJobDictionary.Clear();
-                                }
-                            }
-                        }
                         this.jobFinished = false;
                     }
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
@@ -1747,7 +1724,7 @@ namespace VTCManager_1._0._0
         {
             this.jobStarted = false;
             this.jobRunning = false;
-            this.jobFinished = true;
+            CancelTour();
         }
 
         
