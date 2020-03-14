@@ -1483,7 +1483,7 @@ namespace VTCManager_1._0._0
 
 
 
-            lbl_Revision.Text = "1205";
+            lbl_Revision.Text = "1206";
             labelRevision = lbl_Revision.Text;
 
             // Check auf REGISTR
@@ -1796,8 +1796,7 @@ namespace VTCManager_1._0._0
         {
             Thommy th3 = new Thommy(); 
             th3.Sende_TollGate(this.authCode, this.Tollgate_Payment, 1);
-            MessageBox.Show("Auth: " + this.authCode + Environment.NewLine + "Toll: " + this.Tollgate_Payment, "Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+        
         }
             
 
@@ -1819,8 +1818,7 @@ namespace VTCManager_1._0._0
         {
             Thommy th3 = new Thommy();
             th3.Sende_Refuel(this.authCode, this.Tollgate_Payment, this.jobID);
-            MessageBox.Show("Fuel Value: " + this.fuelValue.ToString() + Environment.NewLine + "Fuel Comp: " + this.fuelconsumption);
-        }
+     }
 
 
     }
