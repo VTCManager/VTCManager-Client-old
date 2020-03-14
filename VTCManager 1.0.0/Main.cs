@@ -547,7 +547,6 @@ namespace VTCManager_1._0._0
                     if (this.jobRunning)
                     {
                        
-
                         if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
                         {
                             if (GameRuns == "Ets2")
@@ -712,7 +711,7 @@ namespace VTCManager_1._0._0
                 dictionary3.Add("rotation", str3);
                 postParameters.Add("authcode", this.authCode);
                 postParameters.Add("percentage", this.currentPercentage.ToString());
-
+   
                 this.api.HTTPSRequestPost(this.api.api_server + this.api.loc_update_path, postParameters, false).ToString();
 
             }
@@ -1801,8 +1800,10 @@ namespace VTCManager_1._0._0
 
         private void TelemetryRefuel(object sender, EventArgs e) 
         {
- 
+            Thommy th3 = new Thommy();
+            th3.Sende_Refuel(this.authCode, this.Tollgate_Payment, this.jobID);
         }
+
     }
 
 

@@ -41,10 +41,26 @@ namespace VTCManager_1._0._0
    
         }
 
-        public void Sende_Refuel(string authcode, float payment, int tournummer)
+        public void Sende_Refuel(string authcode, float payment, string tournummer)
         {
+            var request = (HttpWebRequest)WebRequest.Create("http://vtc.zwpc.de/tankkosten.php");
+            var postData = "authcode=" + authcode.ToString();
+            postData += "&payment=" + payment;
+            postData += "&tourid=" + tournummer;
 
+            var data = Encoding.ASCII.GetBytes(postData);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+            var response = (HttpWebResponse)request.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
         }
+
+
         public void Sende_Faehre(string authcode, float payment, int tournummer)
         {
 
