@@ -1724,7 +1724,7 @@ namespace VTCManager_1._0._0
         {
             this.jobStarted = false;
             this.jobRunning = false;
-            this.jobFinished = true;
+            CancelTour();
         }
 
         
