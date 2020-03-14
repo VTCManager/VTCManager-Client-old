@@ -551,8 +551,6 @@ namespace VTCManager_1._0._0
 
                     if (this.jobRunning)
                     {
-                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
-                        {
                                 this.jobRunning = false;
                                 if (this.currentPercentage > 0)
                                 {
@@ -568,8 +566,6 @@ namespace VTCManager_1._0._0
                                         { "percentage", this.currentPercentage.ToString() }
                                     }, false).ToString();
                                 }
-                        }
-                        this.jobRunning = false;
                     }
 
 
