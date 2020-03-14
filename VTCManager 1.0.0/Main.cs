@@ -613,7 +613,7 @@ namespace VTCManager_1._0._0
                                     this.InitializeDiscord(0);
                                     this.totalDistance = 0;
                                     this.invertedDistance = 0;
-                                    this.currentPercentage = 0;
+                                    this.currentPercentage = 0.00;
                                     this.lastNotZeroDistance = 0;
                                     this.lastCargoDamage = 0.0f;
                                     this.jobID = "0";
@@ -622,6 +622,8 @@ namespace VTCManager_1._0._0
                                     this.depature_lb.Text = "";
                                     //this.cargo_lb.Text = translation.no_cargo_lb;
                                     this.lastJobDictionary.Clear();
+                                    Console.WriteLine(str3);
+
                                 }
                                 else
                                 {
