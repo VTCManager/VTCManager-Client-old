@@ -161,6 +161,7 @@ namespace VTCManager_1._0._0
         public string FaehreKosten;
         public string labelkmh;
         public bool refuel_beendet;
+        private int jobrunningcounter;
 
         public DiscordRpcClient Client { get; private set; }
 
@@ -235,7 +236,6 @@ namespace VTCManager_1._0._0
                 MessageBox.Show("Exception: Getting traffic data from TruckyAPI");
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
-
             this.Telemetry = new SCSSdkTelemetry();
             this.Telemetry.Data += this.Telemetry_Data;
             this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
@@ -457,7 +457,7 @@ namespace VTCManager_1._0._0
                             label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
                             // PROZENTBERECHNUNG ENDE
 
-                           this.currentPercentage = ((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100) * -1;
+                           this.currentPercentage = (((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100)-100)*-1;
 
                             // SPEED LABEL - TRUCK LABEL
                             if (data.Game.ToString() == "Ets2") { labelkmh = " KM/H";  } else { labelkmh = " mp/h"; }
@@ -469,6 +469,21 @@ namespace VTCManager_1._0._0
                                 cargo_lb.Text = "Leerfahrt";
                                 destination_lb.Visible = false;
                                 depature_lb.Text = "";
+                            }
+                            else
+                            {
+                                if (this.jobrunningcounter == 30)
+                                {
+                                    Console.WriteLine("tiick");
+                                    this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
+                                    {
+                                        { "authcode", this.authCode },
+                                        { "job_id", this.jobID },
+                                        { "percentage", this.currentPercentage.ToString() }
+                                    }, false).ToString();
+                                    this.jobrunningcounter = 0;
+                                }
+                                this.jobrunningcounter++;
                             }
                                 
                             if (this.discordRPCalreadrunning == false)
@@ -552,20 +567,7 @@ namespace VTCManager_1._0._0
                     if (this.jobRunning)
                     {
                                 this.jobRunning = false;
-                                if (this.currentPercentage > 0)
-                                {
-                                    if (this.totalDistance == 0 || this.totalDistance < 0)
-                                        this.totalDistance = (int)data.JobValues.PlannedDistanceKm;
-
-                                
-                                this.InitializeDiscord(1);
-                                    this.api.HTTPSRequestPost(this.api.api_server + this.api.job_update_path, new Dictionary<string, string>()
-                                    {
-                                        { "authcode", this.authCode },
-                                        { "job_id", this.jobID },
-                                        { "percentage", this.currentPercentage.ToString() }
-                                    }, false).ToString();
-                                }
+                                    
                     }
 
 
@@ -573,7 +575,7 @@ namespace VTCManager_1._0._0
                     if (this.jobFinished)
                     {
 
-                                    Console.WriteLine(this.lastNotZeroDistance);
+                                    Console.WriteLine("jobfinsiehed");
                                     notification_sound_tour_end.Play();
                                     this.send_tour_status.Enabled = false;
                                     this.jobRunning = false;
@@ -594,7 +596,7 @@ namespace VTCManager_1._0._0
                                     }
                                     postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
 
-                                    this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString();
+                                    Console.WriteLine(this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString());
                                     this.InitializeDiscord(0);
                                     this.totalDistance = 0;
                                     this.invertedDistance = 0;
