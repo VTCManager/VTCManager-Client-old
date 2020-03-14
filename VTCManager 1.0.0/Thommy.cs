@@ -25,7 +25,7 @@ namespace VTCManager_1._0._0
 
         public void Sende_TollGate(string authcode, float payment, int tournummer)
         {
-            var request = (HttpWebRequest)WebRequest.Create(this.api.api_server + this.api.tollgate_path);
+            var request = (HttpWebRequest)WebRequest.Create(api.api_server + api.tollgate_path);
             var postData = "authcode=" + authcode.ToString();
             postData += "&payment=" + payment;
             postData += "&tourid=" + tournummer;
