@@ -574,49 +574,47 @@ namespace VTCManager_1._0._0
 
                     if (this.jobFinished)
                     {
+                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
+                        {
 
-                                    Console.WriteLine("jobfinsiehed");
-                                    notification_sound_tour_end.Play();
-                                    this.send_tour_status.Enabled = false;
-                                    this.jobRunning = false;
-                                    this.fuelatend = (float)data.TruckValues.ConstantsValues.CapacityValues.Fuel;
-                                    this.fuelconsumption = this.fuelatstart - this.fuelatend;
-                                    Console.WriteLine(this.fuelconsumption);
-                                    Dictionary<string, string> postParameters = new Dictionary<string, string>();
-                                    postParameters.Add("authcode", this.authCode);
-                                    postParameters.Add("job_id", this.jobID);
-                                    Dictionary<string, string> dictionary2 = postParameters;
-                                    num2 = Math.Floor((double)data.TruckValues.CurrentValues.DamageValues.Transmission * 100.0 / 1.0);
-                                    string str3 = num2.ToString();
-                                    dictionary2.Add("trailer_damage", str3);
-                                    postParameters.Add("income", data.JobValues.Income.ToString());
-                                    if (this.fuelconsumption > data.TruckValues.ConstantsValues.CapacityValues.Fuel)
-                                    {
-                                        postParameters.Add("refueled", "true");
-                                    }
-                                    postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
+                            Console.WriteLine("jobfinsiehed");
+                            notification_sound_tour_end.Play();
+                            this.send_tour_status.Enabled = false;
+                            this.jobRunning = false;
+                            this.fuelatend = (float)data.TruckValues.ConstantsValues.CapacityValues.Fuel;
+                            this.fuelconsumption = this.fuelatstart - this.fuelatend;
+                            Console.WriteLine(this.fuelconsumption);
+                            Dictionary<string, string> postParameters = new Dictionary<string, string>();
+                            postParameters.Add("authcode", this.authCode);
+                            postParameters.Add("job_id", this.jobID);
+                            Dictionary<string, string> dictionary2 = postParameters;
+                            num2 = Math.Floor((double)data.TruckValues.CurrentValues.DamageValues.Transmission * 100.0 / 1.0);
+                            string str3 = num2.ToString();
+                            dictionary2.Add("trailer_damage", str3);
+                            postParameters.Add("income", data.JobValues.Income.ToString());
+                            if (this.fuelconsumption > data.TruckValues.ConstantsValues.CapacityValues.Fuel)
+                            {
+                                postParameters.Add("refueled", "true");
+                            }
+                            postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
 
-                                    Console.WriteLine(this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString());
-                                    this.InitializeDiscord(0);
-                                    this.totalDistance = 0;
-                                    this.invertedDistance = 0;
-                                    this.currentPercentage = 0;
-                                    this.lastNotZeroDistance = 0;
-                                    this.lastCargoDamage = 0.0f;
-                                    this.jobID = "0";
-                                    this.jobID = null;
-                                    this.destination_lb.Text = "";
-                                    this.depature_lb.Text = "";
-                                    //this.cargo_lb.Text = translation.no_cargo_lb;
-                                    this.lastJobDictionary.Clear();
-                        this.jobFinished = false;
+                            Console.WriteLine(this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString());
+                            this.InitializeDiscord(0);
+                            this.totalDistance = 0;
+                            this.invertedDistance = 0;
+                            this.currentPercentage = 0;
+                            this.lastNotZeroDistance = 0;
+                            this.lastCargoDamage = 0.0f;
+                            this.jobID = "0";
+                            this.jobID = null;
+                            this.destination_lb.Text = "";
+                            this.depature_lb.Text = "";
+                            //this.cargo_lb.Text = translation.no_cargo_lb;
+                            this.lastJobDictionary.Clear();
+                            this.jobFinished = false;
+                        }
                     }
                     this.invertedDistance = this.totalDistance - (int)Math.Round((double)data.NavigationValues.NavigationDistance, 0);
-                    try
-                    {
-                       // this.currentPercentage = 100 * (int)data.JobValues.PlannedDistanceKm / (int)data.NavigationValues.NavigationDistance / 1000;
-                    }
-                    catch { }
                 }
             }
             catch { }
