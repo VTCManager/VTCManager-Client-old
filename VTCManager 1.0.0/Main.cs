@@ -1,5 +1,4 @@
-﻿using DiscordRPC;
-using SCSSdkClient.Object;
+﻿using SCSSdkClient.Object;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -94,7 +93,6 @@ namespace VTCManager_1._0._0
         private Label version_lb;
         private ToolStripMenuItem MenuAbmeldenButton;
         private float fuelatstart;
-        public DiscordRpcClient client;
         private ToolStripMenuItem creditsToolStripMenuItem;
         public bool discordRPCalreadrunning;
         public string CityDestination;
@@ -162,8 +160,7 @@ namespace VTCManager_1._0._0
         public string labelkmh;
         public bool refuel_beendet;
         private int jobrunningcounter;
-
-        public DiscordRpcClient Client { get; private set; }
+        private Discord discord;
 
 
         // Get a handle to an application window.
@@ -550,6 +547,7 @@ namespace VTCManager_1._0._0
                                 string str2 = num1.ToString();
                                 lastJobDictionary.Add("weight", str2);
 
+                                this.discord.onTour(data.JobValues.CityDestination, data.JobValues.CitySource, data.JobValues.CargoValues.Name, ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
 
                                 //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
                                 this.CitySource = data.JobValues.CitySource;
@@ -1420,7 +1418,7 @@ namespace VTCManager_1._0._0
         {
 
 
-
+            this.discord = new Discord();
             lbl_Revision.Text = "1207";
             labelRevision = lbl_Revision.Text;
 
@@ -1446,25 +1444,6 @@ namespace VTCManager_1._0._0
                 ats_button.Visible = true;
                 ToolTip tt = new ToolTip();
                 tt.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
-            }
-
-
-            if (Utilities.IsDiscordRunning == true)
-            {
-
-                client = new DiscordRpcClient("678939831879073792");
-                client.Initialize();
-                client.SetPresence(new RichPresence()
-                {
-                    Details = "Das ist Verwaltung!",
-                    State = "vtc.northwestvideo.de",
-                    Assets = new Assets()
-                    {
-                        LargeImageKey = "rpc1_1",
-                        LargeImageText = "VTC-Manager"
-                    }
-
-                });
             }
 
 

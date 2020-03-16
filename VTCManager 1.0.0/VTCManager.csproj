@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="API.cs" />
     <Compile Include="CacheDataObject.cs" />
+    <Compile Include="Discord.cs" />
     <Compile Include="ETS2-Pfad_Window.cs">
       <SubType>Form</SubType>
     </Compile>
