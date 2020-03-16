@@ -520,51 +520,53 @@ namespace VTCManager_1._0._0
                         {
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
+                                if (this.lastJobDictionary["cargo"] != data.JobValues.CargoValues.Name || this.lastJobDictionary["source"] != data.JobValues.CitySource || this.lastJobDictionary["destination"] != data.JobValues.CityDestination || this.lastJobDictionary["weight"] != data.JobValues.CargoValues.Mass.ToString())
+                                {
+                                    this.lastJobDictionary.Clear();
+                                    notification_sound_tour_start.Play();
+                                    this.totalDistance = (int)data.NavigationValues.NavigationDistance;
+                                    num2 = (double)data.JobValues.Income * 0.15;
+                                    this.cargo_lb.Text = "Deine Fracht: " + ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString() + " Tonnen " + data.JobValues.CargoValues.Name;
+                                    this.depature_lb.Text = "Von: " + data.JobValues.CitySource + " ( " + data.JobValues.CompanySource + " ) nach: " + data.JobValues.CityDestination + " ( " + data.JobValues.CompanyDestination + " )";
+                                    this.fuelatstart = data.TruckValues.ConstantsValues.CapacityValues.Fuel;
 
-                                notification_sound_tour_start.Play();
-                                this.totalDistance = (int)data.NavigationValues.NavigationDistance;
-                                num2 = (double)data.JobValues.Income * 0.15;
-                                this.cargo_lb.Text = "Deine Fracht: " + ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString() + " Tonnen " + data.JobValues.CargoValues.Name;
-                                this.depature_lb.Text = "Von: " + data.JobValues.CitySource + " ( " + data.JobValues.CompanySource + " ) nach: " + data.JobValues.CityDestination + " ( " + data.JobValues.CompanyDestination + " )";
-                                this.fuelatstart = data.TruckValues.ConstantsValues.CapacityValues.Fuel;
+                                    Dictionary<string, string> postParameters = new Dictionary<string, string>();
+                                    postParameters.Add("authcode", this.authCode);
+                                    postParameters.Add("cargo", data.JobValues.CargoValues.Name);
+                                    postParameters.Add("weight", ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
+                                    postParameters.Add("depature", data.JobValues.CitySource);
+                                    postParameters.Add("depature_company", data.JobValues.CompanySource);
+                                    postParameters.Add("destination_company", data.JobValues.CompanyDestination);
+                                    postParameters.Add("destination", data.JobValues.CityDestination);
+                                    postParameters.Add("truck_manufacturer", data.TruckValues.ConstantsValues.Brand);
+                                    postParameters.Add("truck_model", data.TruckValues.ConstantsValues.Name);
+                                    postParameters.Add("distance", data.JobValues.PlannedDistanceKm.ToString());
+                                    this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
 
-                                Dictionary<string, string> postParameters = new Dictionary<string, string>();
-                                postParameters.Add("authcode", this.authCode);
-                                postParameters.Add("cargo", data.JobValues.CargoValues.Name);
-                                postParameters.Add("weight", ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
-                                postParameters.Add("depature", data.JobValues.CitySource);
-                                postParameters.Add("depature_company", data.JobValues.CompanySource);
-                                postParameters.Add("destination_company", data.JobValues.CompanyDestination);
-                                postParameters.Add("destination", data.JobValues.CityDestination);
-                                postParameters.Add("truck_manufacturer", data.TruckValues.ConstantsValues.Brand);
-                                postParameters.Add("truck_model", data.TruckValues.ConstantsValues.Name);
-                                postParameters.Add("distance", data.JobValues.PlannedDistanceKm.ToString());
-                                this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
 
-                              
-                                utils.Reg_Schreiben("jobID", this.jobID);
+                                    utils.Reg_Schreiben("jobID", this.jobID);
 
-                                //this.settings.Cache.SaveJobID = this.jobID;
-                                //this.settings.SaveJobID();
-                                this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
-                                this.lastJobDictionary.Add("source", data.JobValues.CitySource);
-                                this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
-                                this.lastJobDictionary.Add("income", data.JobValues.Income.ToString());
+                                    //this.settings.Cache.SaveJobID = this.jobID;
+                                    //this.settings.SaveJobID();
+                                    
 
-                                Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
-                                num1 = data.JobValues.CargoValues.Mass;
-                                string str2 = num1.ToString();
-                                lastJobDictionary.Add("weight", str2);
+                                    Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
+                                    this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
+                                    this.lastJobDictionary.Add("source", data.JobValues.CitySource);
+                                    this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
+                                    this.lastJobDictionary.Add("income", data.JobValues.Income.ToString());
+                                    this.lastJobDictionary.Add("weight", data.JobValues.CargoValues.Mass.ToString());
 
-                                this.discord.onTour(data.JobValues.CityDestination, data.JobValues.CitySource, data.JobValues.CargoValues.Name, ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
+                                    this.discord.onTour(data.JobValues.CityDestination, data.JobValues.CitySource, data.JobValues.CargoValues.Name, ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
 
-                                //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
-                                this.CitySource = data.JobValues.CitySource;
-                                this.CityDestination = data.JobValues.CityDestination;
-                                this.InitializeDiscord(1);
-                                this.send_tour_status.Enabled = true;
-                                this.send_tour_status.Start();
-                                this.jobStarted = false;
+                                    //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
+                                    this.CitySource = data.JobValues.CitySource;
+                                    this.CityDestination = data.JobValues.CityDestination;
+                                    this.InitializeDiscord(1);
+                                    this.send_tour_status.Enabled = true;
+                                    this.send_tour_status.Start();
+                                    this.jobStarted = false;
+                                }
                             }
                         }
 
@@ -617,7 +619,7 @@ namespace VTCManager_1._0._0
                             this.destination_lb.Text = "";
                             this.depature_lb.Text = "";
                             //this.cargo_lb.Text = translation.no_cargo_lb;
-                            this.lastJobDictionary.Clear();
+                            
                             this.jobFinished = false;
                         }
                     }
