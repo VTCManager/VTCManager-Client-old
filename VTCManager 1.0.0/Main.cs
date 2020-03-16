@@ -161,6 +161,7 @@ namespace VTCManager_1._0._0
         public bool refuel_beendet;
         private int jobrunningcounter;
         private Discord discord;
+        private string uid;
 
 
         // Get a handle to an application window.
@@ -520,7 +521,8 @@ namespace VTCManager_1._0._0
                         {
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
-                                if (this.lastJobDictionary["cargo"] != data.JobValues.CargoValues.Name || this.lastJobDictionary["source"] != data.JobValues.CitySource || this.lastJobDictionary["destination"] != data.JobValues.CityDestination || this.lastJobDictionary["weight"] != data.JobValues.CargoValues.Mass.ToString())
+                                this.uid = data.JobValues.CitySourceId.ToString() + data.JobValues.CargoValues.Id.ToString() + data.JobValues.CargoValues.Mass.ToString();
+                                if (this.lastJobDictionary["uid"] != this.uid)
                                 {
                                     this.lastJobDictionary.Clear();
                                     notification_sound_tour_start.Play();
@@ -551,11 +553,7 @@ namespace VTCManager_1._0._0
                                     
 
                                     Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
-                                    this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
-                                    this.lastJobDictionary.Add("source", data.JobValues.CitySource);
-                                    this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
-                                    this.lastJobDictionary.Add("income", data.JobValues.Income.ToString());
-                                    this.lastJobDictionary.Add("weight", data.JobValues.CargoValues.Mass.ToString());
+                                    this.lastJobDictionary.Add("uid", this.uid);
 
                                     this.discord.onTour(data.JobValues.CityDestination, data.JobValues.CitySource, data.JobValues.CargoValues.Name, ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
 
@@ -583,7 +581,8 @@ namespace VTCManager_1._0._0
 
                     if (this.jobFinished)
                     {
-                        if (this.lastJobDictionary["cargo"] == data.JobValues.CargoValues.Name && this.lastJobDictionary["source"] == data.JobValues.CitySource && this.lastJobDictionary["destination"] == data.JobValues.CityDestination)
+                        this.uid = data.JobValues.CitySourceId.ToString() + data.JobValues.CargoValues.Id.ToString() + data.JobValues.CargoValues.Mass.ToString();
+                        if (this.lastJobDictionary["uid"] == this.uid)
                         {
 
                             Console.WriteLine("jobfinsiehed");
