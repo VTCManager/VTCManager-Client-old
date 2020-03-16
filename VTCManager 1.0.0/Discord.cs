@@ -49,5 +49,21 @@ namespace VTCManager_1._0._0
             client.SetPresence(rpc);
             client.Invoke();
         }
+        public void noTour()
+        {
+            RichPresence rpc = new RichPresence()
+            {
+                Details = "Frei wie der Wind",
+
+                Assets = new Assets()
+                {
+                    LargeImageKey = "truck-icon",
+                    LargeImageText = "Beyond the limits",
+                    SmallImageKey = "vtcm-logo"
+                }
+            };
+            client.SetPresence(rpc);
+            client.Invoke();
+        }
     }
 }

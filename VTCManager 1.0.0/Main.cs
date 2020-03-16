@@ -437,12 +437,14 @@ namespace VTCManager_1._0._0
 
 
                         // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
-                            label_gefahren.Visible = (data.Paused) ? false : true;
-                            label_prozent.Visible = (data.Paused) ? false : true;
-                            truck_lb.Visible = (data.Paused) ? false : true;
-                            destination_lb.Visible = (data.Paused) ? false : true;
+                            //label_gefahren.Visible = (data.Paused) ? false : true;
+                            //label_prozent.Visible = (data.Paused) ? false : true;
+                        //truck_lb.Visible = (data.Paused) ? false : true;
+                        this.truck_lb.Visible = true;
+                        destination_lb.Visible = (data.Paused) ? false : true;
                             depature_lb.Visible = (data.Paused) ? false : true;
-                            cargo_lb.Visible = (data.Paused) ? false : true;
+                        //cargo_lb.Visible = (data.Paused) ? false : true;
+                        this.cargo_lb.Visible = true;
                             Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
 
 
@@ -463,6 +465,7 @@ namespace VTCManager_1._0._0
 
                             if (data.JobValues.CargoLoaded == false)
                             {
+                                this.discord.noTour();
                                 cargo_lb.Text = "Leerfahrt";
                                 destination_lb.Visible = false;
                                 depature_lb.Text = "";
@@ -491,12 +494,18 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                            this.speed_lb.Text = translation.waiting_for_ets; ;
+                            
                         }
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
                             flag = !enumerator.MoveNext();
 
+                    }
+                    else
+                    {
+                        this.truck_lb.Visible = false;
+                        this.cargo_lb.Visible = false;
+                        this.speed_lb.Text = translation.waiting_for_ets;
                     }
   
                 label_25:
