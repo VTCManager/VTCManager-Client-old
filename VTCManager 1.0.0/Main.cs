@@ -239,7 +239,7 @@ namespace VTCManager_1._0._0
 
             this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
             this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
-            this.Telemetry.Fined += this.TelemetryFined;
+            //this.Telemetry.Fined += this.TelemetryFined;
             this.Telemetry.Tollgate += this.TelemetryTollgate;
             this.Telemetry.Ferry += this.TelemetryFerry;
             this.Telemetry.Train += this.TelemetryTrain;
