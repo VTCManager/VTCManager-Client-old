@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace VTCManager_1._0._0
 {
@@ -29,6 +30,16 @@ namespace VTCManager_1._0._0
                     }
 
                 });
+                Timer t1 = new Timer(); // Timer anlegen
+			t1.Interval = 100; // Intervall festlegen, hier 100 ms
+			t1.Elapsed += new ElapsedEventHandler(t1_Tick); // Eventhandler ezeugen der beim Timerablauf aufgerufen wird
+			t1.Start(); // Timer starten
+
+			void t1_Tick(object sender, EventArgs e)
+			{
+				// dieser Code wird ausgeführt, wenn der Timer abgelaufen ist
+				client.Invoke();
+			}
             }
         }
         public void onTour(string destination, string depature, string freight, string weight)

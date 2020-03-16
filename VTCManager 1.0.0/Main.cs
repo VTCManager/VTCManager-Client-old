@@ -253,7 +253,7 @@ namespace VTCManager_1._0._0
                 return;
             int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
 
-
+            
             
         }
 
@@ -513,17 +513,26 @@ namespace VTCManager_1._0._0
                     double num2;
                     if (this.jobStarted)
                     {
-
+                        Console.WriteLine("///STARTE TOUR_START_DEBUGGER///");
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
                             flag = !enumerator.MoveNext();
                         if (flag)
                         {
+                            Console.WriteLine("FLAG IST TRUE!!!");
+                            this.uid = data.JobValues.CitySourceId.ToString() + data.JobValues.CargoValues.Id.ToString() + data.JobValues.CargoValues.Mass.ToString();
+                        
+                            Console.WriteLine("UNIQUE TOUR ID: " + this.uid);
+                            Console.WriteLine("OLD UID: " + this.lastJobDictionary["uid"]);
+                            Console.WriteLine("UNIQUE ID BUILDER:" + data.JobValues.CitySourceId.ToString() + " " + data.JobValues.CargoValues.Id.ToString() + " " + data.JobValues.CargoValues.Mass.ToString());
+                       
                             if ((double)data.NavigationValues.NavigationDistance >= 0.1)
                             {
-                                this.uid = data.JobValues.CitySourceId.ToString() + data.JobValues.CargoValues.Id.ToString() + data.JobValues.CargoValues.Mass.ToString();
+                                Console.WriteLine("NAVIGATION DISTANCE CHECK IST TRUE!!!");
+                                
                                 if (this.lastJobDictionary["uid"] != this.uid)
                                 {
+                                    Console.WriteLine("UID CHECK IST TRUE!!!");
                                     this.lastJobDictionary.Clear();
                                     notification_sound_tour_start.Play();
                                     this.totalDistance = (int)data.NavigationValues.NavigationDistance;
