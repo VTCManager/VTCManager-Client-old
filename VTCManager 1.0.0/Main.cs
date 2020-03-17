@@ -439,12 +439,13 @@ namespace VTCManager_1._0._0
                         // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
                             //label_gefahren.Visible = (data.Paused) ? false : true;
                             //label_prozent.Visible = (data.Paused) ? false : true;
-                        //truck_lb.Visible = (data.Paused) ? false : true;
-                        this.truck_lb.Visible = true;
+                        truck_lb.Visible = (data.Paused) ? false : true;
+
+                        //this.truck_lb.Visible = true;
                         destination_lb.Visible = (data.Paused) ? false : true;
                             depature_lb.Visible = (data.Paused) ? false : true;
-                        //cargo_lb.Visible = (data.Paused) ? false : true;
-                        this.cargo_lb.Visible = true;
+                        cargo_lb.Visible = (data.Paused) ? false : true;
+                        //this.cargo_lb.Visible = true;
                             Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
 
 
@@ -459,9 +460,11 @@ namespace VTCManager_1._0._0
                            this.currentPercentage = (((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100)-100)*-1;
 
                             // SPEED LABEL - TRUCK LABEL
-                            if (data.Game.ToString() == "Ets2") { labelkmh = " KM/H";  } else { labelkmh = " mp/h"; }
+                            labelkmh = (data.Game.ToString() == "Ets2") ? " KM/H" : " mp/h";
                             speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
                             truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
+
+                        
 
                             if (data.JobValues.CargoLoaded == false)
                             {
@@ -494,7 +497,7 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
-                            
+                            speed_lb.Text = "Warte auf ETS2" + Environment.NewLine + "oder ATS..."; 
                         }
                         bool flag;
                         using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
