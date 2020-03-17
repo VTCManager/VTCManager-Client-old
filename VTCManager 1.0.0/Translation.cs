@@ -54,7 +54,7 @@ namespace VTCManager_1._0._0
             version = "Version: 1.1.0";
             if (language == "Deutsch (Deutschland)") {
                 speeding = " KM/H";
-                waiting_for_ets = "Warte auf ETS2/ATS...";
+                waiting_for_ets = "Warte auf ETS2...";
                 logout = "Abmelden";
                 login = "Anmelden";
                 ready = "Bereit";
