@@ -512,16 +512,6 @@ namespace VTCManager_1._0._0
                     double num2;
                     if (this.jobStarted)
                     {
-
-                        bool flag;
-                        using (Dictionary<string, string>.Enumerator enumerator = this.lastJobDictionary.GetEnumerator())
-                            flag = !enumerator.MoveNext();
-                        if (flag)
-                        {
-                            if ((double)data.NavigationValues.NavigationDistance >= 0.1)
-                            {
-                                if (this.lastJobDictionary["cargo"] != data.JobValues.CargoValues.Name || this.lastJobDictionary["source"] != data.JobValues.CitySource || this.lastJobDictionary["destination"] != data.JobValues.CityDestination || this.lastJobDictionary["weight"] != data.JobValues.CargoValues.Mass.ToString())
-                                {
                                     this.lastJobDictionary.Clear();
                                     notification_sound_tour_start.Play();
                                     this.totalDistance = (int)data.NavigationValues.NavigationDistance;
@@ -566,9 +556,6 @@ namespace VTCManager_1._0._0
                                     this.send_tour_status.Enabled = true;
                                     this.send_tour_status.Start();
                                     this.jobStarted = false;
-                                }
-                            }
-                        }
 
                     }
 
