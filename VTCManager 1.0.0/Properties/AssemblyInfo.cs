@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("VTC-Manager")]
-[assembly: AssemblyDescription("Spiel Client für ETS2 und ATS")]
+[assembly: AssemblyTitle("VTCManager")]
+[assembly: AssemblyDescription("Job Tracker for ETS2 and ATS")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("NorthWestMedia")]
-[assembly: AssemblyProduct("VTC-Manager")]
-[assembly: AssemblyCopyright("NortWestMedia")]
+[assembly: AssemblyCompany("TheNorthWestMediaGroup")]
+[assembly: AssemblyProduct("VTCManager")]
+[assembly: AssemblyCopyright("TheNorthWestMediaGroup")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

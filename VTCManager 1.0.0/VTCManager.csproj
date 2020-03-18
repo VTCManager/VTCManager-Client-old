@@ -6,9 +6,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AEFF0226-FE54-457F-8B94-C75136E3DDB3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>VTCManager_1._0._0</RootNamespace>
-    <AssemblyName>VTCManager 1.0.0</AssemblyName>
+    <AssemblyName>VTCManager</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <FileAlignment>512</FileAlignment>
@@ -17,25 +17,28 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\vtcm_release\</PublishUrl>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>ftp://northwestvideo.de/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://vtc.northwestvideo.de/downloads/</InstallUrl>
     <UpdateUrl>https://vtc.northwestvideo.de/downloads/</UpdateUrl>
     <SupportUrl>https://vtc.northwestvideo.de/</SupportUrl>
-    <ProductName>VTC-Manager</ProductName>
-    <PublisherName>NorthWestGameStudio</PublisherName>
-    <SuiteName>VTC-Manager</SuiteName>
+    <TargetCulture>de</TargetCulture>
+    <ProductName>VTCManager</ProductName>
+    <PublisherName>TheNorthWestMediaGrop</PublisherName>
+    <SuiteName>VTCManager</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -68,7 +71,7 @@
     <ApplicationIcon>vtcmanager-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E21F01A9D1F0715E0A3E74C06F0F916A1EDF8F13</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>DEAD164DCA9F60D6B7DFE54E444A3A0205335DA2</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>VTCManager_TemporaryKey.pfx</ManifestKeyFile>
@@ -89,6 +92,7 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="VTCManager_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.cs">

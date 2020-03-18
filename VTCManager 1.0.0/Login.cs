@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Net;
 using System.Windows.Forms;
-using System.IO;
 
 namespace VTCManager_1._0._0
 {

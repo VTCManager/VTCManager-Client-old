@@ -233,24 +233,10 @@ namespace VTCManager_1._0._0
                 MessageBox.Show("Exception: Getting traffic data from TruckyAPI");
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
-            this.Telemetry = new SCSSdkTelemetry();
-            this.Telemetry.Data += this.Telemetry_Data;
-            this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
-
-            this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
-            this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
-            //this.Telemetry.Fined += this.TelemetryFined;
-            this.Telemetry.Tollgate += this.TelemetryTollgate;
-            this.Telemetry.Ferry += this.TelemetryFerry;
-            this.Telemetry.Train += this.TelemetryTrain;
-            this.Telemetry.Refuel += this.TelemetryRefuel;
-            //this.Telemetry.RefuelEnd += TelemetryRefuelEnd;
-            //this.Telemetry.RefuelPayed += TelemetryRefuelPayed;
+            
 
 
-            if (this.Telemetry.Error == null)
-                return;
-            int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
+            
 
 
             
@@ -1495,7 +1481,22 @@ namespace VTCManager_1._0._0
                 depature_lb.Visible = true;
                 cargo_lb.Visible = true;
             }
+            this.Telemetry = new SCSSdkTelemetry();
+            this.Telemetry.Data += this.Telemetry_Data;
+            this.Telemetry.JobStarted += this.TelemetryOnJobStarted;
 
+            this.Telemetry.JobCancelled += this.TelemetryJobCancelled;
+            this.Telemetry.JobDelivered += this.TelemetryJobDelivered;
+            //this.Telemetry.Fined += this.TelemetryFined;
+            this.Telemetry.Tollgate += this.TelemetryTollgate;
+            this.Telemetry.Ferry += this.TelemetryFerry;
+            this.Telemetry.Train += this.TelemetryTrain;
+            this.Telemetry.Refuel += this.TelemetryRefuel;
+            //this.Telemetry.RefuelEnd += TelemetryRefuelEnd;
+            //this.Telemetry.RefuelPayed += TelemetryRefuelPayed;
+            if (this.Telemetry.Error == null)
+                return;
+            int num = (int)MessageBox.Show("Fehler beim Ausführen von:" + this.Telemetry.Map + "\r\n" + this.Telemetry.Error.Message + "\r\n\r\nStacktrace:\r\n" + this.Telemetry.Error.StackTrace);
 
 
         }
