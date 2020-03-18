@@ -1431,6 +1431,23 @@ namespace VTCManager_1._0._0
                 
             }
 
+            //  ################## Telemetry kopieren wenn nicht vorhanden #########################
+            string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
+            if(!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
+            {
+                File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll");
+            }
+
+            string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
+            if (!string.IsNullOrEmpty(dest_leer2))
+            {
+                if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
+                {
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll");
+                }
+            }
+
+            // ###################################### TELEMETRY COPY END ###########################
 
 
             // Background Changer
