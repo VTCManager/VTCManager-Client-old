@@ -48,13 +48,14 @@ namespace VTCManager_1._0._0
         public string speed_setup_box;
         public string settings_window;
         public string speeding;
+        public string loading_text;
 
         public Translation(String language)
         {
             version = "Version: 1.1.0";
             if (language == "Deutsch (Deutschland)") {
                 speeding = " KM/H";
-                waiting_for_ets = "Warte auf ETS2...";
+                waiting_for_ets = "Warte auf ETS2" + Environment.NewLine + "oder ATS...";
                 logout = "Abmelden";
                 login = "Anmelden";
                 ready = "Bereit";
@@ -76,12 +77,7 @@ namespace VTCManager_1._0._0
                 topmenuaccount_lb = "Account";
                 not_avail = "Demnächst verfügbar";
                 error_window = "Fehler";
-                update_message = "Änderungen in Version 1.1.0:\n" +
-                    "- Credits hinzugefügt\n" +
-                    "- Geschwindigkeit zwischen km/h und mph wählbar\n" +
-                    "- Wir haben aufgeräumt! VTCManager verbraucht jetzt\n" +
-                    "  noch weniger Ressourcen! Yeah!\n" +
-                    "- Discord RPC-Unterstützung";
+                update_message = "";
                 update_caption = "Änderungen in Version 1.1.0\n";
                 traffic_main_lb = "Verkehr";
                 statistic_panel_topic = "Statistik ";
@@ -96,10 +92,11 @@ namespace VTCManager_1._0._0
                 progress = "Fortschritt: ";
                 speed_setup_box = "Geschwindigkeit in mph?";
                 settings_window = "Einstellungen";
+                loading_text = "Lade...";
             } else
             {
                 speeding = " mp/h";
-                waiting_for_ets = "Waiting for ETS2...";
+                waiting_for_ets = "Waiting for ETS2" + Environment.NewLine + "or ATS...";
                 logout = "Logout";
                 login = "Login";
                 ready = "Ready";
@@ -141,6 +138,7 @@ namespace VTCManager_1._0._0
                 progress = "Progress: ";
                 speed_setup_box = "Speed in mph?";
                 settings_window = "Settings";
+                loading_text = "Loading...";
             }
             
         }

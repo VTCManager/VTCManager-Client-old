@@ -149,8 +149,6 @@ namespace VTCManager_1._0._0
         public float Tollgate_Payment;
         public bool Ferry;
         public bool Train;
-        private Label label_prozent;
-        private Label label_gefahren;
         public int GameRuns;
         public string Spiel;
         public string Refuel_Amount;
@@ -230,7 +228,7 @@ namespace VTCManager_1._0._0
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception: Getting traffic data from TruckyAPI");
+                MessageBox.Show("Exception: Getting traffic data from TruckyAPI" + e.Message);
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
             this.Telemetry = new SCSSdkTelemetry();
@@ -300,9 +298,8 @@ namespace VTCManager_1._0._0
             
 
             string server;
-          
 
-            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER")) == true)
+            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER")))
             {
                 this.settings.Cache.truckersmp_server = "sim1";
                 server = "sim1";
@@ -428,7 +425,7 @@ namespace VTCManager_1._0._0
                 else
                 {
                     int time = Telemetry.UpdateInterval;
-                    float num1;
+                    //float num1;
                     if (data.SdkActive)
                     {
                         CoordinateX = data.TruckValues.CurrentValues.PositionValue.Position.X;
@@ -437,31 +434,38 @@ namespace VTCManager_1._0._0
 
 
                         // EIN - AUSBLENDEN JE NACH PAUSENSTATUS
-                            //label_gefahren.Visible = (data.Paused) ? false : true;
-                            //label_prozent.Visible = (data.Paused) ? false : true;
                         truck_lb.Visible = (data.Paused) ? false : true;
-
-                        //this.truck_lb.Visible = true;
                         destination_lb.Visible = (data.Paused) ? false : true;
-                            depature_lb.Visible = (data.Paused) ? false : true;
+                        depature_lb.Visible = (data.Paused) ? false : true;
                         cargo_lb.Visible = (data.Paused) ? false : true;
-                        //this.cargo_lb.Visible = true;
-                            Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
+                        Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
+
+                        truckersMP_Button.Visible = (utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
 
 
 
                         if (data.Paused == false)
                         {
-                            // PROZENTBERECHNUNG ANFANG
-                            label_prozent.Text = "Gesamt: " + data.JobValues.PlannedDistanceKm.ToString() + " KM";
-                            label_gefahren.Text = "Reststrecke: " + Convert.ToInt32(data.NavigationValues.NavigationDistance / 1000) + " KM";
-                            // PROZENTBERECHNUNG ENDE
-
                            this.currentPercentage = (((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100)-100)*-1;
 
                             // SPEED LABEL - TRUCK LABEL
                             labelkmh = (data.Game.ToString() == "Ets2") ? " KM/H" : " mp/h";
-                            speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
+                            
+                            /* ### 1 ####
+                             * Abfrage ETS2 = Geschwindigkeit in KM/H 
+                             * bei ATS Geschwindigkeit in mph 
+                            */
+
+                            if (data.Game.ToString() == "Ets2") {
+                                speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
+                            } else
+                            {
+                                speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Mph + labelkmh;
+                            }
+                            
+                            // ## 1 ENDE ##
+
+                            // AUSGABE TRUCK MODEL etc.
                             truck_lb.Text = "Dein Truck: " + data.TruckValues.ConstantsValues.Brand + ", Modell: " + data.TruckValues.ConstantsValues.Name;
 
                         
@@ -511,7 +515,7 @@ namespace VTCManager_1._0._0
                         this.speed_lb.Text = translation.waiting_for_ets;
                     }
   
-                label_25:
+                //label_25:
                     double num2;
                     if (this.jobStarted)
                     {
@@ -705,8 +709,6 @@ namespace VTCManager_1._0._0
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label_gefahren = new System.Windows.Forms.Label();
-            this.label_prozent = new System.Windows.Forms.Label();
             this.status_jb_canc_lb = new System.Windows.Forms.Label();
             this.truck_lb = new System.Windows.Forms.Label();
             this.destination_lb = new System.Windows.Forms.Label();
@@ -970,8 +972,6 @@ namespace VTCManager_1._0._0
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.label_gefahren);
-            this.panel2.Controls.Add(this.label_prozent);
             this.panel2.Controls.Add(this.status_jb_canc_lb);
             this.panel2.Controls.Add(this.truck_lb);
             this.panel2.Controls.Add(this.destination_lb);
@@ -983,26 +983,6 @@ namespace VTCManager_1._0._0
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 582);
             this.panel2.TabIndex = 2;
-            // 
-            // label_gefahren
-            // 
-            this.label_gefahren.AutoSize = true;
-            this.label_gefahren.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_gefahren.Location = new System.Drawing.Point(59, 281);
-            this.label_gefahren.Name = "label_gefahren";
-            this.label_gefahren.Size = new System.Drawing.Size(51, 20);
-            this.label_gefahren.TabIndex = 8;
-            this.label_gefahren.Text = "label4";
-            // 
-            // label_prozent
-            // 
-            this.label_prozent.AutoSize = true;
-            this.label_prozent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_prozent.Location = new System.Drawing.Point(59, 261);
-            this.label_prozent.Name = "label_prozent";
-            this.label_prozent.Size = new System.Drawing.Size(51, 20);
-            this.label_prozent.TabIndex = 7;
-            this.label_prozent.Text = "label4";
             // 
             // status_jb_canc_lb
             // 
@@ -1420,14 +1400,12 @@ namespace VTCManager_1._0._0
 
 
             this.discord = new Discord();
-            lbl_Revision.Text = "1207";
+            lbl_Revision.Text = "1211";
             labelRevision = lbl_Revision.Text;
 
-            // Check auf REGISTR
-            utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
-            if (utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") == "")
+            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
             {
                 ETS2_Pfad_Window win = new ETS2_Pfad_Window();
                 win.Show();
@@ -1440,59 +1418,55 @@ namespace VTCManager_1._0._0
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
             }
 
-            if (utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") != "")
+            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad")))
+            {
+                utils.Reg_Schreiben("ATS_Pfad", "");
+                ats_button.Visible = false;
+            } else
             {
                 ats_button.Visible = true;
                 ToolTip tt = new ToolTip();
                 tt.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
+
+                
             }
 
 
-            // Back Test
+
+            // Background Changer
             string hintergrund = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
+            if(string.IsNullOrEmpty(hintergrund))
+                        utils.Reg_Schreiben("Background", "");
+
             if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
             else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
             else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
             else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
             else { this.BackgroundImage = null; }
+            // Background Changer ENDE 
 
+
+            // Reload Traffic in Sekunden Start
             try
             {
                 reload = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
             } catch
             {
-                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "7");
+                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
             }
-
-
             lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
 
-            if (utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "")
-            {
-                truckersMP_Button.Visible = true;
-            }
-            else
-            {
-                truckersMP_Button.Visible = false;
-            }
 
-            // TMP Button anzeigen wenn Pfad in den Settings
-            truckersMP_Button.Visible = (utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
 
             if(Utilities.IsGameRunning == false)
             {
-                speed_lb.Text = "Warte auf ETS2...";
-                label_gefahren.Visible = false;
-                label_prozent.Visible = false;
+                speed_lb.Text = translation.loading_text;
                 truck_lb.Visible = false;
                 destination_lb.Visible = false;
                 depature_lb.Visible = false;
                 cargo_lb.Visible = false;
             } else
             {
-                
-                label_gefahren.Visible = true;
-                label_prozent.Visible = true;
                 truck_lb.Visible = true;
                 destination_lb.Visible = true;
                 depature_lb.Visible = true;
