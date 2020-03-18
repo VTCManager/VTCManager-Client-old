@@ -54,8 +54,8 @@ namespace VTCManager_1._0._0
                     File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_Path + @"\scs-telemetry.dll");
 
                 }
-                catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
+                catch {
+       
                 }
            
             }
@@ -99,7 +99,7 @@ namespace VTCManager_1._0._0
             ets_pfad.Text = util2.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
             ats_pfad.Text = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
 
-            if (!File.Exists(ets_pfad.Text + @"bin\win_x64\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            if (!File.Exists(ets_pfad.Text + @"bin\win_x64\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den richtigen Pfad an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
 
 

@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>VTCManager_1._0._0</RootNamespace>
     <AssemblyName>VTCManager</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -18,10 +18,10 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\vtcm_release\</PublishUrl>
+    <PublishUrl>ftp://northwestvideo.de/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -34,9 +34,9 @@
     <ProductName>VTCManager</ProductName>
     <PublisherName>TheNorthWestMediaGrop</PublisherName>
     <SuiteName>VTCManager</SuiteName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -70,10 +70,11 @@
     <ApplicationIcon>vtcmanager-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>DEAD164DCA9F60D6B7DFE54E444A3A0205335DA2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3D62EC7446CCB021C9569C336E3ACB4A9E008680</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>VTCManager_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -91,7 +92,6 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="VTCManager_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.cs">
