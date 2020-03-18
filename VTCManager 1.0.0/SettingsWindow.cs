@@ -34,6 +34,8 @@ namespace VTCManager_1._0._0
         private TextBox txt_Anti_AFK_Text;
         private CheckBox chk_antiafk_on_off;
         private NumericUpDown Reload_Interval;
+        private GroupBox groupBox2;
+        private Label label2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
@@ -77,12 +79,15 @@ namespace VTCManager_1._0._0
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
             this.Reload_Interval = new System.Windows.Forms.NumericUpDown();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.groupBox_AntiAFK.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Reload_Interval)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -112,12 +117,13 @@ namespace VTCManager_1._0._0
             // speed_setup_box
             // 
             this.speed_setup_box.AutoSize = true;
-            this.speed_setup_box.Location = new System.Drawing.Point(26, 69);
+            this.speed_setup_box.Location = new System.Drawing.Point(199, 19);
             this.speed_setup_box.Name = "speed_setup_box";
-            this.speed_setup_box.Size = new System.Drawing.Size(144, 17);
+            this.speed_setup_box.Size = new System.Drawing.Size(55, 17);
             this.speed_setup_box.TabIndex = 2;
-            this.speed_setup_box.Text = "Geschwindigkeit in mph?";
+            this.speed_setup_box.Text = " mph?";
             this.speed_setup_box.UseVisualStyleBackColor = true;
+            this.speed_setup_box.Visible = false;
             // 
             // save_button
             // 
@@ -136,7 +142,7 @@ namespace VTCManager_1._0._0
             this.groupBox1.Controls.Add(this.speed_setup_box);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 111);
+            this.groupBox1.Size = new System.Drawing.Size(271, 75);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Einstellungen";
@@ -146,7 +152,7 @@ namespace VTCManager_1._0._0
             this.btn_TruckersMP_suchen.Controls.Add(this.truckersMP_Pfad_TextBox);
             this.btn_TruckersMP_suchen.Controls.Add(this.button1);
             this.btn_TruckersMP_suchen.Controls.Add(this.label3);
-            this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(12, 134);
+            this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(13, 90);
             this.btn_TruckersMP_suchen.Name = "btn_TruckersMP_suchen";
             this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 84);
             this.btn_TruckersMP_suchen.TabIndex = 6;
@@ -185,7 +191,7 @@ namespace VTCManager_1._0._0
             this.group_Overlay.Controls.Add(this.num_Overlay_Transparenz);
             this.group_Overlay.Controls.Add(this.label5);
             this.group_Overlay.Controls.Add(this.combo_Bildschirme);
-            this.group_Overlay.Location = new System.Drawing.Point(289, 12);
+            this.group_Overlay.Location = new System.Drawing.Point(22, 413);
             this.group_Overlay.Name = "group_Overlay";
             this.group_Overlay.Size = new System.Drawing.Size(321, 111);
             this.group_Overlay.TabIndex = 7;
@@ -238,9 +244,9 @@ namespace VTCManager_1._0._0
             // 
             this.groupBox_AntiAFK.Controls.Add(this.chk_antiafk_on_off);
             this.groupBox_AntiAFK.Controls.Add(this.txt_Anti_AFK_Text);
-            this.groupBox_AntiAFK.Location = new System.Drawing.Point(289, 134);
+            this.groupBox_AntiAFK.Location = new System.Drawing.Point(289, 12);
             this.groupBox_AntiAFK.Name = "groupBox_AntiAFK";
-            this.groupBox_AntiAFK.Size = new System.Drawing.Size(321, 84);
+            this.groupBox_AntiAFK.Size = new System.Drawing.Size(321, 75);
             this.groupBox_AntiAFK.TabIndex = 9;
             this.groupBox_AntiAFK.TabStop = false;
             this.groupBox_AntiAFK.Text = "Anti - AFK";
@@ -264,17 +270,37 @@ namespace VTCManager_1._0._0
             // 
             // Reload_Interval
             // 
-            this.Reload_Interval.Location = new System.Drawing.Point(217, 249);
+            this.Reload_Interval.Location = new System.Drawing.Point(199, 17);
             this.Reload_Interval.Name = "Reload_Interval";
             this.Reload_Interval.Size = new System.Drawing.Size(65, 20);
             this.Reload_Interval.TabIndex = 10;
             this.Reload_Interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reload_Interval.ValueChanged += new System.EventHandler(this.Reload_Interval_ValueChanged);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.Reload_Interval);
+            this.groupBox2.Location = new System.Drawing.Point(289, 90);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(321, 84);
+            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Verkehrseinstellungen";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(187, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Reload-Intervall Verkehr in Sekunden:";
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
-            this.Controls.Add(this.Reload_Interval);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox_AntiAFK);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
@@ -296,6 +322,8 @@ namespace VTCManager_1._0._0
             this.groupBox_AntiAFK.ResumeLayout(false);
             this.groupBox_AntiAFK.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Reload_Interval)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
