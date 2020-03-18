@@ -1385,10 +1385,10 @@ namespace VTCManager_1._0._0
         {
 
 
+
             this.discord = new Discord();
             lbl_Revision.Text = "1211";
             labelRevision = lbl_Revision.Text;
-
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
             if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
@@ -1418,18 +1418,29 @@ namespace VTCManager_1._0._0
             }
 
             //  ################## Telemetry kopieren wenn nicht vorhanden #########################
-            string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-            if(!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
-            {
-                File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll");
-            }
 
-            string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
-            if (!string.IsNullOrEmpty(dest_leer2))
+            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
             {
-                if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
+                ETS2_Pfad_Window win = new ETS2_Pfad_Window();
+                win.Show();
+                win.Focus();
+                this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            }
+            else
+            {
+                string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
+                if (!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
                 {
-                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll");
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll");
+                }
+
+                string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
+                if (!string.IsNullOrEmpty(dest_leer2))
+                {
+                    if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
+                    {
+                        File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll");
+                    }
                 }
             }
 
@@ -1441,18 +1452,23 @@ namespace VTCManager_1._0._0
             if(string.IsNullOrEmpty(hintergrund))
                         utils.Reg_Schreiben("Background", "");
 
-            if (hintergrund.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
-            else if (hintergrund == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
-            else if (hintergrund == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
-            else if (hintergrund == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
+            string hintergrund2 = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
+            if (hintergrund2.ToString() == "oldcar1") { this.BackgroundImage = Properties.Resources.oldcar1; }
+            else if (hintergrund2 == "oldcar2") { this.BackgroundImage = Properties.Resources.oldcar2; }
+            else if (hintergrund2 == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
+            else if (hintergrund2 == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
             else { this.BackgroundImage = null; }
             // Background Changer ENDE 
 
+            string reload2 = utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
+            if (string.IsNullOrEmpty(reload2))
+                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
-            // Reload Traffic in Sekunden Start
+
             try
             {
                 reload = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
+               
             } catch
             {
                 utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
@@ -1602,6 +1618,10 @@ namespace VTCManager_1._0._0
 
         private void updateTraffic_Tick(object sender, EventArgs e)
         {
+            string reload2 = utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
+            if (string.IsNullOrEmpty(reload2))
+                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
+
             int wert = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
             updateTraffic.Interval = wert * 1000;
             lbl_Reload_Time.Text = "Reload-Interval: " + wert + " Sek.";
