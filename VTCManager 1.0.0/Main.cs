@@ -1387,7 +1387,7 @@ namespace VTCManager_1._0._0
 
 
             this.discord = new Discord();
-            lbl_Revision.Text = "1212";
+            lbl_Revision.Text = "1213";
             labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
