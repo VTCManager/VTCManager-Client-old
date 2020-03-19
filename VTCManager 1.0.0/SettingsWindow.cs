@@ -33,9 +33,6 @@ namespace VTCManager_1._0._0
         private GroupBox groupBox_AntiAFK;
         private TextBox txt_Anti_AFK_Text;
         private CheckBox chk_antiafk_on_off;
-        private NumericUpDown Reload_Interval;
-        private GroupBox groupBox2;
-        private Label label2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
@@ -78,16 +75,11 @@ namespace VTCManager_1._0._0
             this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
-            this.Reload_Interval = new System.Windows.Forms.NumericUpDown();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.groupBox_AntiAFK.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Reload_Interval)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -268,39 +260,9 @@ namespace VTCManager_1._0._0
             this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
             this.txt_Anti_AFK_Text.TabIndex = 0;
             // 
-            // Reload_Interval
-            // 
-            this.Reload_Interval.Location = new System.Drawing.Point(199, 17);
-            this.Reload_Interval.Name = "Reload_Interval";
-            this.Reload_Interval.Size = new System.Drawing.Size(65, 20);
-            this.Reload_Interval.TabIndex = 10;
-            this.Reload_Interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reload_Interval.ValueChanged += new System.EventHandler(this.Reload_Interval_ValueChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.Reload_Interval);
-            this.groupBox2.Location = new System.Drawing.Point(289, 90);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(321, 84);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Verkehrseinstellungen";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(187, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Reload-Intervall Verkehr in Sekunden:";
-            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox_AntiAFK);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
@@ -321,9 +283,6 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
             this.groupBox_AntiAFK.ResumeLayout(false);
             this.groupBox_AntiAFK.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Reload_Interval)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -403,7 +362,6 @@ namespace VTCManager_1._0._0
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
             group_Overlay.Visible = false;
-            Reload_Interval.Value = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
 
             var test = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             if (test == "") {
@@ -484,9 +442,5 @@ namespace VTCManager_1._0._0
                 
         }
 
-        private void Reload_Interval_ValueChanged(object sender, EventArgs e)
-        {
-            utils.Reg_Schreiben("Reload_Traffic_Sekunden", Reload_Interval.Value.ToString());
-        }
     }
 }

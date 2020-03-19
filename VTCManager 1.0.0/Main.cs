@@ -1432,6 +1432,10 @@ namespace VTCManager_1._0._0
             }
             else
             {
+                ets2_button.Visible = true;
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
+
                 string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
                 if (!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
                 {
@@ -1441,6 +1445,10 @@ namespace VTCManager_1._0._0
                 string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
                 if (!string.IsNullOrEmpty(dest_leer2))
                 {
+                    ats_button.Visible = true;
+                    ToolTip tt2 = new ToolTip();
+                    tt2.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
+
                     if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
                     {
                         File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll");
