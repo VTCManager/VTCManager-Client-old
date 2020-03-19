@@ -1387,10 +1387,11 @@ namespace VTCManager_1._0._0
 
 
             this.discord = new Discord();
-            lbl_Revision.Text = "1211";
+            lbl_Revision.Text = "1212";
             labelRevision = lbl_Revision.Text;
 
             // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
+            /*
             if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
             {
                 ETS2_Pfad_Window win = new ETS2_Pfad_Window();
@@ -1416,8 +1417,10 @@ namespace VTCManager_1._0._0
 
                 
             }
-
+            */
             //  ################## Telemetry kopieren wenn nicht vorhanden #########################
+
+            
 
             if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
             {
@@ -1425,6 +1428,7 @@ namespace VTCManager_1._0._0
                 win.Show();
                 win.Focus();
                 this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+                return;
             }
             else
             {
@@ -1460,19 +1464,10 @@ namespace VTCManager_1._0._0
             else { this.BackgroundImage = null; }
             // Background Changer ENDE 
 
-            string reload2 = utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden");
-            if (string.IsNullOrEmpty(reload2))
-                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
 
 
-            try
-            {
-                reload = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "Reload_Traffic_Sekunden"));
-               
-            } catch
-            {
-                utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
-            }
+            utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
+           
             lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
 
 

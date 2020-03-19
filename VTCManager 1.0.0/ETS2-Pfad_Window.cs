@@ -101,19 +101,12 @@ namespace VTCManager_1._0._0
 
             if (!File.Exists(ets_pfad.Text + @"bin\win_x64\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den richtigen Pfad an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-
-
-            //if (!File.Exists(ats_pfad.Text + @"\amtrucks.exe")) { MessageBox.Show("In diesem Ordner ist keine Spieldatei von ATS ! " + Environment.NewLine + "Bitte gibt den Pfad bis: win_x64 an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-
-
-            this.Dispose();
             this.Close();
         }
 
         private void ETS2_Pfad_Window_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (ets_pfad.Text == "") { Application.Exit(); }
-            if (ats_pfad.Text == "") { Application.Exit(); }
+            return;
         }
 
 
