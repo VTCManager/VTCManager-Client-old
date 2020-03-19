@@ -60,7 +60,7 @@ namespace VTCManager_1._0._0
                 login = "Anmelden";
                 ready = "Bereit";
                 password = "Passwort";
-                login_username = "Benutzername (nur für Beta-Tester)";
+                login_username = "Benutzername";
                 login_failed = "Benutzername oder Passwort falsch!";
                 update_part1 = "Es ist ein neues Update(Version ";
                 update_part2 = ") für VTCManager verfügbar! Bitte aktualisiere VTCManager.";
@@ -100,7 +100,7 @@ namespace VTCManager_1._0._0
                 logout = "Logout";
                 login = "Login";
                 ready = "Ready";
-                login_username = "Username (only for beta user)";
+                login_username = "Username";
                 password = "Password";
                 login_failed = "Username or password is wrong!";
                 update_part1 = "An new update(version ";

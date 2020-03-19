@@ -50,14 +50,14 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Red;
-            this.label1.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Verdana", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label1.Location = new System.Drawing.Point(156, 18);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(10);
             this.label1.Size = new System.Drawing.Size(474, 57);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Bitte gib die Spielpfade an !";
+            this.label1.Text = "Bitte gib die Installationspfade an !";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ets_pfad
@@ -148,9 +148,10 @@
             this.label2.Location = new System.Drawing.Point(156, 126);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(3);
-            this.label2.Size = new System.Drawing.Size(254, 19);
+            this.label2.Size = new System.Drawing.Size(307, 19);
             this.label2.TabIndex = 8;
-            this.label2.Text = "( Pfad bis Euro Truck Simulator 2 Ordner angeben!)";
+            this.label2.Text = "( Pfad bis Euro Truck Simulator 2 Installationsordner angeben!)";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -160,9 +161,9 @@
             this.label3.Location = new System.Drawing.Point(156, 232);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(3);
-            this.label3.Size = new System.Drawing.Size(267, 19);
+            this.label3.Size = new System.Drawing.Size(320, 19);
             this.label3.TabIndex = 9;
-            this.label3.Text = "( Pfad bis American Truck Simulator Ordner angeben!)";
+            this.label3.Text = "( Pfad bis American Truck Simulator Installationsordner angeben!)";
             // 
             // pictureBox3
             // 
