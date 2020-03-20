@@ -43,13 +43,15 @@ namespace VTCManager_1._0._0
         private System.Windows.Forms.OpenFileDialog ATS_FileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
-        public SettingsWindow() {
+        public SettingsWindow(Translation translation) {
             this.data = new SettingsManager();
             this.data.LoadJobID();
-            CultureInfo ci = CultureInfo.InstalledUICulture;
-            this.translation = new Translation(ci.DisplayName);
 
             this.InitializeComponent();
+            this.save_button.Text = translation.settings_window_save_button;
+            this.groupBox1.Text = translation.settings_window_groupBox1text;
+            this.btn_TruckersMP_suchen.Text = translation.btn_TruckersMP_suchentext;
+            this.label3.Text = translation.settings_window_label3text;
             this.comboBox1.Text = this.data.Cache.truckersmp_server;
 
         }

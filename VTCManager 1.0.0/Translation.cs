@@ -49,10 +49,15 @@ namespace VTCManager_1._0._0
         public string settings_window;
         public string speeding;
         public string loading_text;
+        public string settings_window_save_button;
+        public string settings_window_groupBox1text;
+        public string btn_TruckersMP_suchentext;
+        public string settings_window_label3text;
 
         public Translation(String language)
         {
             version = "Version: 1.1.0";
+            language = "debug_lan";
             if (language == "Deutsch (Deutschland)") {
                 speeding = " KM/H";
                 waiting_for_ets = "Warte auf ETS2" + Environment.NewLine + "oder ATS...";
@@ -93,6 +98,10 @@ namespace VTCManager_1._0._0
                 speed_setup_box = "Geschwindigkeit in mph?";
                 settings_window = "Einstellungen";
                 loading_text = "Lade...";
+                settings_window_save_button = "Speichern...";
+                settings_window_groupBox1text = "Server Einstellungen";
+                btn_TruckersMP_suchentext = "TruckersMP Einstellungen";
+                settings_window_label3text = "TruckersMP Pfad";
             } else
             {
                 speeding = " mp/h";
@@ -139,6 +148,10 @@ namespace VTCManager_1._0._0
                 speed_setup_box = "Speed in mph?";
                 settings_window = "Settings";
                 loading_text = "Loading...";
+                settings_window_save_button = "Save...";
+                settings_window_groupBox1text = "Server Settings";
+                btn_TruckersMP_suchentext = "TruckersMP Settings";
+                settings_window_label3text = "Path to TruckersMP";
             }
             
         }

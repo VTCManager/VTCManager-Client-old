@@ -1357,7 +1357,7 @@ namespace VTCManager_1._0._0
 
         private void einstellungenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            SettingsWindow Settingswindow = new SettingsWindow();
+            SettingsWindow Settingswindow = new SettingsWindow(this.translation);
             Settingswindow.FormClosing += new FormClosingEventHandler(ChildFormClosing);
             Settingswindow.ShowDialog();
         }
@@ -1527,7 +1527,7 @@ namespace VTCManager_1._0._0
 
         private void einstellungenToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form sw = new SettingsWindow();
+            Form sw = new SettingsWindow(this.translation);
             sw.ShowDialog();
 
         }
