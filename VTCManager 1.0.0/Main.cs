@@ -1299,7 +1299,7 @@ namespace VTCManager_1._0._0
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Revision:";
+            this.label3.Text = "Version:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Main
@@ -1386,7 +1386,7 @@ namespace VTCManager_1._0._0
         {
 
             this.discord = new Discord();
-            lbl_Revision.Text = "1214";
+            lbl_Revision.Text = "2.0.2";
             labelRevision = lbl_Revision.Text;
 
 
