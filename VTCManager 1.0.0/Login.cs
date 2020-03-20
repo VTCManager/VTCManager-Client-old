@@ -44,7 +44,7 @@ namespace VTCManager_1._0._0
         // Edit by Thommy
         // Auf Öffentlichkeit prüfen || true = Öffentlich || false = keine Prüfung
         private bool oeffentlich = false;
-
+        public int spender = 0;
 
         public Login(bool debug) {
             this.debug = debug;

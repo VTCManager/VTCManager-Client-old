@@ -17,7 +17,6 @@ namespace VTCManager_1._0._0
         private Label label1;
         private SettingsManager data;
         private Translation translation;
-        private CheckBox speed_setup_box;
         private Button save_button;
         private GroupBox groupBox1;
         private GroupBox btn_TruckersMP_suchen;
@@ -34,6 +33,14 @@ namespace VTCManager_1._0._0
         private GroupBox groupBox_AntiAFK;
         private TextBox txt_Anti_AFK_Text;
         private CheckBox chk_antiafk_on_off;
+        private Button Ats_Suche;
+        private Label label4;
+        private TextBox ATS_Pfad_Textbox;
+        private Button Ets_Suche;
+        private Label label2;
+        private TextBox ETS2_Pfad_Textbox;
+        private System.Windows.Forms.OpenFileDialog ETS2_FileDialog;
+        private System.Windows.Forms.OpenFileDialog ATS_FileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
         public SettingsWindow() {
@@ -44,26 +51,22 @@ namespace VTCManager_1._0._0
 
             this.InitializeComponent();
             this.comboBox1.Text = this.data.Cache.truckersmp_server;
-            this.speed_setup_box.Text = translation.speed_setup_box;
-            this.Text = translation.settings_window;
-            if (this.data.Cache.speed_mode == "mph")
-            {
-                this.speed_setup_box.Checked = true;
-            }
-            else
-            {
-                this.speed_setup_box.Checked = false;
-            }
+
         }
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.speed_setup_box = new System.Windows.Forms.CheckBox();
             this.save_button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_TruckersMP_suchen = new System.Windows.Forms.GroupBox();
+            this.Ats_Suche = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ATS_Pfad_Textbox = new System.Windows.Forms.TextBox();
+            this.Ets_Suche = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.ETS2_Pfad_Textbox = new System.Windows.Forms.TextBox();
             this.truckersMP_Pfad_TextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -76,6 +79,8 @@ namespace VTCManager_1._0._0
             this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
+            this.ETS2_FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ATS_FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
@@ -92,9 +97,9 @@ namespace VTCManager_1._0._0
             "Arcade",
             "EU Promods 1",
             "EU Promods 2"});
-            this.comboBox1.Location = new System.Drawing.Point(26, 42);
+            this.comboBox1.Location = new System.Drawing.Point(131, 23);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(136, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.Text = "Simulation 1";
             // 
@@ -106,17 +111,6 @@ namespace VTCManager_1._0._0
             this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "TruckersMP-Server:";
-            // 
-            // speed_setup_box
-            // 
-            this.speed_setup_box.AutoSize = true;
-            this.speed_setup_box.Location = new System.Drawing.Point(199, 19);
-            this.speed_setup_box.Name = "speed_setup_box";
-            this.speed_setup_box.Size = new System.Drawing.Size(55, 17);
-            this.speed_setup_box.TabIndex = 2;
-            this.speed_setup_box.Text = " mph?";
-            this.speed_setup_box.UseVisualStyleBackColor = true;
-            this.speed_setup_box.Visible = false;
             // 
             // save_button
             // 
@@ -132,7 +126,6 @@ namespace VTCManager_1._0._0
             // 
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.speed_setup_box);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(271, 75);
@@ -142,15 +135,73 @@ namespace VTCManager_1._0._0
             // 
             // btn_TruckersMP_suchen
             // 
+            this.btn_TruckersMP_suchen.Controls.Add(this.Ats_Suche);
+            this.btn_TruckersMP_suchen.Controls.Add(this.label4);
+            this.btn_TruckersMP_suchen.Controls.Add(this.ATS_Pfad_Textbox);
+            this.btn_TruckersMP_suchen.Controls.Add(this.Ets_Suche);
+            this.btn_TruckersMP_suchen.Controls.Add(this.label2);
+            this.btn_TruckersMP_suchen.Controls.Add(this.ETS2_Pfad_Textbox);
             this.btn_TruckersMP_suchen.Controls.Add(this.truckersMP_Pfad_TextBox);
             this.btn_TruckersMP_suchen.Controls.Add(this.button1);
             this.btn_TruckersMP_suchen.Controls.Add(this.label3);
             this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(13, 90);
             this.btn_TruckersMP_suchen.Name = "btn_TruckersMP_suchen";
-            this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 84);
+            this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 186);
             this.btn_TruckersMP_suchen.TabIndex = 6;
             this.btn_TruckersMP_suchen.TabStop = false;
             this.btn_TruckersMP_suchen.Text = "TruckersMP Einstellungen";
+            // 
+            // Ats_Suche
+            // 
+            this.Ats_Suche.Location = new System.Drawing.Point(241, 128);
+            this.Ats_Suche.Name = "Ats_Suche";
+            this.Ats_Suche.Size = new System.Drawing.Size(25, 22);
+            this.Ats_Suche.TabIndex = 16;
+            this.Ats_Suche.Text = "...";
+            this.Ats_Suche.UseVisualStyleBackColor = true;
+            this.Ats_Suche.Click += new System.EventHandler(this.Ats_Suche_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(70, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Pfad zu ATS:";
+            // 
+            // ATS_Pfad_Textbox
+            // 
+            this.ATS_Pfad_Textbox.Location = new System.Drawing.Point(7, 130);
+            this.ATS_Pfad_Textbox.Name = "ATS_Pfad_Textbox";
+            this.ATS_Pfad_Textbox.Size = new System.Drawing.Size(228, 20);
+            this.ATS_Pfad_Textbox.TabIndex = 14;
+            // 
+            // Ets_Suche
+            // 
+            this.Ets_Suche.Location = new System.Drawing.Point(241, 81);
+            this.Ets_Suche.Name = "Ets_Suche";
+            this.Ets_Suche.Size = new System.Drawing.Size(25, 22);
+            this.Ets_Suche.TabIndex = 13;
+            this.Ets_Suche.Text = "...";
+            this.Ets_Suche.UseVisualStyleBackColor = true;
+            this.Ets_Suche.Click += new System.EventHandler(this.Ets_Suche_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 67);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Pfad zu ETS 2:";
+            // 
+            // ETS2_Pfad_Textbox
+            // 
+            this.ETS2_Pfad_Textbox.Location = new System.Drawing.Point(7, 83);
+            this.ETS2_Pfad_Textbox.Name = "ETS2_Pfad_Textbox";
+            this.ETS2_Pfad_Textbox.Size = new System.Drawing.Size(228, 20);
+            this.ETS2_Pfad_Textbox.TabIndex = 11;
             // 
             // truckersMP_Pfad_TextBox
             // 
@@ -260,6 +311,15 @@ namespace VTCManager_1._0._0
             this.txt_Anti_AFK_Text.Name = "txt_Anti_AFK_Text";
             this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
             this.txt_Anti_AFK_Text.TabIndex = 0;
+            this.txt_Anti_AFK_Text.Enabled = false;
+            // 
+            // ETS2_FileDialog
+            // 
+            this.ETS2_FileDialog.FileName = "eurotrucks2.exe";
+            // 
+            // ATS_FileDialog
+            // 
+            this.ATS_FileDialog.FileName = "amtrucks.exe";
             // 
             // SettingsWindow
             // 
@@ -326,30 +386,26 @@ namespace VTCManager_1._0._0
                 this.data.Cache.truckersmp_server = this.selected_server_tm;
                 util.Reg_Schreiben("verkehr_SERVER", "eupromods2");
             }
-            if (speed_setup_box.Checked)
-            {
-                this.data.Cache.speed_mode = "mph";
-                util.Reg_Schreiben("speed_MODE", "mph");
-            }
-            else
-            {
-                this.data.Cache.speed_mode = "kmh";
-                util.Reg_Schreiben("speed_MODE", "kmh");
-            }
+
 
             // ANTI_AFK
+            // TODO-- SPENDER 
+
+
             util.Reg_Schreiben("ANTI_AFK", txt_Anti_AFK_Text.Text);
            if(chk_antiafk_on_off.CheckState == CheckState.Checked)
-            {
+           {
                 if(txt_Anti_AFK_Text.Text == "")
                 {
-                    util.Reg_Schreiben("ANTI_AFK", "Der neue VTC-Manager wünscht Gute und Sichere Fahrt !");
+                    util.Reg_Schreiben("ANTI_AFK", "VTCManager wünscht Gute und Sichere Fahrt!");
                 }
                 util.Reg_Schreiben("ANTI_AFK_AN", "1");
             } else
             {
                 util.Reg_Schreiben("ANTI_AFK_AN","0");
             }
+
+       
 
 
             this.data.SaveJobID();
@@ -373,7 +429,11 @@ namespace VTCManager_1._0._0
             string wert28 = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             string wert30 = utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
             string wert31 = utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
+            ETS2_Pfad_Textbox.Text = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
+            ETS2_Pfad_Textbox.Enabled = (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad"))) ? true : false;
 
+            ATS_Pfad_Textbox.Text = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
+            ATS_Pfad_Textbox.Enabled = (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad"))) ? true : false;
 
             if (wert28 != null)
             {
@@ -443,5 +503,33 @@ namespace VTCManager_1._0._0
                 
         }
 
+        private void Ets_Suche_Click(object sender, EventArgs e)
+        {
+            //var pfad_suchen = ETS2_FileDialog.ShowDialog();
+            ETS2_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + @"bin\win_x64\";
+            ETS2_FileDialog.Filter = "Eurotruck Simulator 2 (eurotrucks2.exe)|eurotrucks2.exe";
+            if (ETS2_FileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ETS2_Pfad_Textbox.Text = ETS2_FileDialog.FileName.ToString();
+                ETS2_Pfad_Textbox.Enabled = false;
+                utils.Reg_Schreiben("ETS2_Pfad", ETS2_FileDialog.FileName.ToString());
+            }
+        }
+
+        private void Ats_Suche_Click(object sender, EventArgs e)
+        {
+            ATS_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + @"bin\win_x64\";
+            if(string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad")))
+            {
+                ATS_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
+            }
+            ATS_FileDialog.Filter = "American Truck Simulator (amtrucks.exe)|amtrucks.exe";
+            if (ATS_FileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ATS_Pfad_Textbox.Text = ATS_FileDialog.FileName.ToString();
+                ATS_Pfad_Textbox.Enabled = false;
+                utils.Reg_Schreiben("ETS2_Pfad", ATS_FileDialog.FileName.ToString());
+            }
+        }
     }
 }

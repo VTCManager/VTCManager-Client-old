@@ -160,7 +160,6 @@ namespace VTCManager_1._0._0
         private int jobrunningcounter;
         private Discord discord;
 
-
         // Get a handle to an application window.
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName,
@@ -432,6 +431,8 @@ namespace VTCManager_1._0._0
 
                         if (data.Paused == false)
                         {
+                            GameRuns = 1;
+
                            this.currentPercentage = (((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100)-100)*-1;
 
                             // SPEED LABEL - TRUCK LABEL
@@ -1287,7 +1288,7 @@ namespace VTCManager_1._0._0
             // anti_AFK_TIMER
             // 
             this.anti_AFK_TIMER.Enabled = true;
-            this.anti_AFK_TIMER.Interval = 10000;
+            this.anti_AFK_TIMER.Interval = 240000;
             this.anti_AFK_TIMER.Tick += new System.EventHandler(this.anti_AFK_TIMER_Tick);
             // 
             // label3
@@ -1384,44 +1385,28 @@ namespace VTCManager_1._0._0
         private void Main_Load(object sender, EventArgs e)
         {
 
-
-
             this.discord = new Discord();
-            lbl_Revision.Text = "1213";
+            lbl_Revision.Text = "1214";
             labelRevision = lbl_Revision.Text;
 
-            // Prüfen ob ETS2 und ATS Pfade angegeben sind. Wenn nicht -> Dialog
-            /*
-            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
-            {
-                ETS2_Pfad_Window win = new ETS2_Pfad_Window();
-                win.Show();
-                win.Focus();
-                this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            } else
-            {
-                ets2_button.Visible = true;
-                ToolTip tt = new ToolTip();
-                tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
-            }
 
-            if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad")))
-            {
-                utils.Reg_Schreiben("ATS_Pfad", "");
-                ats_button.Visible = false;
-            } else
-            {
-                ats_button.Visible = true;
-                ToolTip tt = new ToolTip();
-                tt.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
+            // ################## CHECK ob der AFK Text bei nicht Spendern stimmt ##################
+            int spender = 0;
+            if (spender == 0)
+                utils.Reg_Schreiben("ANTI_AFK", "VTCManager wünscht Gute und Sichere Fahrt!");
 
+
+            // ################## ANTI_AFK #########################################################
+            anti_AFK_TIMER.Enabled = (Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN")) == 1) ? true : false;
+    
                 
-            }
-            */
+
+
+
+
             //  ################## Telemetry kopieren wenn nicht vorhanden #########################
 
-            
-
+            // PLUGINS ORDNER WENN NICHT VORHANDEN
             if (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad")))
             {
                 ETS2_Pfad_Window win = new ETS2_Pfad_Window();
@@ -1437,17 +1422,24 @@ namespace VTCManager_1._0._0
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
 
                 string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
+                if (!Directory.Exists(dest_leer + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"bin\win_x64\plugins"); }
+
                 if (!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
                 {
                     File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll");
                 }
 
+
+               
                 string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
+                if (!Directory.Exists(dest_leer2 + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer2 + @"bin\win_x64\plugins"); }
                 if (!string.IsNullOrEmpty(dest_leer2))
                 {
                     ats_button.Visible = true;
                     ToolTip tt2 = new ToolTip();
                     tt2.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
+
+
 
                     if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
                     {
@@ -1665,7 +1657,12 @@ namespace VTCManager_1._0._0
 
         private void anti_AFK_TIMER_Tick(object sender, EventArgs e)
         {
-
+            if(GameRuns == 1)
+            {
+                SendKeys.Send("y");
+                SendKeys.Send(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK"));
+                SendKeys.Send("{Enter}");
+            }
         }
 
         private void oldCar1ToolStripMenuItem_Click(object sender, EventArgs e)
