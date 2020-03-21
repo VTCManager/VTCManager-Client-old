@@ -159,6 +159,7 @@ namespace VTCManager_1._0._0
         public bool refuel_beendet;
         private int jobrunningcounter;
         private Discord discord;
+        public float Geschwindigkeit;
 
         // Get a handle to an application window.
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
@@ -445,9 +446,11 @@ namespace VTCManager_1._0._0
 
                             if (data.Game.ToString() == "Ets2") {
                                 speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
+                                Geschwindigkeit = (float)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph;
                             } else
                             {
                                 speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Mph + labelkmh;
+                                Geschwindigkeit = (float)data.TruckValues.CurrentValues.DashboardValues.Speed.Mph;
                             }
                             
                             // ## 1 ENDE ##
@@ -1659,9 +1662,13 @@ namespace VTCManager_1._0._0
         {
             if(GameRuns == 1)
             {
-                SendKeys.Send("y");
-                SendKeys.Send(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK"));
-                SendKeys.Send("{Enter}");
+                if (Geschwindigkeit < 1)
+                {
+                    SendKeys.Send("y");
+                    SendKeys.Send(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK"));
+                    SendKeys.Send("{Enter}");
+
+                }
             }
         }
 
