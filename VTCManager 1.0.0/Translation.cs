@@ -57,7 +57,6 @@ namespace VTCManager_1._0._0
         public Translation(String language)
         {
             version = "Version: 1.1.0";
-            language = "debug_lan";
             if (language == "Deutsch (Deutschland)") {
                 speeding = " KM/H";
                 waiting_for_ets = "Warte auf ETS2" + Environment.NewLine + "oder ATS...";
