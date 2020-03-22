@@ -41,7 +41,14 @@ namespace VTCManager_1._0._0
         private TextBox ETS2_Pfad_Textbox;
         private System.Windows.Forms.OpenFileDialog ETS2_FileDialog;
         private System.Windows.Forms.OpenFileDialog ATS_FileDialog;
+        private Label label8;
+        private Label label7;
+        private NumericUpDown reload_antiafk;
+        private PictureBox pictureBox1;
+        private Label label9;
+        private Label Settings_Windows_Label_Settings;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        
 
         public SettingsWindow(Translation translation) {
             this.data = new SettingsManager();
@@ -79,15 +86,23 @@ namespace VTCManager_1._0._0
             this.combo_Bildschirme = new System.Windows.Forms.ComboBox();
             this.tmp_Trucker = new System.Windows.Forms.OpenFileDialog();
             this.groupBox_AntiAFK = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.reload_antiafk = new System.Windows.Forms.NumericUpDown();
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
             this.ETS2_FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.ATS_FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Settings_Windows_Label_Settings = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).BeginInit();
             this.groupBox_AntiAFK.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.reload_antiafk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -99,7 +114,7 @@ namespace VTCManager_1._0._0
             "Arcade",
             "EU Promods 1",
             "EU Promods 2"});
-            this.comboBox1.Location = new System.Drawing.Point(131, 23);
+            this.comboBox1.Location = new System.Drawing.Point(171, 23);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(136, 21);
             this.comboBox1.TabIndex = 0;
@@ -108,7 +123,7 @@ namespace VTCManager_1._0._0
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 26);
+            this.label1.Location = new System.Drawing.Point(14, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 1;
@@ -128,9 +143,9 @@ namespace VTCManager_1._0._0
             // 
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(288, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 75);
+            this.groupBox1.Size = new System.Drawing.Size(321, 62);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Einstellungen";
@@ -146,12 +161,12 @@ namespace VTCManager_1._0._0
             this.btn_TruckersMP_suchen.Controls.Add(this.truckersMP_Pfad_TextBox);
             this.btn_TruckersMP_suchen.Controls.Add(this.button1);
             this.btn_TruckersMP_suchen.Controls.Add(this.label3);
-            this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(13, 90);
+            this.btn_TruckersMP_suchen.Location = new System.Drawing.Point(12, 129);
             this.btn_TruckersMP_suchen.Name = "btn_TruckersMP_suchen";
             this.btn_TruckersMP_suchen.Size = new System.Drawing.Size(270, 186);
             this.btn_TruckersMP_suchen.TabIndex = 6;
             this.btn_TruckersMP_suchen.TabStop = false;
-            this.btn_TruckersMP_suchen.Text = "TruckersMP Einstellungen";
+            this.btn_TruckersMP_suchen.Text = "Game und Multiplayer";
             // 
             // Ats_Suche
             // 
@@ -288,19 +303,75 @@ namespace VTCManager_1._0._0
             // 
             // groupBox_AntiAFK
             // 
+            this.groupBox_AntiAFK.Controls.Add(this.label9);
+            this.groupBox_AntiAFK.Controls.Add(this.label8);
+            this.groupBox_AntiAFK.Controls.Add(this.label7);
+            this.groupBox_AntiAFK.Controls.Add(this.reload_antiafk);
             this.groupBox_AntiAFK.Controls.Add(this.chk_antiafk_on_off);
             this.groupBox_AntiAFK.Controls.Add(this.txt_Anti_AFK_Text);
-            this.groupBox_AntiAFK.Location = new System.Drawing.Point(289, 12);
+            this.groupBox_AntiAFK.Location = new System.Drawing.Point(288, 198);
             this.groupBox_AntiAFK.Name = "groupBox_AntiAFK";
-            this.groupBox_AntiAFK.Size = new System.Drawing.Size(321, 75);
+            this.groupBox_AntiAFK.Size = new System.Drawing.Size(321, 95);
             this.groupBox_AntiAFK.TabIndex = 9;
             this.groupBox_AntiAFK.TabStop = false;
             this.groupBox_AntiAFK.Text = "Anti - AFK";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 19);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(31, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Text:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(268, 69);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "in Min.";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(168, 69);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Reload:";
+            // 
+            // reload_antiafk
+            // 
+            this.reload_antiafk.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.reload_antiafk.Location = new System.Drawing.Point(214, 65);
+            this.reload_antiafk.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.reload_antiafk.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.reload_antiafk.Name = "reload_antiafk";
+            this.reload_antiafk.Size = new System.Drawing.Size(52, 20);
+            this.reload_antiafk.TabIndex = 2;
+            this.reload_antiafk.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.reload_antiafk.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.reload_antiafk.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
             // chk_antiafk_on_off
             // 
             this.chk_antiafk_on_off.AutoSize = true;
-            this.chk_antiafk_on_off.Location = new System.Drawing.Point(10, 47);
+            this.chk_antiafk_on_off.Location = new System.Drawing.Point(10, 66);
             this.chk_antiafk_on_off.Name = "chk_antiafk_on_off";
             this.chk_antiafk_on_off.Size = new System.Drawing.Size(106, 17);
             this.chk_antiafk_on_off.TabIndex = 1;
@@ -309,11 +380,12 @@ namespace VTCManager_1._0._0
             // 
             // txt_Anti_AFK_Text
             // 
-            this.txt_Anti_AFK_Text.Location = new System.Drawing.Point(10, 20);
+            this.txt_Anti_AFK_Text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_Anti_AFK_Text.Enabled = false;
+            this.txt_Anti_AFK_Text.Location = new System.Drawing.Point(10, 33);
             this.txt_Anti_AFK_Text.Name = "txt_Anti_AFK_Text";
             this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
             this.txt_Anti_AFK_Text.TabIndex = 0;
-            this.txt_Anti_AFK_Text.Enabled = false;
             // 
             // ETS2_FileDialog
             // 
@@ -323,9 +395,30 @@ namespace VTCManager_1._0._0
             // 
             this.ATS_FileDialog.FileName = "amtrucks.exe";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::VTCManager_1._0._0.Properties.Resources.einstellungen;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Settings_Windows_Label_Settings
+            // 
+            this.Settings_Windows_Label_Settings.AutoSize = true;
+            this.Settings_Windows_Label_Settings.Font = new System.Drawing.Font("Verdana", 27.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Settings_Windows_Label_Settings.Location = new System.Drawing.Point(118, 33);
+            this.Settings_Windows_Label_Settings.Name = "Settings_Windows_Label_Settings";
+            this.Settings_Windows_Label_Settings.Size = new System.Drawing.Size(59, 45);
+            this.Settings_Windows_Label_Settings.TabIndex = 11;
+            this.Settings_Windows_Label_Settings.Text = "...";
+            // 
             // SettingsWindow
             // 
             this.ClientSize = new System.Drawing.Size(630, 599);
+            this.Controls.Add(this.Settings_Windows_Label_Settings);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox_AntiAFK);
             this.Controls.Add(this.group_Overlay);
             this.Controls.Add(this.btn_TruckersMP_suchen);
@@ -346,7 +439,10 @@ namespace VTCManager_1._0._0
             ((System.ComponentModel.ISupportInitialize)(this.num_Overlay_Transparenz)).EndInit();
             this.groupBox_AntiAFK.ResumeLayout(false);
             this.groupBox_AntiAFK.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.reload_antiafk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -420,11 +516,14 @@ namespace VTCManager_1._0._0
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
+        
             group_Overlay.Visible = false;
+            // Settings_Windows_Label_Settings.Text = translation.settings_window_titel_text; ######### GEHT NICHT ############
+            Settings_Windows_Label_Settings.Text = "Einstellungen";
 
             var test = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             if (test == "") {
-                MessageBox.Show("Es fehlt der Pfad zu TruckersMP" + Environment.NewLine + "Bitte Korrigiere die Angabe dem folgenden Fenster!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("der Pfad zu TruckersMP stimmt nicht" + Environment.NewLine + "Bitte korrigiere diesen im folgenden Fenster", "Fehler TruckersMP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
 
             string wert27 = utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");
@@ -507,7 +606,6 @@ namespace VTCManager_1._0._0
 
         private void Ets_Suche_Click(object sender, EventArgs e)
         {
-            //var pfad_suchen = ETS2_FileDialog.ShowDialog();
             ETS2_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + @"bin\win_x64\";
             ETS2_FileDialog.Filter = "Eurotruck Simulator 2 (eurotrucks2.exe)|eurotrucks2.exe";
             if (ETS2_FileDialog.ShowDialog() == DialogResult.OK)
@@ -532,6 +630,12 @@ namespace VTCManager_1._0._0
                 ATS_Pfad_Textbox.Enabled = false;
                 utils.Reg_Schreiben("ETS2_Pfad", ATS_FileDialog.FileName.ToString());
             }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            utils.Reg_Schreiben("ANTI_AFK_RELOAD", reload_antiafk.Value.ToString());
+
         }
     }
 }

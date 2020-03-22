@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,7 +54,10 @@ namespace VTCManager_1._0._0
         public string settings_window_groupBox1text;
         public string btn_TruckersMP_suchentext;
         public string settings_window_label3text;
-
+        public string settings_window_titel_text;
+        public string settings_window_tmp_error_text;
+        public string settings_window_tmp_error_text2;
+        public string settings_window_tmp_error_text3;
         public Translation(String language)
         {
             version = "Version: 1.1.0";
@@ -101,7 +105,13 @@ namespace VTCManager_1._0._0
                 settings_window_groupBox1text = "Server Einstellungen";
                 btn_TruckersMP_suchentext = "TruckersMP Einstellungen";
                 settings_window_label3text = "TruckersMP Pfad";
-            } else
+                settings_window_titel_text = "Einstellungen";
+                settings_window_tmp_error_text = "Es fehlt der Pfad zu TruckersMP";
+                settings_window_tmp_error_text2 = "Bitte Korrigiere die Angabe dem folgenden Fenster!";
+                settings_window_tmp_error_text3 = "Fehler bei TruckersMP Pfad";
+
+            }
+            else
             {
                 speeding = " mp/h";
                 waiting_for_ets = "Waiting for ETS2" + Environment.NewLine + "or ATS...";
@@ -151,6 +161,10 @@ namespace VTCManager_1._0._0
                 settings_window_groupBox1text = "Server Settings";
                 btn_TruckersMP_suchentext = "TruckersMP Settings";
                 settings_window_label3text = "Path to TruckersMP";
+                settings_window_titel_text = "Settings";
+                settings_window_tmp_error_text = "The path to TruckersMP is missing";
+                settings_window_tmp_error_text2 = "Please correct the information in the following window!";
+                settings_window_tmp_error_text3 = "TruckersMP path failed";
             }
             
         }

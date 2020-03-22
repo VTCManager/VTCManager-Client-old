@@ -1394,14 +1394,13 @@ namespace VTCManager_1._0._0
 
 
             // ################## CHECK ob der AFK Text bei nicht Spendern stimmt ##################
+            anti_AFK_TIMER.Enabled = (Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN")) == 1) ? true : false;
+
             int spender = 0;
             if (spender == 0)
                 utils.Reg_Schreiben("ANTI_AFK", "VTCManager wünscht Gute und Sichere Fahrt!");
 
 
-            // ################## ANTI_AFK #########################################################
-            anti_AFK_TIMER.Enabled = (Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN")) == 1) ? true : false;
-    
                 
 
 
@@ -1425,24 +1424,21 @@ namespace VTCManager_1._0._0
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
 
                 string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-                if (!Directory.Exists(dest_leer + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"bin\win_x64\plugins"); }
-
                 if (!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
                 {
+                    if (!Directory.Exists(dest_leer + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"bin\win_x64\plugins"); }
                     File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll");
                 }
 
 
-               
                 string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
-                if (!Directory.Exists(dest_leer2 + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer2 + @"bin\win_x64\plugins"); }
                 if (!string.IsNullOrEmpty(dest_leer2))
                 {
                     ats_button.Visible = true;
                     ToolTip tt2 = new ToolTip();
                     tt2.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
 
-
+                    if (!Directory.Exists(dest_leer2 + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer2 + @"bin\win_x64\plugins"); }
 
                     if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
                     {
@@ -1660,6 +1656,8 @@ namespace VTCManager_1._0._0
 
         private void anti_AFK_TIMER_Tick(object sender, EventArgs e)
         {
+            anti_AFK_TIMER.Interval = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_RELOAD").ToString()) * 60000;
+
             if(GameRuns == 1)
             {
                 if (Geschwindigkeit < 1)

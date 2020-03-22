@@ -330,6 +330,7 @@
     <None Include="Resources\gang6.png" />
     <None Include="Resources\favicon.png" />
     <None Include="Resources\backi.png" />
+    <None Include="Resources\einstellungen.png" />
     <Content Include="Resources\scs-telemetry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
