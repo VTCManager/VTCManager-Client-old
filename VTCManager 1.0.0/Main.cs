@@ -171,16 +171,24 @@ namespace VTCManager_1._0._0
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\insight.wav"))
+            {
                 this.notification_sound_success = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\insight.wav");
+            }
 
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav.wav"))
+            {
                 this.notification_sound_fail = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav");
-  
+            }
+
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav"))
+            {
                 this.notification_sound_tour_start = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav");
-      
+            }
+
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav"))
+            {
                 this.notification_sound_tour_end = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav");
+            }
             
 
 
@@ -1357,32 +1365,7 @@ namespace VTCManager_1._0._0
                 ets2_button.Visible = true;
                 ToolTip tt = new ToolTip();
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
-
-                string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-                if (!File.Exists(dest_leer + @"\bin\win_x64\plugins\scs-telemetry.dll"))
-                {
-                    if (!Directory.Exists(dest_leer + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"\bin\win_x64\plugins"); }
-                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"\bin\win_x64\plugins\scs-telemetry.dll");
-                }
-
-
-                string dest_leer2 = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
-                if (!string.IsNullOrEmpty(dest_leer2))
-                {
-                    ats_button.Visible = true;
-                    ToolTip tt2 = new ToolTip();
-                    tt2.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
-
-                    if (!Directory.Exists(dest_leer2 + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer2 + @"\bin\win_x64\plugins"); }
-
-                    if (!File.Exists(dest_leer2 + @"\bin\win_x64\plugins\scs-telemetry.dll"))
-                    {
-                        File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"\bin\win_x64\plugins\scs-telemetry.dll");
-                    }
-                }
             }
-            // ###################################### TELEMETRY COPY END ###########################
-
 
             // #################################   Background Changer   ############################
             string hintergrund = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
@@ -1400,7 +1383,6 @@ namespace VTCManager_1._0._0
 
 
             utils.Reg_Schreiben("Reload_Traffic_Sekunden", "20");
-           
             lbl_Reload_Time.Text = "Reload-Interval: " + reload + " Sek.";
 
 
@@ -1592,14 +1574,17 @@ namespace VTCManager_1._0._0
         {
             anti_AFK_TIMER.Interval = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_RELOAD").ToString()) * 60000;
 
-            if(GameRuns == 1 && Geschwindigkeit < 1)
+            if(GameRuns == 1)
             {
                 if (spender == 0)
                     utils.Reg_Schreiben("ANTI_AFK", "VTCManager wünscht Gute und Sichere Fahrt!");
 
-                SendKeys.Send("y");
+                if (Geschwindigkeit < 0.2)
+                {
+                    SendKeys.Send("y");
                     SendKeys.Send(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK"));
                     SendKeys.Send("{Enter}");
+                }
             }
         }
 
