@@ -44,7 +44,7 @@ namespace VTCManager_1._0._0
                 utils.Reg_Schreiben("ETS2_Pfad", folderBrowserDialog_ETS.SelectedPath.ToString());
                 ets_pfad.Text = folderBrowserDialog_ETS.SelectedPath.ToString();
 
-                // Telemetry kopieren();
+                // Telemetry kopieren
                 string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
                 if (!Directory.Exists(dest_leer + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"\bin\win_x64\plugins"); }
 
@@ -114,7 +114,7 @@ namespace VTCManager_1._0._0
 
         private void ETS2_Pfad_Window_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+         
         }
 
         private void label2_Click(object sender, EventArgs e)
