@@ -526,7 +526,7 @@ namespace VTCManager_1._0._0
 
             string test = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
             if (string.IsNullOrEmpty(test)) {
-                MessageBox.Show("Der Pfad zu TruckersMP stimmt nicht" + Environment.NewLine + "Bitte korrigiere diesen im folgenden Fenster", "Fehler TruckersMP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("der Pfad zu TruckersMP stimmt nicht" + Environment.NewLine + "Bitte korrigiere diesen im folgenden Fenster", "Fehler TruckersMP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
 
             string wert27 = utils.Reg_Lesen("TruckersMP_Autorun", "verkehr_SERVER");

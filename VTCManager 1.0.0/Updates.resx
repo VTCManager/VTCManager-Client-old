@@ -118,12 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label2.Text" xml:space="preserve">
-    <value>- Fehler beim angeben der ETS2 und ATD Pfade gefixt
-- die neue Telemetry wird bei Eingabe des Pfades automatisch in die ETS2 und ATS Ordner kopiert
-- AntiAFK wurde gefixt. Text des AntiAFK kann nur von Spendern geändert werden.
-- In den Einstellungen könnt ihr nun die Minuten einstellen nach den der AntiAFK loslegen soll
+    <value>- Dieses Update-Fenster :-)
 
+- Es kann wieder der Pfad zu ETS (und ATS Optional) angegeben werden
 
+- die telemetry.dll wird bei Eingabe des Pfades wieder automatisch kopiert
+
+- Es wird derzeit nur! die 64 Bit Version des Spiels unterstützt (Wir Compilen die 32Bit DLL zu einem späteren Zeitpunkt)
+
+- Update MessageBox wurde entfernt aufgrund dieses schönen Fensters
+
+- Neue Versionskontrolle (dieses Fenster sollte nur beim ersten Start angezeigt werden)
 </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
