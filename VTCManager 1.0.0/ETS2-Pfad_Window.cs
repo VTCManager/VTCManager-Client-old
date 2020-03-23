@@ -41,17 +41,17 @@ namespace VTCManager_1._0._0
             var pfad_suchen = folderBrowserDialog_ETS.ShowDialog();
             if (pfad_suchen == DialogResult.OK)
             {
-                utils.Reg_Schreiben("ETS2_Pfad", folderBrowserDialog_ETS.SelectedPath + @"\");
+                utils.Reg_Schreiben("ETS2_Pfad", folderBrowserDialog_ETS.SelectedPath.ToString());
                 ets_pfad.Text = folderBrowserDialog_ETS.SelectedPath.ToString();
 
-                // Telemetry kopierens();
+                // Telemetry kopieren();
                 string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-                if (!Directory.Exists(dest_leer + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"bin\win_x64\plugins"); }
+                if (!Directory.Exists(dest_leer + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"\bin\win_x64\plugins"); }
 
-                string dest_Path = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + @"bin\win_x64\plugins\";
+                string dest_Path = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + @"\bin\win_x64\plugins\";
                 try
                 {
-                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_Path + @"\scs-telemetry.dll");
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_Path + @"scs-telemetry.dll");
 
                 }
                 catch {
@@ -69,19 +69,19 @@ namespace VTCManager_1._0._0
             if (pfad_suchen == DialogResult.OK)
             {
                 Utilities util = new Utilities();
-                util.Reg_Schreiben("ATS_Pfad", folderBrowserDialog_ATS.SelectedPath + @"\");
+                util.Reg_Schreiben("ATS_Pfad", folderBrowserDialog_ATS.SelectedPath);
                 ats_pfad.Text = folderBrowserDialog_ATS.SelectedPath.ToString();
 
                 // Telemetry kopieren
                 Utilities util2 = new Utilities();
                 string dest_leer = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
-                if (!Directory.Exists(dest_leer + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"bin\win_x64\plugins"); }
+                if (!Directory.Exists(dest_leer + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"\bin\win_x64\plugins"); }
 
-                string dest_Path = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + @"bin\win_x64\plugins\";
+                string dest_Path = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + @"\bin\win_x64\plugins\";
               
                 try
                 {
-                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_Path + @"\scs-telemetry.dll");
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_Path + @"scs-telemetry.dll");
                 } catch {
 
 
@@ -100,20 +100,21 @@ namespace VTCManager_1._0._0
             ats_pfad.Text = util2.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
 
             // ############# ETS2 Pfad check ###############
-            if (!File.Exists(ets_pfad.Text + @"bin\win_x64\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den richtigen Pfad an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            if (!File.Exists(ets_pfad.Text + @"\bin\win_x64\eurotrucks2.exe")) { MessageBox.Show("Der Pfad von ETS ist falsch ! " + Environment.NewLine + "Bitte gib den richtigen Pfad an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             
             // ########## ATS Pfad Check ###################
             if(!string.IsNullOrEmpty(ats_pfad.Text))
             {
-                if (!File.Exists(ats_pfad.Text + @"bin\win_x64\amtrucks.exe")) { MessageBox.Show("Der Pfad von ATS ist falsch ! " + Environment.NewLine + "Bitte gib den richtigen Pfad an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+                if (!File.Exists(ats_pfad.Text + @"\bin\win_x64\amtrucks.exe")) { MessageBox.Show("Der Pfad von ATS ist falsch ! " + Environment.NewLine + "Bitte gib den richtigen Pfad an!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             }
+            MessageBox.Show("Die Daten wurden gespeichert !" + Environment.NewLine + "Bitte starte die Anwendung neu, um die Einstellungen zu übernehmen!", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            this.Close();
+            Application.Exit();
         }
 
         private void ETS2_Pfad_Window_FormClosing(object sender, FormClosingEventArgs e)
         {
-            return;
+            Application.Exit();
         }
 
         private void label2_Click(object sender, EventArgs e)

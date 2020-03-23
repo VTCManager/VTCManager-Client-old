@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -39,14 +40,14 @@ namespace VTCManager_1._0._0
         private Button Ets_Suche;
         private Label label2;
         private TextBox ETS2_Pfad_Textbox;
-        private System.Windows.Forms.OpenFileDialog ETS2_FileDialog;
-        private System.Windows.Forms.OpenFileDialog ATS_FileDialog;
         private Label label8;
         private Label label7;
         private NumericUpDown reload_antiafk;
         private PictureBox pictureBox1;
         private Label label9;
         private Label Settings_Windows_Label_Settings;
+        private FolderBrowserDialog ATS_folderDialog;
+        private FolderBrowserDialog ETS2_folderDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         
 
@@ -92,10 +93,10 @@ namespace VTCManager_1._0._0
             this.reload_antiafk = new System.Windows.Forms.NumericUpDown();
             this.chk_antiafk_on_off = new System.Windows.Forms.CheckBox();
             this.txt_Anti_AFK_Text = new System.Windows.Forms.TextBox();
-            this.ETS2_FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.ATS_FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Settings_Windows_Label_Settings = new System.Windows.Forms.Label();
+            this.ATS_folderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.ETS2_folderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1.SuspendLayout();
             this.btn_TruckersMP_suchen.SuspendLayout();
             this.group_Overlay.SuspendLayout();
@@ -387,14 +388,6 @@ namespace VTCManager_1._0._0
             this.txt_Anti_AFK_Text.Size = new System.Drawing.Size(301, 20);
             this.txt_Anti_AFK_Text.TabIndex = 0;
             // 
-            // ETS2_FileDialog
-            // 
-            this.ETS2_FileDialog.FileName = "eurotrucks2.exe";
-            // 
-            // ATS_FileDialog
-            // 
-            this.ATS_FileDialog.FileName = "amtrucks.exe";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::VTCManager_1._0._0.Properties.Resources.einstellungen;
@@ -413,6 +406,16 @@ namespace VTCManager_1._0._0
             this.Settings_Windows_Label_Settings.Size = new System.Drawing.Size(59, 45);
             this.Settings_Windows_Label_Settings.TabIndex = 11;
             this.Settings_Windows_Label_Settings.Text = "...";
+            // 
+            // ATS_folderDialog
+            // 
+            this.ATS_folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            this.ATS_folderDialog.ShowNewFolderButton = false;
+            // 
+            // ETS2_folderDialog
+            // 
+            this.ETS2_folderDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            this.ETS2_folderDialog.ShowNewFolderButton = false;
             // 
             // SettingsWindow
             // 
@@ -521,8 +524,8 @@ namespace VTCManager_1._0._0
             // Settings_Windows_Label_Settings.Text = translation.settings_window_titel_text; ######### GEHT NICHT ############
             Settings_Windows_Label_Settings.Text = "Einstellungen";
 
-            var test = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
-            if (test == "") {
+            string test = utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad");
+            if (string.IsNullOrEmpty(test)) {
                 MessageBox.Show("der Pfad zu TruckersMP stimmt nicht" + Environment.NewLine + "Bitte korrigiere diesen im folgenden Fenster", "Fehler TruckersMP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
 
@@ -531,10 +534,12 @@ namespace VTCManager_1._0._0
             string wert30 = utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN");
             string wert31 = utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK");
             ETS2_Pfad_Textbox.Text = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-            ETS2_Pfad_Textbox.Enabled = (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad"))) ? true : false;
+            ToolTip tt1 = new ToolTip();
+            tt1.SetToolTip(ETS2_Pfad_Textbox, ETS2_Pfad_Textbox.Text);
 
             ATS_Pfad_Textbox.Text = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad");
-            ATS_Pfad_Textbox.Enabled = (string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad"))) ? true : false;
+            ToolTip tt2 = new ToolTip();
+            tt2.SetToolTip(ATS_Pfad_Textbox, ATS_Pfad_Textbox.Text);
 
             if (wert28 != null)
             {
@@ -606,31 +611,44 @@ namespace VTCManager_1._0._0
 
         private void Ets_Suche_Click(object sender, EventArgs e)
         {
-            ETS2_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad") + @"bin\win_x64\";
-            ETS2_FileDialog.Filter = "Eurotruck Simulator 2 (eurotrucks2.exe)|eurotrucks2.exe";
-            if (ETS2_FileDialog.ShowDialog() == DialogResult.OK)
+            if (ETS2_folderDialog.ShowDialog() == DialogResult.OK)
             {
-                ETS2_Pfad_Textbox.Text = ETS2_FileDialog.FileName.ToString();
+                ETS2_Pfad_Textbox.Text = ETS2_folderDialog.SelectedPath.ToString();
                 ETS2_Pfad_Textbox.Enabled = false;
-                utils.Reg_Schreiben("ETS2_Pfad", ETS2_FileDialog.FileName.ToString());
+                utils.Reg_Schreiben("ETS2_Pfad", ETS2_folderDialog.SelectedPath.ToString());
+                if (!Directory.Exists(ETS2_folderDialog.SelectedPath.ToString() + @"\bin\win_x64\plugins"))
+                {
+                    Directory.CreateDirectory(ETS2_folderDialog.SelectedPath.ToString() + @"\bin\win_x64\plugins");
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", ETS2_folderDialog.SelectedPath.ToString() + @"\bin\win_x64\plugins\scs-telemetry.dll");
+                }
+            }
+            else
+            {
+                if(string.IsNullOrEmpty(ETS2_Pfad_Textbox.Text))
+                MessageBox.Show("Das angegebene Verzeichnis von ETS2 ist falsch!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void Ats_Suche_Click(object sender, EventArgs e)
         {
-            ATS_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad") + @"bin\win_x64\";
-            if(string.IsNullOrEmpty(utils.Reg_Lesen("TruckersMP_Autorun", "ATS_Pfad")))
+            if (ATS_folderDialog.ShowDialog() == DialogResult.OK)
             {
-                ATS_FileDialog.InitialDirectory = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-            }
-            ATS_FileDialog.Filter = "American Truck Simulator (amtrucks.exe)|amtrucks.exe";
-            if (ATS_FileDialog.ShowDialog() == DialogResult.OK)
-            {
-                ATS_Pfad_Textbox.Text = ATS_FileDialog.FileName.ToString();
+                ATS_Pfad_Textbox.Text = ATS_folderDialog.SelectedPath.ToString();
                 ATS_Pfad_Textbox.Enabled = false;
-                utils.Reg_Schreiben("ETS2_Pfad", ATS_FileDialog.FileName.ToString());
+                utils.Reg_Schreiben("ATS_Pfad", ATS_folderDialog.SelectedPath.ToString());
+                if (!Directory.Exists(ATS_folderDialog.SelectedPath.ToString() + @"\bin\win_x64\plugins"))
+                {
+                    Directory.CreateDirectory(ATS_folderDialog.SelectedPath.ToString() + @"\bin\win_x64\plugins");
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", ATS_folderDialog.SelectedPath.ToString() + @"\bin\win_x64\plugins\scs-telemetry.dll");
+                }
+            }
+            else
+            {
+                if(string.IsNullOrEmpty(ATS_Pfad_Textbox.Text))
+                MessageBox.Show("Das angegebene Verzeichnis von ATS ist falsch!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {

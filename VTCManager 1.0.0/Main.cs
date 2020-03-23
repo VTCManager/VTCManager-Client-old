@@ -81,9 +81,6 @@ namespace VTCManager_1._0._0
         /// SPEED LABEL
         /// </summary>
 
-
-        private string speed;
-        private int rpm;
         private double CoordinateX;
         private double CoordinateZ;
         private double rotation;
@@ -144,7 +141,7 @@ namespace VTCManager_1._0._0
         private PictureBox ets2_button;
         private PictureBox ats_button;
         public static string labelRevision;
-        private string meins;
+        //private string meins;
         public bool Tollgate;
         public float Tollgate_Payment;
         public bool Ferry;
@@ -160,7 +157,7 @@ namespace VTCManager_1._0._0
         private int jobrunningcounter;
         private Discord discord;
         public float Geschwindigkeit;
-
+        public int spender = 0;
         // Get a handle to an application window.
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName,
@@ -173,24 +170,18 @@ namespace VTCManager_1._0._0
 
         public Main(string newauthcode, string username, int driven_tours, int act_bank_balance, bool last_job_canceled, string company)
         {
-            // Revision
-
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\insight.wav"))
-            {
                 this.notification_sound_success = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\insight.wav");
-            }
+
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav.wav"))
-            {
                 this.notification_sound_fail = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\time-is-now.wav");
-            }
+  
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav"))
-            {
                 this.notification_sound_tour_start = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotStart_fx.wav");
-            }
+      
             if (File.Exists(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav"))
-            {
                 this.notification_sound_tour_end = new SoundPlayer(Environment.CurrentDirectory + @"\Ressources\AutopilotEnd_fx.wav");
-            }
+            
 
 
             
@@ -231,36 +222,7 @@ namespace VTCManager_1._0._0
                 MessageBox.Show("Exception: Getting traffic data from TruckyAPI" + e.Message);
             }
             this.FormClosing += new FormClosingEventHandler(this.Main_FormClosing);
-            
-
-
-            
-
-
-            
         }
-
-
-
-        private void InitializeDiscord(int mode)
-        {
-            /*  DISABLED WEIL FEHLER WENN DISCORD AUS IST !!
-             *  
-                this.client = new DiscordRpcClient("659036297561767948");
-                this.client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-                this.client.OnReady += (sender, e) =>
-                {
-                    Console.WriteLine("Received Ready from user {0}", e.User.Username);
-                };
-                this.client.OnPresenceUpdate += (sender, e) =>
-                {
-                    Console.WriteLine("Received Update! {0}", e.Presence);
-                };
-                this.client.Initialize();
-                client.Invoke();
-            */
-        }
-
 
 
         private void InitializeTranslation()
@@ -382,7 +344,6 @@ namespace VTCManager_1._0._0
             this.lastNotZeroDistance = 0;
             this.lastCargoDamage = 0.0f;
             this.jobID = "0";
-            this.InitializeDiscord(0);
             return true;
         }
 
@@ -425,10 +386,7 @@ namespace VTCManager_1._0._0
                         depature_lb.Visible = (data.Paused) ? false : true;
                         cargo_lb.Visible = (data.Paused) ? false : true;
                         Tollgate_Payment = data.GamePlay.TollgateEvent.PayAmount;
-
                         truckersMP_Button.Visible = (utils.Reg_Lesen("TruckersMP_Autorun", "TruckersMP_Pfad") != "" ? true : false);
-
-
 
                         if (data.Paused == false)
                         {
@@ -436,14 +394,11 @@ namespace VTCManager_1._0._0
 
                            this.currentPercentage = (((((double)data.NavigationValues.NavigationDistance / 1000) / (double)data.JobValues.PlannedDistanceKm) * 100)-100)*-1;
 
-                            // SPEED LABEL - TRUCK LABEL
-                            labelkmh = (data.Game.ToString() == "Ets2") ? " KM/H" : " mp/h";
-                            
                             /* ### 1 ####
                              * Abfrage ETS2 = Geschwindigkeit in KM/H 
                              * bei ATS Geschwindigkeit in mph 
                             */
-
+                            labelkmh = (data.Game.ToString() == "Ets2") ? " KM/H" : " mp/h";
                             if (data.Game.ToString() == "Ets2") {
                                 speed_lb.Text = (int)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph + labelkmh;
                                 Geschwindigkeit = (float)data.TruckValues.CurrentValues.DashboardValues.Speed.Kph;
@@ -485,14 +440,11 @@ namespace VTCManager_1._0._0
                                 
                             if (this.discordRPCalreadrunning == false)
                             {
-                                this.InitializeDiscord(0); //ot working uff cant update RPC
                                 this.discordRPCalreadrunning = true;
                             }
                         }
-                        else
-                        {
+                        else {
                             GameRuns = 0;
-
                             speed_lb.Text = "Warte auf ETS2" + Environment.NewLine + "oder ATS..."; 
                         }
                         bool flag;
@@ -533,12 +485,7 @@ namespace VTCManager_1._0._0
                                     postParameters.Add("distance", data.JobValues.PlannedDistanceKm.ToString());
                                     this.jobID = this.api.HTTPSRequestPost(this.api.api_server + this.api.new_job_path, postParameters, true).ToString();
 
-
                                     utils.Reg_Schreiben("jobID", this.jobID);
-
-                                    //this.settings.Cache.SaveJobID = this.jobID;
-                                    //this.settings.SaveJobID();
-                                    
 
                                     Dictionary<string, string> lastJobDictionary = this.lastJobDictionary;
                                     this.lastJobDictionary.Add("cargo", data.JobValues.CargoValues.Name);
@@ -546,13 +493,9 @@ namespace VTCManager_1._0._0
                                     this.lastJobDictionary.Add("destination", data.JobValues.CityDestination);
                                     this.lastJobDictionary.Add("income", data.JobValues.Income.ToString());
                                     this.lastJobDictionary.Add("weight", data.JobValues.CargoValues.Mass.ToString());
-
                                     this.discord.onTour(data.JobValues.CityDestination, data.JobValues.CitySource, data.JobValues.CargoValues.Name, ((int)Math.Round((double)data.JobValues.CargoValues.Mass, 0) / 1000).ToString());
-
-                                    //if(this.lastJobDictionary["mass"] == Convert.ToString(data.Job.Mass)) { MessageBox.Show("SELEBE!"); }
                                     this.CitySource = data.JobValues.CitySource;
                                     this.CityDestination = data.JobValues.CityDestination;
-                                    this.InitializeDiscord(1);
                                     this.send_tour_status.Enabled = true;
                                     this.send_tour_status.Start();
                                     this.jobStarted = false;
@@ -562,8 +505,7 @@ namespace VTCManager_1._0._0
 
                     if (this.jobRunning)
                     {
-                                this.jobRunning = false;
-                                    
+                        this.jobRunning = false;             
                     }
 
 
@@ -595,7 +537,6 @@ namespace VTCManager_1._0._0
                             postParameters.Add("fuelconsumption", this.fuelconsumption.ToString());
 
                             Console.WriteLine(this.api.HTTPSRequestPost(this.api.api_server + this.api.finishjob_path, postParameters, true).ToString());
-                            this.InitializeDiscord(0);
                             this.totalDistance = 0;
                             this.invertedDistance = 0;
                             this.currentPercentage = 0;
@@ -604,9 +545,7 @@ namespace VTCManager_1._0._0
                             this.jobID = "0";
                             this.jobID = null;
                             this.destination_lb.Text = "";
-                            this.depature_lb.Text = "";
-                            //this.cargo_lb.Text = translation.no_cargo_lb;
-                            
+                            this.depature_lb.Text = "";                
                             this.jobFinished = false;
                         }
                     }
@@ -1396,15 +1335,8 @@ namespace VTCManager_1._0._0
             labelRevision = lbl_Revision.Text;
 
 
-            // ################## CHECK ob der AFK Text bei nicht Spendern stimmt ##################
+            // ################## CHECK ob der AFK Text an oder Aus ist ##################
             anti_AFK_TIMER.Enabled = (Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_AN")) == 1) ? true : false;
-
-            int spender = 0;
-            if (spender == 0)
-                utils.Reg_Schreiben("ANTI_AFK", "VTCManager wünscht Gute und Sichere Fahrt!");
-
-
-                
 
 
 
@@ -1427,10 +1359,10 @@ namespace VTCManager_1._0._0
                 tt.SetToolTip(this.ets2_button, "Starte ETS2 im Singleplayer !");
 
                 string dest_leer = utils.Reg_Lesen("TruckersMP_Autorun", "ETS2_Pfad");
-                if (!File.Exists(dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll"))
+                if (!File.Exists(dest_leer + @"\bin\win_x64\plugins\scs-telemetry.dll"))
                 {
-                    if (!Directory.Exists(dest_leer + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"bin\win_x64\plugins"); }
-                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"bin\win_x64\plugins\scs-telemetry.dll");
+                    if (!Directory.Exists(dest_leer + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer + @"\bin\win_x64\plugins"); }
+                    File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer + @"\bin\win_x64\plugins\scs-telemetry.dll");
                 }
 
 
@@ -1441,19 +1373,18 @@ namespace VTCManager_1._0._0
                     ToolTip tt2 = new ToolTip();
                     tt2.SetToolTip(this.ats_button, "Starte ATS im Singleplayer !");
 
-                    if (!Directory.Exists(dest_leer2 + @"bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer2 + @"bin\win_x64\plugins"); }
+                    if (!Directory.Exists(dest_leer2 + @"\bin\win_x64\plugins")) { Directory.CreateDirectory(dest_leer2 + @"\bin\win_x64\plugins"); }
 
-                    if (!File.Exists(dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll"))
+                    if (!File.Exists(dest_leer2 + @"\bin\win_x64\plugins\scs-telemetry.dll"))
                     {
-                        File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"bin\win_x64\plugins\scs-telemetry.dll");
+                        File.Copy(Application.StartupPath + @"\Resources\scs-telemetry.dll", dest_leer2 + @"\bin\win_x64\plugins\scs-telemetry.dll");
                     }
                 }
             }
-
             // ###################################### TELEMETRY COPY END ###########################
 
 
-            // Background Changer
+            // #################################   Background Changer   ############################
             string hintergrund = utils.Reg_Lesen("TruckersMP_Autorun", "Background");
             if(string.IsNullOrEmpty(hintergrund))
                         utils.Reg_Schreiben("Background", "");
@@ -1464,7 +1395,7 @@ namespace VTCManager_1._0._0
             else if (hintergrund2 == "oldcar3") { this.BackgroundImage = Properties.Resources.oldcar3; }
             else if (hintergrund2 == "oldcar4") { this.BackgroundImage = Properties.Resources.oldcar4; }
             else { this.BackgroundImage = null; }
-            // Background Changer ENDE 
+            // #############################   Background Changer ENDE #############################
 
 
 
@@ -1661,14 +1592,14 @@ namespace VTCManager_1._0._0
         {
             anti_AFK_TIMER.Interval = Convert.ToInt32(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK_RELOAD").ToString()) * 60000;
 
-            if(GameRuns == 1)
+            if(GameRuns == 1 && Geschwindigkeit < 1)
             {
-                if (Geschwindigkeit < 1)
-                {
-                    SendKeys.Send("y");
+                if (spender == 0)
+                    utils.Reg_Schreiben("ANTI_AFK", "VTCManager wünscht Gute und Sichere Fahrt!");
+
+                SendKeys.Send("y");
                     SendKeys.Send(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK"));
                     SendKeys.Send("{Enter}");
-                }
             }
         }
 
@@ -1727,8 +1658,9 @@ namespace VTCManager_1._0._0
         private void TelemetryJobDelivered(object sender, EventArgs e) =>
             this.jobFinished = true;
 
-        private void TelemetryFined(object sender, EventArgs e) =>
-            MessageBox.Show("Fined");
+        private void TelemetryFined(object sender, EventArgs e) { }
+
+
         private void TelemetryTollgate(object sender, EventArgs e)
         {
             Thommy th3 = new Thommy(); 
