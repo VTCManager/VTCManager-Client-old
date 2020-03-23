@@ -39,11 +39,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
 <<<<<<< HEAD
-<<<<<<< HEAD
     <ApplicationRevision>60</ApplicationRevision>
-=======
-    <ApplicationRevision>58</ApplicationRevision>
->>>>>>> parent of 62b34bb... Fixing AntiAFK Message when Game is off
 =======
     <ApplicationRevision>58</ApplicationRevision>
 >>>>>>> parent of 62b34bb... Fixing AntiAFK Message when Game is off
