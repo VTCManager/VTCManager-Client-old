@@ -118,7 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label1.Text" xml:space="preserve">
-    <value>Dieses Programm dient zur Aufzeichnung und Übertragung von ETS2 sowie ATS-Daten, im Online oder Offline Modus,  an unsere Server.
+    <value>Dieses Programm dient zur Aufzeichnung und Übertragung von ETS2 sowie ATS-Daten, im Online oder Offline Modus,  
+an unsere Server.
+
 Demnach ist eine Internetverbindung zwingend erforderlich.
 Es ist Verboten an den Quelldateien oder Plugins irgendwelche Änderungen oder Manipulationen vorzunehmen.
 Alle Queldateien ©2020 by https://northwestvideo.de
