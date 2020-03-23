@@ -491,6 +491,8 @@ namespace VTCManager_1._0._0
                         }
                         else
                         {
+                            GameRuns = 0;
+
                             speed_lb.Text = "Warte auf ETS2" + Environment.NewLine + "oder ATS..."; 
                         }
                         bool flag;
@@ -500,6 +502,7 @@ namespace VTCManager_1._0._0
                     }
                     else
                     {
+                        GameRuns = 0;
                         this.truck_lb.Visible = false;
                         this.cargo_lb.Visible = false;
                         this.speed_lb.Text = translation.waiting_for_ets;
@@ -1665,7 +1668,6 @@ namespace VTCManager_1._0._0
                     SendKeys.Send("y");
                     SendKeys.Send(utils.Reg_Lesen("TruckersMP_Autorun", "ANTI_AFK"));
                     SendKeys.Send("{Enter}");
-
                 }
             }
         }
